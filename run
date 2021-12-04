@@ -9,3 +9,15 @@ sed -i -e 's/\r$//' start
 docker run --rm sha512sum/masscan 192.168.0.0/16 -p443,80,21,8000,8080,9000,69,3389 --rate=30000  >result192-*.xml
 docker run --rm sha512sum/masscan 172.16.0.0/12 -p443,80,21,8000,8080,9000,69,3389 --rate=30000  >result172-*.xml
 docker run --rm sha512sum/masscan 10.0.0.0/10 -p443,80,21,8000,8080,9000,69,3389 --rate=30000  >result10-*.xml
+
+apt install python3-pip
+
+pip3 install -r requirements.txt
+
+sudo apt install python3
+
+apt-get install masscan
+
+apt  install docker.io
+
+docker pull sha512sum/masscan
