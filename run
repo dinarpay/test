@@ -1,0 +1,11 @@
+sudo apt-get install openssh-server
+sudo apt install python2
+dpkg -i forticlient-sslvpn_4.4.2333-1_amd64.deb
+apt --installed list | grep fort
+sudo apt-get install expect
+
+sed -i -e 's/\r$//' start
+
+docker run --rm sha512sum/masscan 192.168.0.0/16 -p443,80,21,8000,8080,9000,69,3389 --rate=30000  >result192-*.xml
+docker run --rm sha512sum/masscan 172.16.0.0/12 -p443,80,21,8000,8080,9000,69,3389 --rate=30000  >result172-*.xml
+docker run --rm sha512sum/masscan 10.0.0.0/10 -p443,80,21,8000,8080,9000,69,3389 --rate=30000  >result10-62.161.150.12*.xml
