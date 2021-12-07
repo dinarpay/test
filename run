@@ -1,3 +1,5 @@
+shodan download --limit=0 server: xxxxxxxx-xxxxx  country:"US" after:01/12/2021
+
 sudo apt-get install openssh-server
 sudo apt install python2
 dpkg -i forticlient-sslvpn_4.4.2333-1_amd64.deb
