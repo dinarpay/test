@@ -1,3 +1,18 @@
+shodan download --limit=0 US server: xxxxxxxx-xxxxx  country:"US"
+shodan download --limit=0 NZ server: xxxxxxxx-xxxxx  country:"NZ"
+shodan download --limit=0 CA server: xxxxxxxx-xxxxx  country:"CA"
+shodan download --limit=0 NL server: xxxxxxxx-xxxxx  country:"NL"
+shodan download --limit=0 IT server: xxxxxxxx-xxxxx  country:"IT"
+shodan download --limit=0 IE server: xxxxxxxx-xxxxx  country:"IE"
+shodan download --limit=0 AU server: xxxxxxxx-xxxxx  country:"AU"
+shodan download --limit=0 EE server: xxxxxxxx-xxxxx  country:"EE"
+shodan download --limit=0 RU server: xxxxxxxx-xxxxx  country:"RU"
+shodan download --limit=0 GB server: xxxxxxxx-xxxxx  country:"GB"
+shodan download --limit=0 AT server: xxxxxxxx-xxxxx  country:"AT"
+shodan download --limit=0 BE server: xxxxxxxx-xxxxx  country:"BE"
+shodan download --limit=0 FI server: xxxxxxxx-xxxxx  country:"FI"
+shodan download --limit=0 LV server: xxxxxxxx-xxxxx  country:"LV"
+
 shodan download --limit=0 server: xxxxxxxx-xxxxx  country:"US" after:01/12/2021
 shodan parse --fields ip_str,port --separator , domain.json.gz
 Firewall bypass
