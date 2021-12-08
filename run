@@ -2,6 +2,9 @@ shodan download --limit=0 server: xxxxxxxx-xxxxx  country:"US" after:01/12/2021
 shodan parse --fields ip_str,port --separator , domain.json.gz
 Firewall bypass
 
+sudo apt-get install python3-setuptools
+python3 setup.py install
+
 sudo apt-get install openssh-server
 sudo apt install python2
 dpkg -i forticlient-sslvpn_4.4.2333-1_amd64.deb
