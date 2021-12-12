@@ -17,6 +17,14 @@ shodan download --limit=0 server: xxxxxxxx-xxxxx  country:"US" after:01/12/2021
 shodan parse --fields ip_str,port --separator , domain.json.gz
 Firewall bypass
 
+apt-get install parallel
+apt-get install curl
+
+
+cat file.txt| parallel -j200 'head=$( echo -e  "{}:443")
+echo "$head" | tee -a newfile.txt
+'
+
 sudo apt-get install python3-setuptools
 python3 setup.py install
 
