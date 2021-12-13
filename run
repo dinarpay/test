@@ -1,3 +1,5 @@
+awk '{if (++dup[$0] == 1) print $0;}' 8443.txt > 8443new.txt
+
 shodan download --limit=0 US server: xxxxxxxx-xxxxx  country:"US"
 shodan download --limit=0 NZ server: xxxxxxxx-xxxxx  country:"NZ"
 shodan download --limit=0 CA server: xxxxxxxx-xxxxx  country:"CA"
