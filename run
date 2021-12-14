@@ -2,6 +2,8 @@ gunzip -k file.gz
 grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" file.txt > new.txt
 awk '{if (++dup[$0] == 1) print $0;}' 8443.txt > 8443new.txt
 
+header:"Server: xxxxxxxx-xxxxx" +title:"Please Login" +country:"FR"
+
 shodan download --limit=0 US server: xxxxxxxx-xxxxx  country:"US"
 shodan download --limit=0 NZ server: xxxxxxxx-xxxxx  country:"NZ"
 shodan download --limit=0 CA server: xxxxxxxx-xxxxx  country:"CA"
