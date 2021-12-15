@@ -1,0 +1,23 @@
+     echo ----------------$VAR1----------------
+python2 svmap.py -m INVITE -v -t0.0  $VAR1   >>  results.txt
+docker run --rm sha512sum/masscan -p 80,443,8080 --rate=30000 $VAR1 >> hi # Save brut line 
+python3 fileformatter1.py # here we clean the brut file
+python3 scan1.py -port 80,443,8080 -f hi1 >> results.txt # then scan the ip/ports
+rm hi1 # remove the temporary file
+touch hi1 # recreate the temporary file
+
+     echo ----------------$VAR2----------------
+python2 svmap.py -m INVITE -v -t0.0  $VAR2   >>  results.txt
+docker run --rm sha512sum/masscan -p 80,443,8080 --rate=30000 $VAR3 >> hi # Save brut line 
+python3 fileformatter2.py # here we clean the brut file
+python3 scan2.py -port 80,443,8080 -f hi2 >> results.txt # then scan the ip/ports
+rm hi2 # remove the temporary file
+touch hi2 # recreate the temporary file
+
+     echo ----------------$VAR3----------------
+python2 svmap.py -m INVITE -v -t0.0  $VAR3   >>  results.txt
+docker run --rm sha512sum/masscan -p 80,443,8080 --rate=30000 $VAR3 >> hi # Save brut line 
+python3 fileformatter3.py # here we clean the brut file
+python3 scan3.py -port 80,443,8080 -f hi3 >> results.txt # then scan the ip/ports
+rm hi3 # remove the temporary file
+touch hi3 # recreate the temporary file
