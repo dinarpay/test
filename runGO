@@ -1,0 +1,23 @@
+
+
+
+
+
+
+
+
+
+
+set timeout -1
+echo $SERVER
+expect << EOF
+spawn /opt/forticlient-sslvpn/64bit/forticlientsslvpn_cli --server $VPN_HOST --vpnuser $VPN_USER --keepalive
+expect "Password for VPN:"
+send -- "$VPN_PASS\r"
+#send -- "\r"
+set timeout -1
+expect "Would you like to connect to this server? (Y/N)"
+send -- "Y\r"
+send -- "\r"
+expect 
+EOF
