@@ -1,0 +1,195 @@
+#!/usr/bin/env python3
+# encoding:utf8
+import sys
+import argparse
+from socket import gethostbyname
+from netaddr import IPNetwork
+import requests
+from time import time
+import asyncio
+from bs4 import BeautifulSoup
+
+requests.packages.urllib3.disable_warnings()
+
+__author__ = "nul1"
+__update__ = "2021/07/02"
+__version__ = "v2.2.0"
+"""
+فحص HTTP ، 
+وتحديد منفذ الويب ومنفذ غير الويب ، والحصول عل
+ى العنوان ومعلومات الإصدار والمزيد.
+"""
+
+Ports_web = [80, 88, 443, 7001, 8000, 8008, 8888, 8080, 8088, 8089, 8161, 9090]
+Ports_other = [21, 22, 445, 1100, 1433, 1434, 1521, 3306, 3389, 6379, 8009, 9200, 11211, 27017, 50070]
+
+COUNT = 0
+TIMEOUT_HTTP = 5
+TIMEOUT_SOCK = 0.9
+PATH = ''
+
+user_agent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+
+
+def save(save_file, content):
+    with open(save_file, 'a') as f:
+        try:
+            f.writelines(content + '\n')
+        except Exception as e:
+            pass
+
+def tag(info):
+    return "||" + info + "||"
+
+# تحويل اسم المجال إلى IP
+def url_to_ip(url):
+    domain = url.split('/')[0] if '://' not in url else url.split('//')[1].split('/')[0]
+    domain = domain.split(':')[0] if ':' in domain else domain  # fix domain
+    try:
+        ip = gethostbyname(domain)
+        return ip
+    except Exception as e:
+        return ""
+
+def get_info(url, keyword):
+    try:
+        r = requests.get(url, headers={'UserAgent': user_agent}, timeout=TIMEOUT_HTTP, verify=False,allow_redirects=True)
+        soup = BeautifulSoup(r.content, "lxml")
+        # تحليل معلومات رأس HTTP
+        info_code = str(r.status_code)
+        info_title = soup.title.string.replace('\n', '').replace('\r', '').replace('\t','') if soup.title else ""
+        info_len = str(len(r.content))
+        if 'Server' in r.headers:
+            info_server = r.headers['Server']
+            info_server += " " + r.headers['X-Powered-By'] if 'X-Powered-By' in r.headers else ""
+        else:
+            info_server = ""
+        result = info_code+"||"+info_title+"||"+info_server+"||"+info_len
+
+        # محتوى HTTP ، مطابقة الكلمات الرئيسية
+        key = "Keyword!!!" if keyword and keyword in r.text else ""
+        
+        return result + key
+    except Exception as e:
+        # print(e)
+        return "open"
+
+async def connet(host, sem, keyword, ip):
+    """
+    استخدم أولاً طلب الشبكة غير المتزامن لتحديد ما إذا كان المنفذ موجودًا ، إن وجد ، ثم قم بإخراج المعلومات إلى منفذ الويب
+    :param host thread keyword ip
+    :param sem: عملية الإعداد
+    :param keyword: مطابقة الكلمات الرئيسية لمحتوى الويب
+    :param ip: احصل على IP الخاص بالمضيف المستهدف
+    :return info
+    """
+    global COUNT
+    async with sem:
+        # سواء لإخراج IP الهدف
+        output_ip = url_to_ip(host) if ip else ""
+
+        for port in Ports:
+            fut = asyncio.open_connection(host=host, port=port)
+            try:
+                reader, writer = await asyncio.wait_for(fut, timeout=TIMEOUT_SOCK)
+                if writer:
+                    # العودة مباشرة إلى المنافذ غير الويب
+                    if port in Ports_other:
+                        url = str(host) + ":" + str(port)
+                        info = "open"
+
+                    # استدعاء get_info () معالجة على منفذ الويب
+                    else:
+                        protocol = "http" if int(port) not in [443, 8443] else "https"
+                        url = "{0}://{1}:{2}{3}".format(protocol, host, port, PATH)
+                        info = get_info(url, keyword)
+                    W="%-28s %-28s %-30s\n" % (url, info, output_ip)    
+                    save(save_file, W)
+                    sys.stdout.write(W)
+                    COUNT += 1
+
+            except Exception as e:
+                # print(e)
+                pass
+
+async def scan(mode, x, t, keyword, myip):
+    time_start = time()
+
+    # إضافة إشارة للحد من عدد المتزامنة
+    sem = asyncio.Semaphore(t)
+    tasks = []
+
+    # وضع IP：10.1.1.1/24
+    if mode == 'ips':
+        ips = [str(ip) for ip in IPNetwork(x)]
+        for host in ips:
+            tasks.append(asyncio.create_task(connet(host, sem, keyword, myip)))
+
+    # وضع الملف: تنسيق الملف يدعم IP واسم المجال
+    if mode == 'file':
+        with open(x, 'r') as f:
+            for line in f.readlines():
+                line = line.rstrip()
+                if len(line) != 0:
+                    host = line if '://' not in line else line.split('//')[1]
+                    tasks.append(asyncio.create_task(connet(host, sem, keyword, myip)))
+
+    await asyncio.wait(tasks)
+    print("\nFound {0} in {1} seconds\n".format(COUNT, time() - time_start))
+
+
+def main():
+    global Ports, PATH
+
+    parser = argparse.ArgumentParser(usage='\ncscan -i 192.168.0.1/24 -t 100\ncscan -f url.txt -t 100\ncscan -i 192.168.0.1/24 -t 100 -q -port 80,8080 -path /actuator',description="CScan Tookit V2",)
+
+    basic = parser.add_argument_group('Basic')
+    basic.add_argument("-i", dest="ips", help="Use ip segment (192.168.0.1/24)")
+    basic.add_argument("-f", dest="file",help="Use ip or domain file")
+    basic.add_argument("-t", dest="threads", type=int, default=60,help="Set thread (default 60)")
+    basic.add_argument("-o", dest="output",default="output.txt",help="Specify output file default output.txt")
+    basic.add_argument("-q", dest="silent", action="store_true",help="Silent mode")
+
+    god = parser.add_argument_group('God')
+    god.add_argument("-port", dest="port", help="Specify port")
+    god.add_argument("-path", dest="path", help="Request path (example '/phpinfo.php')")
+    god.add_argument("-key", dest="keyword", help="Specify keyword")
+    god.add_argument("-web", dest="web", action="store_true", help="Only scan web ports")
+    god.add_argument("-ip", dest="ip", action="store_true", help="Output target ip")
+
+    args = parser.parse_args()
+
+    # عندما يتم تحديد المعلمة -web
+    Ports = Ports_web if args.web else Ports_web + Ports_other
+
+    # ميناء مخصص
+    if args.output:
+        save_file=args.output
+    if args.port:
+        Ports = args.port.split(',')
+    if args.silent is False:
+        banner()
+    if args.ips is None and args.file is None:
+        print("[x] cscan -h")
+        sys.exit(0)
+    if args.path:
+        PATH = args.path
+    if args.ips:
+        print('Target: ' + args.ips + ' | ' + 'Threads: ' + str(args.threads))
+        print('Ports: ' + str(Ports)+ '\n')
+        try:
+            asyncio.run(scan('ips', args.ips, args.threads, args.keyword, args.ip))
+        except KeyboardInterrupt:
+            print("\nCTRL+C detected, Exit...")
+    if args.file:
+        print('Target: ' + args.file + ' | ' + 'Threads: ' + str(args.threads) )
+        print('Ports: ' + blue + str(Ports) + '\n')
+        try:
+            asyncio.run(scan('file', args.file, args.threads, args.keyword, args.ip))
+        except KeyboardInterrupt:
+            print("\nCTRL+C detected, Exit..." )
+
+if __name__ == '__main__':
+    if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
+            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    main()
