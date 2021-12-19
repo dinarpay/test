@@ -1,0 +1,8 @@
+Traceback (most recent call last):                                           
+  File "svmap.py", line 540, in <module>
+    main()
+  File "svmap.py", line 464, in main
+    tmpsocket.connect(("msn.com",80))
+  File "/usr/lib/python2.7/socket.py", line 228, in meth
+    return getattr(self._sock,name)(*args)
+socket.gaierror: [Errno -3] Temporary failure in name resolution
