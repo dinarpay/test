@@ -6,3 +6,10 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/socket.py", line 228, in meth
     return getattr(self._sock,name)(*args)
 socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+
+
+===========================
+send: spawn id exp4 not open
+    while executing
+"send -- "Y\r""
