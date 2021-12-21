@@ -1,0 +1,6 @@
+docker run -i projectdiscovery/httpx
+
+
+cat ipport.txt | docker run -i projectdiscovery/httpx    -status-code -title -tech-detect -web-server -content-type -content-length -no-fallback -t 200 -v >> xxx.txt
+
+cat ipport.txt | docker run -i projectdiscovery/httpx  -status-code -title -tech-detect -web-server -no-fallback -t 100 -v >> 100.txt
