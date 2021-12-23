@@ -1,4 +1,21 @@
-# SVMAP tcp port scanner 5060 
+     echo ----------------$VAR1----------------
+docker run --rm adarnimrod/masscan -p 5060 -pU 5060 -sS -Pn --randomize-hosts --send-eth 172.17.0.1 --rate=10000 $VAR1 >> ip192.txt # Save scan 5060 Range 
+python3 fileformatter1.py # here we clean the brut file
+python3 svmap.py -I ip192.txt -mU -mT -v --randomize -t 0.0 >> results.txt
+rm ip192.txt # remove the temporary file
+
+     echo ----------------$VAR2----------------
+docker run --rm adarnimrod/masscan -p 5060 -pU 5060 -sS -Pn --randomize-hosts --send-eth 172.17.0.1 --rate=10000 $VAR2 >> ip10.txt # Save scan 5060 Range 
+python3 fileformatter2.py # here we clean the brut file
+python3 svmap.py -I ip10.txt -mU -mT -v --randomize -t 0.0 >> results.txt
+rm ip10.txt # remove the temporary file
+
+     echo ----------------$VAR3----------------
+docker run --rm adarnimrod/masscan -p 5060 -pU 5060 -sS -Pn --randomize-hosts --send-eth 172.17.0.1 --rate=10000 $VAR3 >> ip172.txt # Save scan 5060 Range 
+python3 fileformatter3.py # here we clean the brut file
+python3 svmap.py -I ip172.txt -mU -mT -v --randomize -t 0.0 >> results.txt
+rm ip172.txt # remove the temporary file
+=================================================================================================================
 
      echo ----------------$VAR1----------------
 python3 svmap.py -mU -mT -v -c -t0.0 $VAR1 >> results.txt
