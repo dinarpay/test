@@ -1,4 +1,17 @@
+# SVMAP tcp port scanner 5060 
+
      echo ----------------$VAR1----------------
+python3 svmap.py -mU -mT -v -c -t0.0 $VAR1 >> results.txt
+
+     echo ----------------$VAR2----------------
+python3 svmap.py -mU -mT -v -c -t0.0 $VAR2 >> results.txt
+
+     echo ----------------$VAR3----------------
+python3 svmap.py -mU -mT -v -c -t0.0 $VAR3 >> results.txt
+
+
+
+echo ----------------$VAR1----------------
 python2 svmap.py -m INVITE -v -t0.0  $VAR1   >>  results.txt
 docker run --rm sha512sum/masscan -p 80,443,8080 --rate=30000 $VAR1 >> hi # Save brut line 
 python3 fileformatter1.py # here we clean the brut file
