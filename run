@@ -1,5 +1,7 @@
 FqFuXe1CUgJjoqODEFM3dASMNcXMBW7j
 
+body="launch-forticlient-button"
+
 app="FORTINET-sslvpn"
 http.favicon.hash:945408572
 shodan parse --fields ip_str,port --separator , search.json.gz
