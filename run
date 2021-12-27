@@ -2,7 +2,8 @@ FqFuXe1CUgJjoqODEFM3dASMNcXMBW7j
 
 app="FORTINET-sslvpn"
 http.favicon.hash:945408572
-
+shodan parse --fields ip_str,port --separator , search.json.gz
+shodan parse --fields domains,port --separator , search.json.gz
 
 apt install screen
 screen -S moh
