@@ -1,0 +1,30 @@
+# Veriables for Svm
+
+VAR1=192.168.7.5/24
+VAR2=192.168.1.1/16
+
+     
+
+# SVM tcp port scanner
+
+     echo ----------------$VAR1----------------
+masscan -p 80,443 --rate=1000 $VAR1 >> hi # Save brut line 
+python3 fileformatter.py # here we clean the brut file
+python3 scan2.py -f hi >> results.txt # then scan the ip/ports
+rm hi # remove the temporary file
+touch hi # recreate the temporary file
+
+
+     echo ----------------$VAR2----------------
+masscan -p 80,443 --rate=1000 $VAR1 >> hi # Save brut line 
+python3 fileformatter.py # here we clean the brut file
+python3 scan2.py -f hi >> results.txt # then scan the ip/ports
+rm hi # remove the temporary file
+touch hi # recreate the temporary file
+
+
+
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+sleep 15
