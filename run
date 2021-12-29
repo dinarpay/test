@@ -1,3 +1,6 @@
+awk '!visited[$0]++' sip.txt > results.txt
+
+
 FqFuXe1CUgJjoqODEFM3dASMNcXMBW7j
 
 body="launch-forticlient-button"
