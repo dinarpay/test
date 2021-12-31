@@ -1,0 +1,50 @@
+Linux Ubuntu 20.04 X86 64 Azuracast Gen2 V1
+
+
+apt update && apt upgrade
+
+wget https://hadler.me/files/forticlient-sslvpn_4.4.2333-1_amd64.deb
+apt --fix-broken install
+sudo apt-get install ppp expect
+sudo /opt/forticlient-sslvpn/64bit/helper/setup
+dpkg -i forticlient-sslvpn_4.4.2333-1_amd64.deb
+sudo apt-get install expect
+
+sudo apt install python2
+
+sudo apt install python3
+apt install python3-pip
+pip3 install -r requirements.txt
+
+
+apt-get install masscan
+apt install docker.io
+docker pull adarnimrod/masscan
+
+docker pull sha512sum/masscan
+
+
+=================================
+apt install screen
+screen -S moh
+=================================
+apt-get install parallel
+apt-get install curl
+=================================
+
+
+
+
+
+
+sed -i -e 's/\r$//' start
+
+docker run --rm sha512sum/masscan 192.168.0.0/16 -p443,80,21,8000,8080,9000,69,3389 --rate=30000  >result192-*.xml
+docker run --rm sha512sum/masscan 172.16.0.0/12 -p443,80,21,8000,8080,9000,69,3389 --rate=30000  >result172-*.xml
+docker run --rm sha512sum/masscan 10.0.0.0/10 -p443,80,21,8000,8080,9000,69,3389 --rate=30000  >result10-*.xml
+
+
+
+
+
+
