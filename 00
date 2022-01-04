@@ -1,4 +1,14 @@
-     echo ----------------$VAR1----------------
+GOOD
+
+docker run --rm russmckendrick/sipvicious 192.168.0.0/16 -t0.0 -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v >> ports.txt
+
+docker run --rm adarnimrod/masscan -p 5666 -pU 5666 -sS -Pn --randomize-hosts 192.168.0.0/16 --rate=10000 >> ip192.txt
+
+
+
+
+
+echo ----------------$VAR1----------------
 docker run --rm adarnimrod/masscan -p 5060 -pU 5060 -sS -Pn --randomize-hosts --send-eth 172.17.0.1 --rate=10000 $VAR1 >> ip192.txt # Save scan 5060 Range 
 python3 fileformatter1.py # here we clean the brut file
 python3 svmap.py -I ip192.txt -mU -mT -v --randomize -t 0.0 >> results.txt
