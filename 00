@@ -1,7 +1,8 @@
 GOOD
-
+docker pull russmckendrick/sipvicious
 docker run --rm russmckendrick/sipvicious 192.168.0.0/16 -t0.0 -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v >> ports.txt
 
+docker pull adarnimrod/masscan
 docker run --rm adarnimrod/masscan -p 5666 -pU 5666 -sS -Pn --randomize-hosts 192.168.0.0/16 --rate=10000 >> ip192.txt
 
 
