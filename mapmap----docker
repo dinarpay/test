@@ -35,7 +35,7 @@ echo ----------------------------------------------------------------- | tee -a 
 docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR1 >>  results.txt
 
      echo ----------------$VAR2----------------
--P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR2 >>  results.txt
+docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR2 >>  results.txt
 
      echo ----------------$VAR5----------------
 docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR5 >>  results.txt
@@ -97,3 +97,24 @@ docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTION
      echo ----------------$VAR20----------------
 docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR20 >>  results.txt
 
+
+
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+sleep 15
