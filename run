@@ -1,5 +1,6 @@
 awk '!visited[$0]++' sip.txt > results.txt
 
+shodan download --limit=0 pbx  hostname:pbx.* product:Apache
 
 FqFuXe1CUgJjoqODEFM3dASMNcXMBW7j
 
