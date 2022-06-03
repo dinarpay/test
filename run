@@ -1,5 +1,9 @@
 awk '!visited[$0]++' sip.txt > results.txt
 
+حل مشكلة اخد ليستة ايبيهات مع بورت
+grep -Po "(\d+\.){3}\d+:?(\d?){4}" abokareem.txt > ip.txt
+
+
 shodan download --limit=0 pbx  hostname:pbx.* product:Apache
 
 FqFuXe1CUgJjoqODEFM3dASMNcXMBW7j
