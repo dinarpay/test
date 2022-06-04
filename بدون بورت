@@ -1,0 +1,29 @@
+
+# port scanner web 
+
+     echo ----------------$VAR1----------------
+docker run --rm sha512sum/masscan -p80,443,5060,8080 -pU 80,5060 --rate=10000 $VAR1 >> ip192.txt # Save scan web Range 
+python3 fileformatter1.py # here we clean the brut file
+python2 svmap.py -I ip192.txt -m INVITE -v -t0.0 >> results.txt
+cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+rm ip192.txt # remove the temporary file
+
+     echo ----------------$VAR2----------------
+docker run --rm sha512sum/masscan -p80,443,5060,8080 -pU 80,5060 --rate=10000 $VAR2 >> ip10.txt # Save scan web Range 
+python3 fileformatter2.py # here we clean the brut file
+python2 svmap.py -I ip10.txt -m INVITE -v -t0.0 >> results.txt
+cat ip10.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+rm ip10.txt # remove the temporary file
+
+     echo ----------------$VAR3----------------
+docker run --rm sha512sum/masscan -p80,443,5060,8080 -pU 80,5060 --rate=10000 $VAR3 >> ip172.txt # Save scan web Range 
+python3 fileformatter3.py # here we clean the brut file
+python2 svmap.py -I ip172.txt -m INVITE -v -t0.0 >> results.txt
+cat ip172.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+rm ip172.txt # remove the temporary file
+
+
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+sleep 10
