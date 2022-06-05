@@ -1,5 +1,6 @@
 أبو كريم , أبو كريم
 pay0001000 (skype)
+
 # Veriables for Svmap  and whatweb 
 
 VAR1=192.168.0.0/16
@@ -34,141 +35,141 @@ echo ----------------------------------------------------------------- | tee -a 
 # SVMAP tcp port scanner 5060 
 
      echo ----------------$VAR1----------------
-docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR1 >>  results.txt
+docker run --rm russmckendrick/sipvicious -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR1 >>  results.txt
 docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR2----------------
-docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR2 >>  results.txt
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm russmckendrick/sipvicious -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR2 >>  results.txt
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR2 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR5----------------
-docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR5 >>  results.txt
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm russmckendrick/sipvicious -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR5 >>  results.txt
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR5 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR6----------------
-docker run --rm adarnimrod/masscan -p 5060,5666 -pU 5060,5666 -sS -Pn --randomize-hosts --rate=5000 $VAR6  >>  ipSIP.txt # Save scan 5060 Range 
+docker run --rm adarnimrod/masscan -p 5060 -pU 5060 -sS -Pn --randomize-hosts --rate=5000 $VAR6  >>  ipSIP.txt # Save scan 5060 Range 
 python3 fileformatter.py # here we clean the brut file
-docker run --rm russmckendrick/sipvicious -I ipSIP.txt -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 >> results.txt
+docker run --rm russmckendrick/sipvicious -I ipSIP.txt -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 >> results.txt
 rm ipSIP.txt # remove the temporary file
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR6 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR7----------------
-docker run --rm adarnimrod/masscan -p 5060,5666 -pU 5060,5666 -sS -Pn --randomize-hosts --rate=5000 $VAR7  >>  ipSIP.txt # Save scan 5060 Range 
+docker run --rm adarnimrod/masscan -p 5060 -pU 5060 -sS -Pn --randomize-hosts --rate=5000 $VAR7  >>  ipSIP.txt # Save scan 5060 Range 
 python3 fileformatter.py # here we clean the brut file
-docker run --rm russmckendrick/sipvicious -I ipSIP.txt -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 >> results.txt
+docker run --rm russmckendrick/sipvicious -I ipSIP.txt -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 >> results.txt
 rm ipSIP.txt # remove the temporary file
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR7 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR8----------------
-docker run --rm adarnimrod/masscan -p 5060,5666 -pU 5060,5666 -sS -Pn --randomize-hosts --rate=5000 $VAR8  >>  ipSIP.txt # Save scan 5060 Range 
+docker run --rm adarnimrod/masscan -p 5060 -pU 5060 -sS -Pn --randomize-hosts --rate=5000 $VAR8  >>  ipSIP.txt # Save scan 5060 Range 
 python3 fileformatter.py # here we clean the brut file
-docker run --rm russmckendrick/sipvicious -I ipSIP.txt -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 >> results.txt
+docker run --rm russmckendrick/sipvicious -I ipSIP.txt -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 >> results.txt
 rm ipSIP.txt # remove the temporary file
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR8 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR9----------------
-docker run --rm adarnimrod/masscan -p 5060,5666 -pU 5060,5666 -sS -Pn --randomize-hosts --rate=5000 $VAR9  >>  ipSIP.txt # Save scan 5060 Range 
+docker run --rm adarnimrod/masscan -p 5060 -pU 5060 -sS -Pn --randomize-hosts --rate=5000 $VAR9  >>  ipSIP.txt # Save scan 5060 Range 
 python3 fileformatter.py # here we clean the brut file
-docker run --rm russmckendrick/sipvicious -I ipSIP.txt -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 >> results.txt
+docker run --rm russmckendrick/sipvicious -I ipSIP.txt -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 >> results.txt
 rm ipSIP.txt # remove the temporary file
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR9 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR10----------------
-docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR10 >>  results.txt
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm russmckendrick/sipvicious -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR10 >>  results.txt
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR10 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR11----------------
-docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR11 >>  results.txt
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm russmckendrick/sipvicious -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR11 >>  results.txt
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR11 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR12----------------
-docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR12 >>  results.txt
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm russmckendrick/sipvicious -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR12 >>  results.txt
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR12 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR13----------------
-docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR13 >>  results.txt
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm russmckendrick/sipvicious -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR13 >>  results.txt
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR13 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR14----------------
-docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR14 >>  results.txt
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm russmckendrick/sipvicious -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR14 >>  results.txt
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR14 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR15----------------
-docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR15 >>  results.txt
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm russmckendrick/sipvicious -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR15 >>  results.txt
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR15 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR16----------------
-docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR16 >>  results.txt
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm russmckendrick/sipvicious -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR16 >>  results.txt
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR16 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR17----------------
-docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR17 >>  results.txt
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm russmckendrick/sipvicious -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR17 >>  results.txt
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR17 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR18----------------
-docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR18 >>  results.txt
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm russmckendrick/sipvicious -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR18 >>  results.txt
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR18 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR19----------------
-docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR19 >>  results.txt
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm russmckendrick/sipvicious -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR19 >>  results.txt
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR19 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
      echo ----------------$VAR20----------------
-docker run --rm russmckendrick/sipvicious -P5666 -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR20 >>  results.txt
-docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR1 >> ipSIP.txt # Save scan web Range 
+docker run --rm russmckendrick/sipvicious -m INVITE -m REGISTER -m OPTIONS -m INFO -v -t0.0 $VAR20 >>  results.txt
+docker run --rm sha512sum/masscan -p80,443,8080 --rate=10000 $VAR20 >> ipSIP.txt # Save scan web Range 
 python3 fileformatter.py # here we clean the brut file
-cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
+cat ipSIP.txt | docker run -i projectdiscovery/httpx -sc -title -server -leave-default-ports -p 80,443,8080 -v >> results.txt
 rm ipSIP.txt # remove the temporary file
 
 
@@ -192,3 +193,31 @@ echo "we scaned Everythings"
 echo "we scaned Everythings"
 echo "we scaned Everythings"
 sleep 15
+
+cat vpn.txt |  sed -e '1,3d' | tee -a aa.txt
+rm -rf  vpn.txt
+cat aa.txt | sed '/^$/d' | sed '/^[[:space:]]*$/d' | tee -a aaa.txt
+cat aaa.txt > vpn.txt
+rm -rf aa.txt aaa.txt
+
+
+./start
+ 
+else 
+echo -e "\e[1;41mVPN NOT CONECTED MAYBE PASSWORD IS WRONG!\e[1;m"
+sleep 20
+
+
+
+#not working vpn please check it manual 
+head -3 go | tee -a not_working_vpn.txt
+echo ----------------------------------------------------------------- | tee -a not_working_vpn.txt
+cat vpn.txt |  sed -e '1,3d' | tee -a aa.txt
+rm -rf  vpn.txt
+cat aa.txt | sed '/^$/d' | sed '/^[[:space:]]*$/d' | tee -a aaa.txt
+cat aaa.txt > vpn.txt
+rm -rf aa.txt aaa.txt
+pkill bash
+pkill forti
+./start
+fi 
