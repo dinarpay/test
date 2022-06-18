@@ -6,6 +6,8 @@ apt update && apt upgrade
 wget https://hadler.me/files/forticlient-sslvpn_4.4.2333-1_amd64.deb
 apt --fix-broken install
 sudo apt-get install ppp expect
+cd /opt/forticlient-sslvpn/64bit/
+ 
 sudo /opt/forticlient-sslvpn/64bit/helper/setup
 dpkg -i forticlient-sslvpn_4.4.2333-1_amd64.deb
 sudo apt-get install expect
