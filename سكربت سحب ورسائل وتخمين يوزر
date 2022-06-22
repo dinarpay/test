@@ -1,0 +1,79 @@
+#coding:utf-8
+import os
+import time
+
+
+splash1 = """
+    +----------------------------------+
+    | Scan5060 & scanCode & Crack user pass             |
+    +----------------------------------+
+    | by Mohammad Elnwajha                       |
+    +----------------------------------+
+"""
+print(splash1)
+
+
+
+os.system('masscan -iL ip.txt -p5060 -oL masscan.txt --rate=100000')
+while True:
+    if os.path.exists("masscan.txt"):
+        break
+    else:
+        time.sleep(1)
+if os.path.getsize("masscan.txt") == 0:
+    splash3 = """
+    +----------------------------------+
+    | 无端口开放，程序已退出!          |
+    +----------------------------------+
+    """
+    print(splash3)
+    exit()
+else :
+    splash4 = """
+    +----------------------------------+
+    | Masscan扫描结果解析并调用CodeSIP   |
+    +----------------------------------+
+    """
+    print(splash4)
+    masscanfile = open("masscan.txt", "r")
+    masscanfile.seek(0)
+    for line in masscanfile:
+        if line.startswith("#"):
+            continue
+        if line.startswith("open"):
+            line = line.split(" ")
+            with open("IPS", "a") as f:
+                f.write(line[3]+"\n")
+                f.close()
+    masscanfile.close()
+if os.path.exists("masscan.txt"):
+    os.system('perl run IPS')
+    os.remove("masscan.txt")
+    os.remove("IPS")
+    splash2 = """
+    +----------------------------------+
+    | Httpx is done !                  |
+    +----------------------------------+
+    """
+    print(splash2)
+else:
+    splash5 = """
+    +----------------------------------+
+    | Crack USERNAME & PASSWORD    |
+    +----------------------------------+
+    """
+    print(splash5)
+    exit()
+if os.path.exists("404"):
+    os.system('perl Crack 250 2 404')
+else:
+    print("Good Result")
+    exit()
+if os.path.exists("*"):
+    splash6 = """
+    +----------------------------------+
+    | Good Result |
+    +----------------------------------+
+    """
+    print(splash7)
+    exit()
