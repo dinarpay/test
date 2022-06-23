@@ -5,7 +5,7 @@ import time
 
 splash1 = """
     +----------------------------------+
-    | Scan5060 & scanCode & Crack user pass             |
+    | Scan Sip port & SIP responses & Crack user pass             |
     +----------------------------------+
     | by Mohammad Elnwajha                       |
     +----------------------------------+
@@ -14,7 +14,7 @@ print(splash1)
 
 
 
-os.system('masscan -iL ip.txt -p5060 -oL masscan.txt --rate=100000')
+os.system('masscan -iL ip.txt -p5060-5090 -oL masscan.txt --rate=100000')
 while True:
     if os.path.exists("masscan.txt"):
         break
@@ -23,7 +23,7 @@ while True:
 if os.path.getsize("masscan.txt") == 0:
     splash3 = """
     +----------------------------------+
-    | 无端口开放，程序已退出!          |
+    | masscan !          |
     +----------------------------------+
     """
     print(splash3)
@@ -31,7 +31,7 @@ if os.path.getsize("masscan.txt") == 0:
 else :
     splash4 = """
     +----------------------------------+
-    | Masscan扫描结果解析并调用CodeSIP   |
+    | Masscan & SIP responses |
     +----------------------------------+
     """
     print(splash4)
@@ -48,32 +48,34 @@ else :
     masscanfile.close()
 if os.path.exists("masscan.txt"):
     os.system('perl run IPS')
+    os.system('cat 403.txt,404.txt >> ipSIP')
     os.remove("masscan.txt")
-    os.remove("IPS")
+	os.remove("IPS")
     splash2 = """
     +----------------------------------+
-    | Httpx is done !                  |
+    | SIP responses is done !                  |
     +----------------------------------+
     """
     print(splash2)
 else:
     splash5 = """
     +----------------------------------+
-    | Crack USERNAME & PASSWORD    |
+    | Crack user & pass  |
     +----------------------------------+
     """
     print(splash5)
     exit()
-if os.path.exists("404"):
-    os.system('perl Crack 250 2 404')
+if os.path.exists("ipSIP"):
+    os.system('perl Crack 250 2 ipSIP')
 else:
     print("Good Result")
     exit()
 if os.path.exists("*"):
     splash6 = """
     +----------------------------------+
-    | Good Result |
+    | Good Result is done |
     +----------------------------------+
     """
     print(splash7)
     exit()
+
