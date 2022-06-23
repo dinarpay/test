@@ -5,7 +5,7 @@ import time
 
 splash1 = """
     +----------------------------------+
-    | Scan Sip port & SIP responses & Crack user pass             |
+    | Scan sip & SIP responses & Crack user pass             |
     +----------------------------------+
     | by Mohammad Elnwajha                       |
     +----------------------------------+
@@ -14,7 +14,7 @@ print(splash1)
 
 
 
-os.system('masscan -iL ip.txt -p5060-5090 -oL masscan.txt --rate=100000')
+os.system('masscan -iL ip.txt -p5060,5061,14310 -oL masscan.txt --rate=100000')
 while True:
     if os.path.exists("masscan.txt"):
         break
@@ -23,7 +23,7 @@ while True:
 if os.path.getsize("masscan.txt") == 0:
     splash3 = """
     +----------------------------------+
-    | masscan !          |
+    | Masscan is done !                |
     +----------------------------------+
     """
     print(splash3)
@@ -31,7 +31,7 @@ if os.path.getsize("masscan.txt") == 0:
 else :
     splash4 = """
     +----------------------------------+
-    | Masscan & SIP responses |
+    | Masscan & SIP responses  |
     +----------------------------------+
     """
     print(splash4)
@@ -43,14 +43,14 @@ else :
         if line.startswith("open"):
             line = line.split(" ")
             with open("IPS", "a") as f:
-                f.write(line[3]+"\n")
+                f.write(line[3]+":"+line[2]+"\n")
                 f.close()
     masscanfile.close()
 if os.path.exists("masscan.txt"):
     os.system('perl run IPS')
-    os.system('cat 403.txt,404.txt >> ipSIP')
+    os.system('cat 403.txt 404.txt >> ipSIP')
     os.remove("masscan.txt")
-	os.remove("IPS")
+    os.remove("IPS")
     splash2 = """
     +----------------------------------+
     | SIP responses is done !                  |
@@ -60,22 +60,22 @@ if os.path.exists("masscan.txt"):
 else:
     splash5 = """
     +----------------------------------+
-    | Crack user & pass  |
+    | Crack USERNAME & PASSWORD    |
     +----------------------------------+
     """
     print(splash5)
     exit()
 if os.path.exists("ipSIP"):
     os.system('perl Crack 250 2 ipSIP')
+    os.remove("ipSIP")
 else:
     print("Good Result")
     exit()
 if os.path.exists("*"):
     splash6 = """
     +----------------------------------+
-    | Good Result is done |
+    | Result crack is done |
     +----------------------------------+
     """
     print(splash7)
     exit()
-
