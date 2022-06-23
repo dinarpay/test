@@ -14,7 +14,7 @@ print(splash1)
 
 
 
-os.system('masscan -iL ip.txt -p5060,5061,14310 -oL masscan.txt --rate=100000')
+os.system('masscan -iL RangeIP -p5060,5061,14310 -pU5060,5061,14310 -oL masscan.txt --rate=100000')
 while True:
     if os.path.exists("masscan.txt"):
         break
@@ -49,7 +49,7 @@ else :
 if os.path.exists("masscan.txt"):
     os.system('perl run IPS')
     os.system('cat 403.txt 404.txt >> ipSIP')
-    os.remove("masscan.txt")
+    os.system('rm *.txt')
     os.remove("IPS")
     splash2 = """
     +----------------------------------+
