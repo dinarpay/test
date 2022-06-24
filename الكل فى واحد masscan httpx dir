@@ -1,0 +1,107 @@
+#coding:utf-8
+import os
+import time
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse    
+
+
+splash1 = """
+    +----------------------------------+
+    | Masscan2Httpx2Nuclei             |
+    +----------------------------------+
+    | by mbskter                       |
+    +----------------------------------+
+"""
+print(splash1)
+
+
+
+os.system('masscan -iL ip.txt -p443,80,81,82,83,84,85,86,87,88,89,90,8000,8001,8008,8014,8015,8020,8028,8040,8080,8081,8082,8085,8088,8090,8118,8123,8180,8181,8182,8222,8243,8280,8300,8800,8888,8899,8983,9000,9002,9060,9080,9090,9091  -oL masscan.txt --rate=10000')
+while True:
+    if os.path.exists("masscan.txt"):
+        break
+    else:
+        time.sleep(1)
+if os.path.getsize("masscan.txt") == 0:
+    splash3 = """
+    +----------------------------------+
+    | 无端口开放，程序已退出!          |
+    +----------------------------------+
+    """
+    print(splash3)
+    exit()
+else :
+    splash4 = """
+    +----------------------------------+
+    | Masscan扫描结果解析并调用httpx   |
+    +----------------------------------+
+    """
+    print(splash4)
+    masscanfile = open("masscan.txt", "r")
+    masscanfile.seek(0)
+    for line in masscanfile:
+        if line.startswith("#"):
+            continue
+        if line.startswith("open"):
+            line = line.split(" ")
+            with open("masscanconvert.txt", "a") as f:
+                f.write(line[3]+":"+line[2]+"\n")
+                f.close()
+    masscanfile.close()
+if os.path.exists("masscan.txt"):
+    os.system('cat masscanconvert.txt | docker run -i projectdiscovery/httpx -t 250 -leave-default-ports -nc -v >> httpxresult.txt')
+    os.remove("masscan.txt")
+
+    name="httpxresult.txt"
+    fin = open(name, "rt")
+    #output file to write the result to
+    fout = open("out.txt", "wt")
+    #for each line in the input file
+    for line in fin:
+        #read replace the string and write to output file 
+        parsed = urlparse(line)
+        if parsed.port==None:
+            if parsed.scheme=='http':
+                fout.write(line.replace(line,line.strip()+":80\n"))
+            else:
+                fout.write(line.replace(line,line.strip()+":443\n"))
+        else:
+            fout.write(line)
+    #close input and output files
+    fin.close()
+    fout.close()
+    os.remove("httpxresult.txt")
+    os.rename("out.txt","httpxresult.txt")
+    splash2 = """
+    +----------------------------------+
+    | Httpx is done !                  |
+    +----------------------------------+
+    """
+    print(splash2)
+else:
+    splash5 = """
+    +----------------------------------+
+    | 未发现解析后的masscan端口结果    |
+    +----------------------------------+
+    """
+    print(splash5)
+    exit()
+if os.path.exists("httpxresult.txt"):
+    os.system('split -l 10 -d --additional-suffix=.txt httpxresult.txt /root/Masscan2Httpx2Nuclei/hosts/Pal-')
+    os.system('python2 new.py')
+    splash6 = """
+    +----------------------------------+
+    | Dir is done !
+    +----------------------------------+
+    """
+    print(splash6)
+else:
+    splash7 = """
+    +----------------------------------+
+    | 未发现中高危漏洞                 |
+    +----------------------------------+
+    """
+    print(splash7)
+    exit()
