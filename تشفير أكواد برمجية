@@ -11,6 +11,8 @@ shc -v -e 30/07/2022 -m Mohammad Elnwajha -f /root/test/start.sh
 
 تشفير بايثون مع رخصة 
 
+https://github.com/dinarpay/pyarmor
+
 pip install pyarmor
 
 pyarmor licenses --expired 2022-12-31 r001
