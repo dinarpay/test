@@ -1,0 +1,55 @@
+#coding:utf-8
+import os
+import time
+
+
+splash1 = """
+    +----------------------------------+
+    | Masscan2        |
+    +----------------------------------+
+    | by Mohammad Elnwajha                     |
+    +----------------------------------+
+"""
+print(splash1)
+
+
+
+os.system('masscan -iL ip.txt -p443,444,4444,443,8443,10443,11443,80,81,82,83,84,85,86,86,87,88,89,8080,8081,8082,8083,8084,8085,8086,8087,8088,8089,8000,8001,8002,8003,8004,8005,8006,8007,8008,8009  -oL masscan.txt --rate=200000')
+while True:
+    if os.path.exists("masscan.txt"):
+        break
+    else:
+        time.sleep(1)
+if os.path.getsize("masscan.txt") == 0:
+    splash3 = """
+    +----------------------------------+
+    | port check  |
+    +----------------------------------+
+    """
+    print(splash3)
+    exit()
+else :
+    splash4 = """
+    +----------------------------------+
+    | then finished ***** thank you   |
+    +----------------------------------+
+    """
+    print(splash4)
+    masscanfile = open("masscan.txt", "r")
+    masscanfile.seek(0)
+    for line in masscanfile:
+        if line.startswith("#"):
+            continue
+        if line.startswith("open"):
+            line = line.split(" ")
+            with open("masscanconvert.txt", "a") as f:
+                f.write(line[3]+":"+line[2]+"\n")
+                f.close()
+    masscanfile.close()
+    os.remove("masscan.txt")
+    splash2 = """
+    +----------------------------------+
+    | then finished   |
+    +----------------------------------+
+    """
+    exit()
