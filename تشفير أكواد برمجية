@@ -1,4 +1,10 @@
 للباش سكربت
-https://github.com/HackersTech/shell-code-encrypter
 
+https://www.xmodulo.com/encrypt-shell-script.html
 
+sudo apt install shc
+
+shc -v -f start.sh
+shc -v -e 30/07/2022 -m Mohammad Elnwajha -f /root/test/start.sh
+
+./start.sh.x
