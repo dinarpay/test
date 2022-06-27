@@ -1,0 +1,5 @@
+sudo apt install perl
+cpan
+install Parallel::ForkManager
+install String::Util
+install Net::SIP
