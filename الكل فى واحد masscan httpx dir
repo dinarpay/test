@@ -18,7 +18,7 @@ print(splash1)
 
 
 
-os.system('masscan -iL ip.txt -p443,80,81,82,83,84,85,86,87,88,89,90,8000,8001,8008,8014,8015,8020,8028,8040,8080,8081,8082,8085,8088,8090,8118,8123,8180,8181,8182,8222,8243,8280,8300,8800,8888,8899,8983,9000,9002,9060,9080,9090,9091  -oL masscan.txt --rate=10000')
+os.system('masscan -iL ip.txt -p443,80,81,82,83,84,85,8080 --exclude 255.255.255.255 -oL masscan.txt --rate=1000000')
 while True:
     if os.path.exists("masscan.txt"):
         break
@@ -109,3 +109,4 @@ else:
     """
     print(splash7)
     exit()
+
