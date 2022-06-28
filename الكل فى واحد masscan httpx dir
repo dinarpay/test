@@ -9,9 +9,9 @@ except ImportError:
 
 splash1 = """
     +----------------------------------+
-    | Masscan2Httpx2Nuclei             |
+    | Masscan2Httpx2Dir             |
     +----------------------------------+
-    | by mbskter                       |
+    | by Mohammad Elnwajha                       |
     +----------------------------------+
 """
 print(splash1)
@@ -27,7 +27,7 @@ while True:
 if os.path.getsize("masscan.txt") == 0:
     splash3 = """
     +----------------------------------+
-    | 无端口开放，程序已退出!          |
+    | Scan PORTS!          |
     +----------------------------------+
     """
     print(splash3)
@@ -35,7 +35,7 @@ if os.path.getsize("masscan.txt") == 0:
 else :
     splash4 = """
     +----------------------------------+
-    | Masscan扫描结果解析并调用httpx   |
+    | Masscan & httpx   |
     +----------------------------------+
     """
     print(splash4)
@@ -51,7 +51,7 @@ else :
                 f.close()
     masscanfile.close()
 if os.path.exists("masscan.txt"):
-    os.system('cat masscanconvert.txt | docker run -i projectdiscovery/httpx -t 250 -leave-default-ports -nc -v >> httpxresult.txt')
+    os.system('cat masscanconvert.txt | docker run -i projectdiscovery/httpx -t 500 -leave-default-ports -nc -v >> httpxresult.txt')
     os.remove("masscan.txt")
 
     name="httpxresult.txt"
@@ -83,24 +83,28 @@ if os.path.exists("masscan.txt"):
 else:
     splash5 = """
     +----------------------------------+
-    | 未发现解析后的masscan端口结果    |
+    | Split & Dir    |
     +----------------------------------+
     """
     print(splash5)
     exit()
 if os.path.exists("httpxresult.txt"):
-    os.system('split -l 10 -d --additional-suffix=.txt httpxresult.txt /root/Masscan2Httpx2Nuclei/hosts/Pal-')
-    os.system('python2 new.py')
+    os.system('split -l 250000 -d --additional-suffix=.txt httpxresult.txt /root/Masscan2Httpx2Dir/hosts/Pal-')
+    os.system('python new.py')
+    os.remove("httpxresult.txt")
+    os.remove("masscanconvert.txt")
     splash6 = """
     +----------------------------------+
     | Dir is done !
+    +----------------------------------+
+    | Thank you , Mohammad Elnwajha             |
     +----------------------------------+
     """
     print(splash6)
 else:
     splash7 = """
     +----------------------------------+
-    | 未发现中高危漏洞                 |
+    | Thank you                |
     +----------------------------------+
     """
     print(splash7)
