@@ -1,7 +1,9 @@
 sudo apt update
-apt update -y
+sudo apt-get update -y
 apt install perl -y
 apt list --installed | grep -i perl
+sudo apt install make
+sudo apt-get install -y perl-tk
 
 cpan
 install Parallel::ForkManager
