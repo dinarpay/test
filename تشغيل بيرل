@@ -1,3 +1,4 @@
+sudo apt update
 apt update -y
 apt install perl -y
 apt list --installed | grep -i perl
