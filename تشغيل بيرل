@@ -9,3 +9,16 @@ cpan
 install Parallel::ForkManager
 install String::Util
 install Net::SIP
+
+------------------------------
+سينتوس
+
+yum update
+yum install perl
+rpm -qa | grep -i perl-5.16
+dnf install perl-CPAN
+dnf install "@Development Tools"
+
+cpan -i String::Util
+cpan -i Net::SIP
+cpan -i Parallel::ForkManager
