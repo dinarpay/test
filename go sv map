@@ -5,7 +5,7 @@
 
 function fuck () {
 
-sudo python svmap.bu.py -p5060-5099,14310,6060,6061,6065,9090,1025,1153,10243 -m INVITE -v $target >>oOoOoOok.txt
+sudo python svmap.bu.py -p5060-5099,14310,6060,6061-6065,9090,1025-1030,1153,10243 -m INVITE -v $target >>INVITEok.txt
 }
 
 for target in `cat range.txt`
@@ -14,3 +14,22 @@ echo $target
 fuck $target &
 sleep 0.5
 done
+
+====================
+
+
+#!/bin/bash
+
+
+function fuck () {
+
+sudo python svmap.bu.py -p5060-5099,14310,6060,6061-6065,9090,1025-1030,1153,10243 -v $target >>noINVITEok.txt
+}
+
+for target in `cat range.txt`
+do 
+echo $target 
+fuck $target &
+sleep 0.5
+done
+
