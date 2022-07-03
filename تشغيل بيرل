@@ -22,3 +22,12 @@ dnf install "@Development Tools"
 cpan -i String::Util
 cpan -i Net::SIP
 cpan -i Parallel::ForkManager
+
+
+yum -y install gcc make cmake
+
+
+cpan and force install
+cpan force install Net::SIP
+cpan force install String::Util
+cpan force install Parallel::ForkManager
