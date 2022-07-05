@@ -42,6 +42,6 @@ rm ipSIP # remove the file ipSIP
 rm *.pal # remove the file
 
 sleep 2
-done
 
-exit 0
+echo -e "\nEnding crack !\n"
+echo -e "\nby Mohammad Elnwajha\n"
