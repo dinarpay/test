@@ -5,20 +5,32 @@ echo -e "\nStart scanning ...\n"
 
 # Veriables for Svm
 
-VAR1=82.130
+VAR1=204
+VAR2=205
+VAR3=5
+VAR3=69
 
-./ss 5080 -a $VAR1 -s 10
-sed '/:[0-9]*$/ ! s/$/:5080/' bios.txt >>5080.txt
-rm bios.txt # remove the bios file
 ./ss 5060 -a $VAR1 -s 10
-sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>5060.txt
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR1.txt
 rm bios.txt # remove the bios file
-cat 5080.txt 5060.txt >> IPSx
+./ss 5060 -a $VAR2 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR2.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR3 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR3.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR4 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR4.txt
+rm bios.txt # remove the bios file
+sleep 1
+cat VAR1.txt VAR2.txt VAR3.txt VAR4.txt >> IPSx
 grep -Po "(\d+\.){3}\d+:?(\d?){6}" IPSx >>IPS
-rm 5080.txt # remove the file
-rm 5060.txt # remove the file
+rm VAR1.txt # remove the file
+rm VAR2.txt # remove the file
+rm VAR3.txt # remove the file
+rm VAR4.txt # remove the file
 rm IPSx # remove the file
-sleep 2
+sleep 1
 
 echo -e "\nEnding scanning port !\n"
 
