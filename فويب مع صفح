@@ -1,6 +1,8 @@
 docker pull russmckendrick/sipvicious
 docker run -i russmckendrick/sipvicious
 
+
+
 # Veriables for Svmap  and whatweb 
 
 VAR1=192.168.0.0/16
@@ -34,21 +36,21 @@ echo ----------------------------------------------------------------- | tee -a 
 # port scanner web 
 
      echo ----------------$VAR1----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR1 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR1 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR1 >> ip192.txt # Save scan web Range 
 python3 fileformatter1.py # here we clean the brut file
 cat ip192.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
 rm ip192.txt # remove the temporary file
 
      echo ----------------$VAR2----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR2 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR2 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR2 >> ip10.txt # Save scan web Range 
 python3 fileformatter2.py # here we clean the brut file
 cat ip10.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
 rm ip10.txt # remove the temporary file
 
      echo ----------------$VAR3----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR3 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR3 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR3 >> ip172.txt # Save scan web Range 
 python3 fileformatter3.py # here we clean the brut file
 cat ip172.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
@@ -61,98 +63,98 @@ cat ip172n.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 
 rm ip172n.txt # remove the temporary file
 
      echo ----------------$VAR5----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR5 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR5 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR5 >> ip172.txt # Save scan web Range 
 python3 fileformatter3.py # here we clean the brut file
 cat ip172.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
 rm ip172.txt # remove the temporary file
 
      echo ----------------$VAR6----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR6 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR6 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR6 >> ip172.txt # Save scan web Range 
 python3 fileformatter3.py # here we clean the brut file
 cat ip172.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
 rm ip172.txt # remove the temporary file
 
      echo ----------------$VAR7----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR7 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR7 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR7 >> ip172.txt # Save scan web Range 
 python3 fileformatter3.py # here we clean the brut file
 cat ip172.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
 rm ip172.txt # remove the temporary file
 
      echo ----------------$VAR8----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR8 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR8 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR8 >> ip172.txt # Save scan web Range 
 python3 fileformatter3.py # here we clean the brut file
 cat ip172.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
 rm ip172.txt # remove the temporary file
 
      echo ----------------$VAR9----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR9 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR9 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR9 >> ip172.txt # Save scan web Range 
 python3 fileformatter3.py # here we clean the brut file
 cat ip172.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
 rm ip172.txt # remove the temporary file
 
      echo ----------------$VAR10----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR10 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR10 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR10 >> ip172.txt # Save scan web Range 
 python3 fileformatter3.py # here we clean the brut file
 cat ip172.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
 rm ip172.txt # remove the temporary file
 
      echo ----------------$VAR11----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR11 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR11 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR11 >> ip172.txt # Save scan web Range 
 python3 fileformatter3.py # here we clean the brut file
 cat ip172.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
 rm ip172.txt # remove the temporary file
 
      echo ----------------$VAR12----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR12 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR12 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR12 >> ip172.txt # Save scan web Range 
 python3 fileformatter3.py # here we clean the brut file
 cat ip172.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
 rm ip172.txt # remove the temporary file
 
      echo ----------------$VAR13----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR13 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR13 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR13 >> ip172.txt # Save scan web Range 
 python3 fileformatter3.py # here we clean the brut file
 cat ip172.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
 rm ip172.txt # remove the temporary file
 
      echo ----------------$VAR14----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR14 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR14 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR14 >> ip172.txt # Save scan web Range 
 python3 fileformatter3.py # here we clean the brut file
 cat ip172.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
 rm ip172.txt # remove the temporary file
 
      echo ----------------$VAR15----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR15 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR15 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR15 >> ip172.txt # Save scan web Range 
 python3 fileformatter3.py # here we clean the brut file
 cat ip172.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
 rm ip172.txt # remove the temporary file
 
      echo ----------------$VAR16----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR16 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR16 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR16 >> ip172.txt # Save scan web Range 
 python3 fileformatter3.py # here we clean the brut file
 cat ip172.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
 rm ip172.txt # remove the temporary file
 
      echo ----------------$VAR17----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR17 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR17 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR17 >> ip172.txt # Save scan web Range 
 python3 fileformatter3.py # here we clean the brut file
 cat ip172.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
 rm ip172.txt # remove the temporary file
 
      echo ----------------$VAR18----------------
-python svmap.bu.py -p5060  -p5060-5062 $VAR18 -t0.0 -v -m INVITE >> results.txt
+python svmap.bu.py -p5060 $VAR18 -t0.0 -v -m INVITE >> results.txt
 docker run --rm sha512sum/masscan -p443,80,9090,8000,8080,8081,8089 --rate=10000 $VAR18 >> ip172.txt # Save scan web Range 
 python3 fileformatter3.py # here we clean the brut file
 cat ip172.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> results.txt
