@@ -11,4 +11,4 @@ sed '/:[0-9]*$/ ! s/$/:14310/' bios.txt >>14310.txt
 seq 10000 100000 >>number.txt
 
 تشغيل السكربت فى الخلفية
-screen python ./new.py
+screen python ./Masscan2Httpx2Dir.py
