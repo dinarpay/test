@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# SIP Responses
+
+echo -e "\nStart SIP Responses ...\n"
+
+grep -Po "(\d+\.){3}\d+:?(\d?){6}" oOoOoOok.txt > IPS
+perl run IPS
+cat 401.pal 400.pal 403.pal 404.pal >> ipSIP.txt
+rm IPS # remove the file IPS
+sleep 2
+
+echo -e "\nEnding Responses !\n"
+
+# ip extractor
+echo -e "\nStart ip extractor ...\n"
+
+grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" ipSIP.txt > ipGOOD.txt
+sort -u ipGOOD.txt > ipsssss.txt
+rm ipSIP.txt # remove the file IPS
+rm ipGOOD.txt
+
+echo -e "\nEnding ip extractor !\n"
+
+# Check the validity of the IPs
+
+echo -e "\nStart Check the validity of the IPs ...\n"
+
+cat ipsssss.txt | perl -lane 'use warnings; use strict; for my $i (@F){if ($i =~/^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[1-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){2}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$/) { print $i; } }' > rU
+rm ipsssss.txt # remove the file IPS
+rm *.pal # remove the file
+
+echo -e "\nEnding Check the validity of the IPs !\n"
+
+# scan VOIP
+
+echo -e "\nStart crack ...\n"
+
+python test.py rU 2500
+
+echo -e "\nEnding crack !\n"
+
+sleep 5
+
+echo -e "\nEnding crack !\n"
+echo -e "\nby Mohammad Elnwajha\n"
