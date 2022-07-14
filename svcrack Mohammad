@@ -1298,7 +1298,7 @@ echo -e "\nStart SIP Responses ...\n"
 
 grep -Po "(\d+\.){3}\d+:?(\d?){6}" =212result.txt > IPS
 perl run IPS
-cat 401.pal 400.pal 403.pal 404.pal 500.pal >> ipSIP.txt
+cat 401.pal 400.pal 403.pal 404.pal 500.pal 486.pal 484.pal 407.pal 480.pal 482.pal  >> ipSIP.txt
 rm IPS # remove the file IPS
 mv =212result.txt =212.txt # change file name
 sleep 1
@@ -1308,7 +1308,7 @@ echo -e "\nEnding Responses !\n"
 # ip extractor
 echo -e "\nStart ip extractor ...\n"
 
-grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" =212.txt > ipGOOD.txt
+grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" ipSIP.txt > ipGOOD.txt
 sort -u ipGOOD.txt > ipsssss.txt
 rm ipSIP.txt # remove the file IPS
 rm ipGOOD.txt
