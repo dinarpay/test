@@ -12,6 +12,18 @@ apt install python3-pip
 apt install docker.io
 docker pull projectdiscovery/httpx
 
+=============================================================
+# Centos
+sudo yum groupinstall -y "Development Tools"
+sudo yum install -y libpcap libpcap-devel
+git clone https://github.com/robertdavidgraham/masscan
+cd masscan
+make
+sudo make install
+
+=============================================================
+
+
 massscan.sh
 
 #!/bin/bash
