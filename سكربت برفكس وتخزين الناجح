@@ -3,7 +3,7 @@
 # Testing SIP prefix
 echo -e "\nStart Testing ...\n"
 
-perl call line.txt 1000 50 >> test.txt
+perl call line.txt 500 40 >> test.txt
 
 grep "success" test.txt > CALL.txt
 sort -u CALL.txt > successCALL.txt
