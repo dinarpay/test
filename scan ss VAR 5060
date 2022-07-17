@@ -129,7 +129,7 @@ rm VAR20.txt # remove the file
 rm VAR21.txt # remove the file
 rm VAR22.txt # remove the file
 rm VAR23.txt # remove the file
-rm IPSx # remove the file
+rm IPSxtest # remove the file
 sleep 1
 
 echo -e "\nEnding scanning port !\n"
@@ -152,7 +152,7 @@ echo -e "\nStart scan ports ...\n"
 grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" ipSIP > ipSIPweb
 masscan -iL ipSIPweb -p443,80,81,82,83,84,85,86,87,88,89,90,8000,8001,8008,8014,8015,8020,8028,8040,8080,8081,8082,8085,8088,8090,8118,8123,8180,8181,8182,8222,8243,8280,8300,8800,8888,8899,8983,9000,9002,9060,9080,9090,9091 --rate=200000 -oL masscan.txt
 awk '{print $4 ":" $3}' masscan.txt > masscannew.txt # Save scan masscan Range 
-cat masscannew.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 500 -leave-default-ports -nc -v >> Httpxresult.txt
+cat masscannew.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 500 -leave-default-ports -nc -v >> Titleresult.txt
 rm masscan.txt # remove the temporary file
 rm masscannew.txt # remove the temporary file
 rm ipSIPweb # remove the temporary file
@@ -160,16 +160,32 @@ sleep 5
 
 echo -e "\nEnding scan port !\n"
 
+# Scan Dir
+
+echo -e "\nStart scan dir ...\n"
+
+grep -Po "(\d+\.){3}\d+:?(\d?){6}" Titleresult.txt >>Titleresulttest.txt
+cat Titleresulttest.txt | docker run -i projectdiscovery/httpx -t 500 -nc -v >> testhttpresult.txt
+python editIP.py
+split -l 25000 -d --additional-suffix=.txt out.txt /root/ss/hosts/Pal-
+python new.py
+rm Titleresulttest.txt # remove the temporary file
+rm testhttpresult.txt # remove the temporary file
+rm out.txt # remove the temporary file
+rm hosts/Pal-*.txt # remove the file
+sleep 2
+
+echo -e "\nEnding scan dir !\n"
 
 # SIP Crack
 
 echo -e "\nStart SIP Crack ...\n"
 
-perl Crack 1000 2 ipSIP
+perl Crack 5000 2 ipSIP
 rm ipSIP # remove the file ipSIP
 rm *.pal # remove the file
 
-sleep 2
+sleep 1
 
 # Testing SIP prefix
 
