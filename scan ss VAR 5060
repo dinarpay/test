@@ -139,7 +139,7 @@ echo -e "\nEnding scanning port !\n"
 echo -e "\nStart SIP Responses ...\n"
 
 perl run IPS
-cat 403.pal 404.pal >> ipSIP
+cat 401.pal 400.pal 403.pal 404.pal 500.pal >> ipSIP
 rm IPS # remove the file IPS
 sleep 2
 
