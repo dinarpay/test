@@ -1,0 +1,20 @@
+yum update -y
+yum install epel-release -y
+yum install python-devel python-setuptools python-pip -y
+
+
+sudo yum groupinstall -y "Development Tools"
+sudo yum install -y libpcap libpcap-devel
+git clone https://github.com/robertdavidgraham/masscan
+cd masscan
+make
+sudo make install
+
+sudo yum check-update
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum install docker
+sudo systemctl start docker
+
+docker pull projectdiscovery/httpx
+
