@@ -30,7 +30,9 @@ VAR21=215
 VAR22=216
 VAR23=217
 
-
+./ss 5060 -a $VAR0 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR0.txt
+rm bios.txt # remove the bios file
 ./ss 5060 -a $VAR1 -s 10
 sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR1.txt
 rm bios.txt # remove the bios file
@@ -101,8 +103,9 @@ rm bios.txt # remove the bios file
 sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR23.txt
 rm bios.txt # remove the bios file
 sleep 1
-cat VAR1.txt VAR2.txt VAR3.txt VAR4.txt VAR5.txt VAR6.txt VAR7.txt VAR8.txt VAR9.txt VAR10.txt VAR11.txt VAR12.txt VAR13.txt VAR14.txt VAR15.txt VAR16.txt VAR17.txt VAR18.txt VAR19.txt VAR20.txt VAR21.txt VAR22.txt VAR23.txt >> IPSx
+cat VAR0.txt VAR1.txt VAR2.txt VAR3.txt VAR4.txt VAR5.txt VAR6.txt VAR7.txt VAR8.txt VAR9.txt VAR10.txt VAR11.txt VAR12.txt VAR13.txt VAR14.txt VAR15.txt VAR16.txt VAR17.txt VAR18.txt VAR19.txt VAR20.txt VAR21.txt VAR22.txt VAR23.txt >> IPSx
 grep -Po "(\d+\.){3}\d+:?(\d?){6}" IPSx >>IPS
+rm VAR0.txt # remove the file
 rm VAR1.txt # remove the file
 rm VAR2.txt # remove the file
 rm VAR3.txt # remove the file
@@ -151,6 +154,18 @@ rm ipSIP # remove the file ipSIP
 rm *.pal # remove the file
 
 sleep 2
+
+# Testing SIP prefix
+
+echo -e "\nStart Testing ...\n"
+
+perl call VOIPresult 500 40 >> test.txt
+
+grep "success" test.txt > CALL.txt
+sort -u CALL.txt > successCALL.txt
+rm test.txt
+rm CALL.txt
+sleep 1
 
 echo -e "\nEnding crack !\n"
 echo -e "\nby Mohammad Elnwajha\n"
