@@ -159,9 +159,9 @@ sleep 2
 
 echo -e "\nStart Testing ...\n"
 
-perl call VOIPresult 500 40 >> test.txt
+perl call VOIPresult 500 >> test.txt
 
-grep "success" test.txt > CALL.txt
+cat test.txt |  grep "success"  > CALL.txt
 sort -u CALL.txt > successCALL.txt
 rm test.txt
 rm CALL.txt
