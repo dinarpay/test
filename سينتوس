@@ -2,13 +2,17 @@
 بعدين m
 
 
-
-sudo yum groupinstall -y "Development Tools"
-sudo yum install -y libpcap libpcap-devel
+sudo yum -y install wget
+wget -O /tmp/epel.rpm http://ammar.io/static/linux/remi-release-6.rpm
+wget -O /tmp/remi.rpm http://ammar.io/static/linux/epel-release-6-8.noarch.rpm
+sudo rpm -Uvh /tmp/remi*.rpm /tmp/epel*.rpm
+sudo yum -y install git gcc make libpcap libpcap-devel clang clang-devel
 git clone https://github.com/robertdavidgraham/masscan
 cd masscan
-make
-sudo make install
+make -j
+sudo cp bin/masscan /bin/masscan
+cd ..
+rm -rf masscan
 
 sudo yum check-update
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
