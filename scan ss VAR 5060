@@ -145,6 +145,22 @@ sleep 2
 
 echo -e "\nEnding Responses !\n"
 
+# Scan masscan ports
+
+echo -e "\nStart scan ports ...\n"
+
+grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" ipSIP > ipSIPweb
+masscan -iL ipSIPweb -p443,80,81,82,83,84,85,86,87,88,89,90,8000,8001,8008,8014,8015,8020,8028,8040,8080,8081,8082,8085,8088,8090,8118,8123,8180,8181,8182,8222,8243,8280,8300,8800,8888,8899,8983,9000,9002,9060,9080,9090,9091 --rate=200000 -oL masscan.txt
+awk '{print $4 ":" $3}' masscan.txt > masscannew.txt # Save scan masscan Range 
+cat masscannew.txt | docker run -i projectdiscovery/httpx -sc -title -server -t 500 -leave-default-ports -nc -v >> Httpxresult.txt
+rm masscan.txt # remove the temporary file
+rm masscannew.txt # remove the temporary file
+rm ipSIPweb # remove the temporary file
+sleep 5
+
+echo -e "\nEnding scan port !\n"
+
+
 # SIP Crack
 
 echo -e "\nStart SIP Crack ...\n"
@@ -159,7 +175,7 @@ sleep 2
 
 echo -e "\nStart Testing ...\n"
 
-perl call VOIPresult 500 >> test.txt
+perl call VOIPresult 500 50 >> test.txt
 
 cat test.txt |  grep "success"  > CALL.txt
 sort -u CALL.txt > successCALL.txt
