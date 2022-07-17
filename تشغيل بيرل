@@ -19,6 +19,8 @@ rpm -qa | grep -i perl-5.16
 dnf install perl-CPAN
 dnf install "@Development Tools"
 
+cpan String::Utilcpan String::Util
+
 cpan -i String::Util
 cpan -i Net::SIP
 cpan -i Parallel::ForkManager
