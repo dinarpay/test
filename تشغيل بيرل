@@ -31,3 +31,7 @@ cpan and force install
 cpan force install Net::SIP
 cpan force install String::Util
 cpan force install Parallel::ForkManager
+
+لحظف واعادة من جديد
+
+rm -rf ~/perl5
