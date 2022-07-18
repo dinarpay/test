@@ -27,3 +27,15 @@ yum install epel-release -y
 yum install python-devel python-setuptools python-pip -y
 
 
+./ss.sh
+./m.sh
+
+cpan String::Utilcpan String::Util
+
+سكربت dir
+sudo yum install -y --enablerepo="epel" python-pip
+pip install -r reg.txt
+
+curl -O https://bootstrap.pypa.io/get-pip.py
+python get-pip.py --user
+python -m pip install reg.txt
