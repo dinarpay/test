@@ -261,769 +261,769 @@ VAR254=254.0.0.0/8
 VAR255=255.0.0.0/8
 
          echo ----------------- $VAR1----------------
-python svmap.py -t0.0 $VAR1 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR1 -v >> Allworldresult.txt
 
          echo ----------------- $VAR2----------------
-python svmap.py -t0.0 $VAR2 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR2 -v >> Allworldresult.txt
 
          echo ----------------- $VAR3----------------
-python svmap.py -t0.0 $VAR3 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR3 -v >> Allworldresult.txt
 
          echo ----------------- $VAR4----------------
-python svmap.py -t0.0 $VAR4 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR4 -v >> Allworldresult.txt
 
          echo ----------------- $VAR5----------------
-python svmap.py -t0.0 $VAR5 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR5 -v >> Allworldresult.txt
 
          echo ----------------- $VAR6----------------
-python svmap.py -t0.0 $VAR6 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR6 -v >> Allworldresult.txt
 
          echo ----------------- $VAR7----------------
-python svmap.py -t0.0 $VAR7 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR7 -v >> Allworldresult.txt
 
          echo ----------------- $VAR8----------------
-python svmap.py -t0.0 $VAR8 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR8 -v >> Allworldresult.txt
 
          echo ----------------- $VAR9----------------
-python svmap.py -t0.0 $VAR9 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR9 -v >> Allworldresult.txt
 
          echo ----------------- $VAR10----------------
-python svmap.py -t0.0 $VAR10 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR10 -v >> Allworldresult.txt
 
          echo ----------------- $VAR11----------------
-python svmap.py -t0.0 $VAR11 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR11 -v >> Allworldresult.txt
 
          echo ----------------- $VAR12----------------
-python svmap.py -t0.0 $VAR12 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR12 -v >> Allworldresult.txt
 
          echo ----------------- $VAR13----------------
-python svmap.py -t0.0 $VAR13 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR13 -v >> Allworldresult.txt
 
          echo ----------------- $VAR14----------------
-python svmap.py -t0.0 $VAR14 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR14 -v >> Allworldresult.txt
 
          echo ----------------- $VAR15----------------
-python svmap.py -t0.0 $VAR15 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR15 -v >> Allworldresult.txt
 
          echo ----------------- $VAR16----------------
-python svmap.py -t0.0 $VAR16 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR16 -v >> Allworldresult.txt
 
          echo ----------------- $VAR17----------------
-python svmap.py -t0.0 $VAR17 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR17 -v >> Allworldresult.txt
 
          echo ----------------- $VAR18----------------
-python svmap.py -t0.0 $VAR18 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR18 -v >> Allworldresult.txt
 
          echo ----------------- $VAR19----------------
-python svmap.py -t0.0 $VAR19 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR19 -v >> Allworldresult.txt
 
          echo ----------------- $VAR20----------------
-python svmap.py -t0.0 $VAR20 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR20 -v >> Allworldresult.txt
 
          echo ----------------- $VAR21----------------
-python svmap.py -t0.0 $VAR21 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR21 -v >> Allworldresult.txt
 
          echo ----------------- $VAR22----------------
-python svmap.py -t0.0 $VAR22 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR22 -v >> Allworldresult.txt
 
          echo ----------------- $VAR23----------------
-python svmap.py -t0.0 $VAR23 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR23 -v >> Allworldresult.txt
 
          echo ----------------- $VAR24----------------
-python svmap.py -t0.0 $VAR24 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR24 -v >> Allworldresult.txt
 
          echo ----------------- $VAR25----------------
-python svmap.py -t0.0 $VAR25 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR25 -v >> Allworldresult.txt
 
          echo ----------------- $VAR26----------------
-python svmap.py -t0.0 $VAR26 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR26 -v >> Allworldresult.txt
 
          echo ----------------- $VAR27----------------
-python svmap.py -t0.0 $VAR27 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR27 -v >> Allworldresult.txt
 
          echo ----------------- $VAR28----------------
-python svmap.py -t0.0 $VAR28 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR28 -v >> Allworldresult.txt
 
          echo ----------------- $VAR29----------------
-python svmap.py -t0.0 $VAR29 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR29 -v >> Allworldresult.txt
 
          echo ----------------- $VAR30----------------
-python svmap.py -t0.0 $VAR30 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR30 -v >> Allworldresult.txt
 
          echo ----------------- $VAR31----------------
-python svmap.py -t0.0 $VAR31 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR31 -v >> Allworldresult.txt
 
          echo ----------------- $VAR32----------------
-python svmap.py -t0.0 $VAR32 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR32 -v >> Allworldresult.txt
 
          echo ----------------- $VAR33----------------
-python svmap.py -t0.0 $VAR33 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR33 -v >> Allworldresult.txt
 
          echo ----------------- $VAR34----------------
-python svmap.py -t0.0 $VAR34 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR34 -v >> Allworldresult.txt
 
          echo ----------------- $VAR35----------------
-python svmap.py -t0.0 $VAR35 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR35 -v >> Allworldresult.txt
 
          echo ----------------- $VAR36----------------
-python svmap.py -t0.0 $VAR36 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR36 -v >> Allworldresult.txt
 
          echo ----------------- $VAR37----------------
-python svmap.py -t0.0 $VAR37 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR37 -v >> Allworldresult.txt
 
          echo ----------------- $VAR38----------------
-python svmap.py -t0.0 $VAR38 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR38 -v >> Allworldresult.txt
 
          echo ----------------- $VAR39----------------
-python svmap.py -t0.0 $VAR39 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR39 -v >> Allworldresult.txt
 
          echo ----------------- $VAR40----------------
-python svmap.py -t0.0 $VAR40 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR40 -v >> Allworldresult.txt
 
          echo ----------------- $VAR41----------------
-python svmap.py -t0.0 $VAR41 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR41 -v >> Allworldresult.txt
 
          echo ----------------- $VAR42----------------
-python svmap.py -t0.0 $VAR42 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR42 -v >> Allworldresult.txt
 
          echo ----------------- $VAR43----------------
-python svmap.py -t0.0 $VAR43 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR43 -v >> Allworldresult.txt
 
          echo ----------------- $VAR44----------------
-python svmap.py -t0.0 $VAR44 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR44 -v >> Allworldresult.txt
 
          echo ----------------- $VAR45----------------
-python svmap.py -t0.0 $VAR45 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR45 -v >> Allworldresult.txt
 
          echo ----------------- $VAR46----------------
-python svmap.py -t0.0 $VAR46 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR46 -v >> Allworldresult.txt
 
          echo ----------------- $VAR47----------------
-python svmap.py -t0.0 $VAR47 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR47 -v >> Allworldresult.txt
 
          echo ----------------- $VAR48----------------
-python svmap.py -t0.0 $VAR48 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR48 -v >> Allworldresult.txt
 
          echo ----------------- $VAR49----------------
-python svmap.py -t0.0 $VAR49 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR49 -v >> Allworldresult.txt
 
          echo ----------------- $VAR50----------------
-python svmap.py -t0.0 $VAR50 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR50 -v >> Allworldresult.txt
 
          echo ----------------- $VAR51----------------
-python svmap.py -t0.0 $VAR51 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR51 -v >> Allworldresult.txt
 
          echo ----------------- $VAR52----------------
-python svmap.py -t0.0 $VAR52 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR52 -v >> Allworldresult.txt
 
          echo ----------------- $VAR53----------------
-python svmap.py -t0.0 $VAR53 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR53 -v >> Allworldresult.txt
 
          echo ----------------- $VAR54----------------
-python svmap.py -t0.0 $VAR54 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR54 -v >> Allworldresult.txt
 
          echo ----------------- $VAR55----------------
-python svmap.py -t0.0 $VAR55 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR55 -v >> Allworldresult.txt
 
          echo ----------------- $VAR56----------------
-python svmap.py -t0.0 $VAR56 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR56 -v >> Allworldresult.txt
 
          echo ----------------- $VAR57----------------
-python svmap.py -t0.0 $VAR57 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR57 -v >> Allworldresult.txt
 
          echo ----------------- $VAR58----------------
-python svmap.py -t0.0 $VAR58 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR58 -v >> Allworldresult.txt
 
          echo ----------------- $VAR59----------------
-python svmap.py -t0.0 $VAR59 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR59 -v >> Allworldresult.txt
 
          echo ----------------- $VAR60----------------
-python svmap.py -t0.0 $VAR60 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR60 -v >> Allworldresult.txt
 
          echo ----------------- $VAR61----------------
-python svmap.py -t0.0 $VAR61 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR61 -v >> Allworldresult.txt
 
          echo ----------------- $VAR62----------------
-python svmap.py -t0.0 $VAR62 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR62 -v >> Allworldresult.txt
 
          echo ----------------- $VAR63----------------
-python svmap.py -t0.0 $VAR63 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR63 -v >> Allworldresult.txt
 
          echo ----------------- $VAR64----------------
-python svmap.py -t0.0 $VAR64 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR64 -v >> Allworldresult.txt
 
          echo ----------------- $VAR65----------------
-python svmap.py -t0.0 $VAR65 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR65 -v >> Allworldresult.txt
 
          echo ----------------- $VAR66----------------
-python svmap.py -t0.0 $VAR66 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR66 -v >> Allworldresult.txt
 
          echo ----------------- $VAR67----------------
-python svmap.py -t0.0 $VAR67 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR67 -v >> Allworldresult.txt
 
          echo ----------------- $VAR68----------------
-python svmap.py -t0.0 $VAR68 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR68 -v >> Allworldresult.txt
 
          echo ----------------- $VAR69----------------
-python svmap.py -t0.0 $VAR69 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR69 -v >> Allworldresult.txt
 
          echo ----------------- $VAR70----------------
-python svmap.py -t0.0 $VAR70 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR70 -v >> Allworldresult.txt
 
          echo ----------------- $VAR71----------------
-python svmap.py -t0.0 $VAR71 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR71 -v >> Allworldresult.txt
 
          echo ----------------- $VAR72----------------
-python svmap.py -t0.0 $VAR72 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR72 -v >> Allworldresult.txt
 
          echo ----------------- $VAR73----------------
-python svmap.py -t0.0 $VAR73 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR73 -v >> Allworldresult.txt
 
          echo ----------------- $VAR74----------------
-python svmap.py -t0.0 $VAR74 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR74 -v >> Allworldresult.txt
 
          echo ----------------- $VAR75----------------
-python svmap.py -t0.0 $VAR75 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR75 -v >> Allworldresult.txt
 
          echo ----------------- $VAR76----------------
-python svmap.py -t0.0 $VAR76 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR76 -v >> Allworldresult.txt
 
          echo ----------------- $VAR77----------------
-python svmap.py -t0.0 $VAR77 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR77 -v >> Allworldresult.txt
 
          echo ----------------- $VAR78----------------
-python svmap.py -t0.0 $VAR78 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR78 -v >> Allworldresult.txt
 
          echo ----------------- $VAR79----------------
-python svmap.py -t0.0 $VAR79 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR79 -v >> Allworldresult.txt
 
          echo ----------------- $VAR80----------------
-python svmap.py -t0.0 $VAR80 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR80 -v >> Allworldresult.txt
 
          echo ----------------- $VAR81----------------
-python svmap.py -t0.0 $VAR81 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR81 -v >> Allworldresult.txt
 
          echo ----------------- $VAR82----------------
-python svmap.py -t0.0 $VAR82 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR82 -v >> Allworldresult.txt
 
          echo ----------------- $VAR83----------------
-python svmap.py -t0.0 $VAR83 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR83 -v >> Allworldresult.txt
 
          echo ----------------- $VAR84----------------
-python svmap.py -t0.0 $VAR84 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR84 -v >> Allworldresult.txt
 
          echo ----------------- $VAR85----------------
-python svmap.py -t0.0 $VAR85 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR85 -v >> Allworldresult.txt
 
          echo ----------------- $VAR86----------------
-python svmap.py -t0.0 $VAR86 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR86 -v >> Allworldresult.txt
 
          echo ----------------- $VAR87----------------
-python svmap.py -t0.0 $VAR87 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR87 -v >> Allworldresult.txt
 
          echo ----------------- $VAR88----------------
-python svmap.py -t0.0 $VAR88 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR88 -v >> Allworldresult.txt
 
          echo ----------------- $VAR89----------------
-python svmap.py -t0.0 $VAR89 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR89 -v >> Allworldresult.txt
 
          echo ----------------- $VAR90----------------
-python svmap.py -t0.0 $VAR90 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR90 -v >> Allworldresult.txt
 
          echo ----------------- $VAR91----------------
-python svmap.py -t0.0 $VAR91 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR91 -v >> Allworldresult.txt
 
          echo ----------------- $VAR92----------------
-python svmap.py -t0.0 $VAR92 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR92 -v >> Allworldresult.txt
 
          echo ----------------- $VAR93----------------
-python svmap.py -t0.0 $VAR93 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR93 -v >> Allworldresult.txt
 
          echo ----------------- $VAR94----------------
-python svmap.py -t0.0 $VAR94 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR94 -v >> Allworldresult.txt
 
          echo ----------------- $VAR95----------------
-python svmap.py -t0.0 $VAR95 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR95 -v >> Allworldresult.txt
 
          echo ----------------- $VAR96----------------
-python svmap.py -t0.0 $VAR96 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR96 -v >> Allworldresult.txt
 
          echo ----------------- $VAR97----------------
-python svmap.py -t0.0 $VAR97 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR97 -v >> Allworldresult.txt
 
          echo ----------------- $VAR98----------------
-python svmap.py -t0.0 $VAR98 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR98 -v >> Allworldresult.txt
 
          echo ----------------- $VAR99----------------
-python svmap.py -t0.0 $VAR99 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR99 -v >> Allworldresult.txt
 
          echo ----------------- $VAR100----------------
-python svmap.py -t0.0 $VAR100 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR100 -v >> Allworldresult.txt
 
          echo ----------------- $VAR101----------------
-python svmap.py -t0.0 $VAR101 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR101 -v >> Allworldresult.txt
 
          echo ----------------- $VAR102----------------
-python svmap.py -t0.0 $VAR102 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR102 -v >> Allworldresult.txt
 
          echo ----------------- $VAR103----------------
-python svmap.py -t0.0 $VAR103 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR103 -v >> Allworldresult.txt
 
          echo ----------------- $VAR104----------------
-python svmap.py -t0.0 $VAR104 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR104 -v >> Allworldresult.txt
 
          echo ----------------- $VAR105----------------
-python svmap.py -t0.0 $VAR105 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR105 -v >> Allworldresult.txt
 
          echo ----------------- $VAR106----------------
-python svmap.py -t0.0 $VAR106 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR106 -v >> Allworldresult.txt
 
          echo ----------------- $VAR107----------------
-python svmap.py -t0.0 $VAR107 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR107 -v >> Allworldresult.txt
 
          echo ----------------- $VAR108----------------
-python svmap.py -t0.0 $VAR108 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR108 -v >> Allworldresult.txt
 
          echo ----------------- $VAR109----------------
-python svmap.py -t0.0 $VAR109 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR109 -v >> Allworldresult.txt
 
          echo ----------------- $VAR110----------------
-python svmap.py -t0.0 $VAR110 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR110 -v >> Allworldresult.txt
 
          echo ----------------- $VAR111----------------
-python svmap.py -t0.0 $VAR111 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR111 -v >> Allworldresult.txt
 
          echo ----------------- $VAR112----------------
-python svmap.py -t0.0 $VAR112 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR112 -v >> Allworldresult.txt
 
          echo ----------------- $VAR113----------------
-python svmap.py -t0.0 $VAR113 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR113 -v >> Allworldresult.txt
 
          echo ----------------- $VAR114----------------
-python svmap.py -t0.0 $VAR114 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR114 -v >> Allworldresult.txt
 
          echo ----------------- $VAR115----------------
-python svmap.py -t0.0 $VAR115 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR115 -v >> Allworldresult.txt
 
          echo ----------------- $VAR116----------------
-python svmap.py -t0.0 $VAR116 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR116 -v >> Allworldresult.txt
 
          echo ----------------- $VAR117----------------
-python svmap.py -t0.0 $VAR117 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR117 -v >> Allworldresult.txt
 
          echo ----------------- $VAR118----------------
-python svmap.py -t0.0 $VAR118 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR118 -v >> Allworldresult.txt
 
          echo ----------------- $VAR119----------------
-python svmap.py -t0.0 $VAR119 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR119 -v >> Allworldresult.txt
 
          echo ----------------- $VAR120----------------
-python svmap.py -t0.0 $VAR120 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR120 -v >> Allworldresult.txt
 
          echo ----------------- $VAR121----------------
-python svmap.py -t0.0 $VAR121 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR121 -v >> Allworldresult.txt
 
          echo ----------------- $VAR122----------------
-python svmap.py -t0.0 $VAR122 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR122 -v >> Allworldresult.txt
 
          echo ----------------- $VAR123----------------
-python svmap.py -t0.0 $VAR123 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR123 -v >> Allworldresult.txt
 
          echo ----------------- $VAR124----------------
-python svmap.py -t0.0 $VAR124 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR124 -v >> Allworldresult.txt
 
          echo ----------------- $VAR125----------------
-python svmap.py -t0.0 $VAR125 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR125 -v >> Allworldresult.txt
 
          echo ----------------- $VAR126----------------
-python svmap.py -t0.0 $VAR126 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR126 -v >> Allworldresult.txt
 
          echo ----------------- $VAR127----------------
-python svmap.py -t0.0 $VAR127 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR127 -v >> Allworldresult.txt
 
          echo ----------------- $VAR128----------------
-python svmap.py -t0.0 $VAR4128 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR4128 -v >> Allworldresult.txt
 
          echo ----------------- $VAR129----------------
-python svmap.py -t0.0 $VAR129 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR129 -v >> Allworldresult.txt
 
          echo ----------------- $VAR130----------------
-python svmap.py -t0.0 $VAR130 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR130 -v >> Allworldresult.txt
 
          echo ----------------- $VAR131----------------
-python svmap.py -t0.0 $VAR131 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR131 -v >> Allworldresult.txt
 
          echo ----------------- $VAR132----------------
-python svmap.py -t0.0 $VAR132 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR132 -v >> Allworldresult.txt
 
          echo ----------------- $VAR133----------------
-python svmap.py -t0.0 $VAR133 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR133 -v >> Allworldresult.txt
 
          echo ----------------- $VAR134----------------
-python svmap.py -t0.0 $VAR134 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR134 -v >> Allworldresult.txt
 
          echo ----------------- $VAR135----------------
-python svmap.py -t0.0 $VAR135 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR135 -v >> Allworldresult.txt
 
          echo ----------------- $VAR136----------------
-python svmap.py -t0.0 $VAR136 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR136 -v >> Allworldresult.txt
 
          echo ----------------- $VAR137----------------
-python svmap.py -t0.0 $VAR137 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR137 -v >> Allworldresult.txt
 
          echo ----------------- $VAR138----------------
-python svmap.py -t0.0 $VAR138 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR138 -v >> Allworldresult.txt
 
          echo ----------------- $VAR139----------------
-python svmap.py -t0.0 $VAR139 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR139 -v >> Allworldresult.txt
 
          echo ----------------- $VAR140----------------
-python svmap.py -t0.0 $VAR140 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR140 -v >> Allworldresult.txt
 
          echo ----------------- $VAR141----------------
-python svmap.py -t0.0 $VAR141 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR141 -v >> Allworldresult.txt
 
          echo ----------------- $VAR142----------------
-python svmap.py -t0.0 $VAR142 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR142 -v >> Allworldresult.txt
 
          echo ----------------- $VAR143----------------
-python svmap.py -t0.0 $VAR143 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR143 -v >> Allworldresult.txt
 
          echo ----------------- $VAR144----------------
-python svmap.py -t0.0 $VAR144 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR144 -v >> Allworldresult.txt
 
          echo ----------------- $VAR145----------------
-python svmap.py -t0.0 $VAR145 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR145 -v >> Allworldresult.txt
 
          echo ----------------- $VAR146----------------
-python svmap.py -t0.0 $VAR146 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR146 -v >> Allworldresult.txt
 
          echo ----------------- $VAR147----------------
-python svmap.py -t0.0 $VAR147 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR147 -v >> Allworldresult.txt
 
          echo ----------------- $VAR148----------------
-python svmap.py -t0.0 $VAR148 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR148 -v >> Allworldresult.txt
 
          echo ----------------- $VAR149----------------
-python svmap.py -t0.0 $VAR149 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR149 -v >> Allworldresult.txt
 
          echo ----------------- $VAR150----------------
-python svmap.py -t0.0 $VAR150 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR150 -v >> Allworldresult.txt
 
          echo ----------------- $VAR151----------------
-python svmap.py -t0.0 $VAR151 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR151 -v >> Allworldresult.txt
 
          echo ----------------- $VAR152----------------
-python svmap.py -t0.0 $VAR152 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR152 -v >> Allworldresult.txt
 
          echo ----------------- $VAR153----------------
-python svmap.py -t0.0 $VAR153 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR153 -v >> Allworldresult.txt
 
          echo ----------------- $VAR154----------------
-python svmap.py -t0.0 $VAR154 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR154 -v >> Allworldresult.txt
 
          echo ----------------- $VAR155----------------
-python svmap.py -t0.0 $VAR155 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR155 -v >> Allworldresult.txt
 
          echo ----------------- $VAR156----------------
-python svmap.py -t0.0 $VAR156 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR156 -v >> Allworldresult.txt
 
          echo ----------------- $VAR157----------------
-python svmap.py -t0.0 $VAR157 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR157 -v >> Allworldresult.txt
 
          echo ----------------- $VAR158----------------
-python svmap.py -t0.0 $VAR158 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR158 -v >> Allworldresult.txt
 
          echo ----------------- $VAR159----------------
-python svmap.py -t0.0 $VAR159 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR159 -v >> Allworldresult.txt
 
          echo ----------------- $VAR160----------------
-python svmap.py -t0.0 $VAR160 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR160 -v >> Allworldresult.txt
 
          echo ----------------- $VAR161----------------
-python svmap.py -t0.0 $VAR161 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR161 -v >> Allworldresult.txt
 
          echo ----------------- $VAR162----------------
-python svmap.py -t0.0 $VAR162 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR162 -v >> Allworldresult.txt
 
          echo ----------------- $VAR163----------------
-python svmap.py -t0.0 $VAR163 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR163 -v >> Allworldresult.txt
 
          echo ----------------- $VAR164----------------
-python svmap.py -t0.0 $VAR164 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR164 -v >> Allworldresult.txt
 
          echo ----------------- $VAR165----------------
-python svmap.py -t0.0 $VAR165 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR165 -v >> Allworldresult.txt
 
          echo ----------------- $VAR166----------------
-python svmap.py -t0.0 $VAR166 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR166 -v >> Allworldresult.txt
 
          echo ----------------- $VAR167----------------
-python svmap.py -t0.0 $VAR167 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR167 -v >> Allworldresult.txt
 
          echo ----------------- $VAR168----------------
-python svmap.py -t0.0 $VAR168 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR168 -v >> Allworldresult.txt
 
          echo ----------------- $VAR169----------------
-python svmap.py -t0.0 $VAR169 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR169 -v >> Allworldresult.txt
 
          echo ----------------- $VAR170----------------
-python svmap.py -t0.0 $VAR170 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR170 -v >> Allworldresult.txt
 
          echo ----------------- $VAR171----------------
-python svmap.py -t0.0 $VAR171 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR171 -v >> Allworldresult.txt
 
          echo ----------------- $VAR172----------------
-python svmap.py -t0.0 $VAR172 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR172 -v >> Allworldresult.txt
 
          echo ----------------- $VAR173----------------
-python svmap.py -t0.0 $VAR173 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR173 -v >> Allworldresult.txt
 
          echo ----------------- $VAR174----------------
-python svmap.py -t0.0 $VAR174 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR174 -v >> Allworldresult.txt
 
          echo ----------------- $VAR175----------------
-python svmap.py -t0.0 $VAR175 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR175 -v >> Allworldresult.txt
 
          echo ----------------- $VAR176----------------
-python svmap.py -t0.0 $VAR176 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR176 -v >> Allworldresult.txt
 
          echo ----------------- $VAR177----------------
-python svmap.py -t0.0 $VAR177 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR177 -v >> Allworldresult.txt
 
          echo ----------------- $VAR178----------------
-python svmap.py -t0.0 $VAR178 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR178 -v >> Allworldresult.txt
 
          echo ----------------- $VAR179----------------
-python svmap.py -t0.0 $VAR179 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR179 -v >> Allworldresult.txt
 
          echo ----------------- $VAR180----------------
-python svmap.py -t0.0 $VAR180 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR180 -v >> Allworldresult.txt
 
          echo ----------------- $VAR181----------------
-python svmap.py -t0.0 $VAR181 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR181 -v >> Allworldresult.txt
 
          echo ----------------- $VAR182----------------
-python svmap.py -t0.0 $VAR182 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR182 -v >> Allworldresult.txt
 
          echo ----------------- $VAR183----------------
-python svmap.py -t0.0 $VAR183 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR183 -v >> Allworldresult.txt
 
          echo ----------------- $VAR184----------------
-python svmap.py -t0.0 $VAR184 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR184 -v >> Allworldresult.txt
 
          echo ----------------- $VAR185----------------
-python svmap.py -t0.0 $VAR185 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR185 -v >> Allworldresult.txt
 
          echo ----------------- $VAR186----------------
-python svmap.py -t0.0 $VAR186 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR186 -v >> Allworldresult.txt
 
          echo ----------------- $VAR187----------------
-python svmap.py -t0.0 $VAR187 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR187 -v >> Allworldresult.txt
 
          echo ----------------- $VAR188----------------
-python svmap.py -t0.0 $VAR188 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR188 -v >> Allworldresult.txt
 
          echo ----------------- $VAR189----------------
-python svmap.py -t0.0 $VAR189 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR189 -v >> Allworldresult.txt
 
          echo ----------------- $VAR190----------------
-python svmap.py -t0.0 $VAR190 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR190 -v >> Allworldresult.txt
 
          echo ----------------- $VAR191----------------
-python svmap.py -t0.0 $VAR191 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR191 -v >> Allworldresult.txt
 
          echo ----------------- $VAR192----------------
-python svmap.py -t0.0 $VAR192 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR192 -v >> Allworldresult.txt
 
          echo ----------------- $VAR193----------------
-python svmap.py -t0.0 $VAR193 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR193 -v >> Allworldresult.txt
 
          echo ----------------- $VAR194----------------
-python svmap.py -t0.0 $VAR194 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR194 -v >> Allworldresult.txt
 
          echo ----------------- $VAR195----------------
-python svmap.py -t0.0 $VAR195 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR195 -v >> Allworldresult.txt
 
          echo ----------------- $VAR196----------------
-python svmap.py -t0.0 $VAR196 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR196 -v >> Allworldresult.txt
 
          echo ----------------- $VAR197----------------
-python svmap.py -t0.0 $VAR197 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR197 -v >> Allworldresult.txt
 
          echo ----------------- $VAR198----------------
-python svmap.py -t0.0 $VAR198 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR198 -v >> Allworldresult.txt
 
          echo ----------------- $VAR199----------------
-python svmap.py -t0.0 $VAR199 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR199 -v >> Allworldresult.txt
 
          echo ----------------- $VAR200----------------
-python svmap.py -t0.0 $VAR200 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR200 -v >> Allworldresult.txt
 
          echo ----------------- $VAR201----------------
-python svmap.py -t0.0 $VAR201 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR201 -v >> Allworldresult.txt
 
          echo ----------------- $VAR202----------------
-python svmap.py -t0.0 $VAR202 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR202 -v >> Allworldresult.txt
 
          echo ----------------- $VAR203----------------
-python svmap.py -t0.0 $VAR203 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR203 -v >> Allworldresult.txt
 
          echo ----------------- $VAR204----------------
-python svmap.py -t0.0 $VAR204 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR204 -v >> Allworldresult.txt
 
          echo ----------------- $VAR205----------------
-python svmap.py -t0.0 $VAR205 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR205 -v >> Allworldresult.txt
 
          echo ----------------- $VAR206----------------
-python svmap.py -t0.0 $VAR206 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR206 -v >> Allworldresult.txt
 
          echo ----------------- $VAR207----------------
-python svmap.py -t0.0 $VAR207 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR207 -v >> Allworldresult.txt
 
          echo ----------------- $VAR208----------------
-python svmap.py -t0.0 $VAR208 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR208 -v >> Allworldresult.txt
 
          echo ----------------- $VAR209----------------
-python svmap.py -t0.0 $VAR209 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR209 -v >> Allworldresult.txt
 
          echo ----------------- $VAR210----------------
-python svmap.py -t0.0 $VAR210 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR210 -v >> Allworldresult.txt
 
          echo ----------------- $VAR211----------------
-python svmap.py -t0.0 $VAR211 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR211 -v >> Allworldresult.txt
 
          echo ----------------- $VARAllworld----------------
-python svmap.py -t0.0 $VARAllworld -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VARAllworld -v >> Allworldresult.txt
 
          echo ----------------- $VAR213----------------
-python svmap.py -t0.0 $VAR213 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR213 -v >> Allworldresult.txt
 
          echo ----------------- $VAR214----------------
-python svmap.py -t0.0 $VAR214 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR214 -v >> Allworldresult.txt
 
          echo ----------------- $VAR215----------------
-python svmap.py -t0.0 $VAR215 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR215 -v >> Allworldresult.txt
 
          echo ----------------- $VAR216----------------
-python svmap.py -t0.0 $VAR216 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR216 -v >> Allworldresult.txt
 
          echo ----------------- $VAR217----------------
-python svmap.py -t0.0 $VAR217 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR217 -v >> Allworldresult.txt
 
          echo ----------------- $VAR218----------------
-python svmap.py -t0.0 $VAR218 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR218 -v >> Allworldresult.txt
 
          echo ----------------- $VAR219----------------
-python svmap.py -t0.0 $VAR219 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR219 -v >> Allworldresult.txt
 
          echo ----------------- $VAR220----------------
-python svmap.py -t0.0 $VAR220 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR220 -v >> Allworldresult.txt
 
          echo ----------------- $VAR221----------------
-python svmap.py -t0.0 $VAR221 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR221 -v >> Allworldresult.txt
 
          echo ----------------- $VAR222----------------
-python svmap.py -t0.0 $VAR222 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR222 -v >> Allworldresult.txt
 
          echo ----------------- $VAR223----------------
-python svmap.py -t0.0 $VAR223 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR223 -v >> Allworldresult.txt
 
          echo ----------------- $VAR224----------------
-python svmap.py -t0.0 $VAR224 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR224 -v >> Allworldresult.txt
 
          echo ----------------- $VAR225----------------
-python svmap.py -t0.0 $VAR225 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR225 -v >> Allworldresult.txt
 
          echo ----------------- $VAR226----------------
-python svmap.py -t0.0 $VAR226 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR226 -v >> Allworldresult.txt
 
          echo ----------------- $VAR227----------------
-python svmap.py -t0.0 $VAR227 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR227 -v >> Allworldresult.txt
 
          echo ----------------- $VAR228----------------
-python svmap.py -t0.0 $VAR228 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR228 -v >> Allworldresult.txt
 
          echo ----------------- $VAR229----------------
-python svmap.py -t0.0 $VAR229 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR229 -v >> Allworldresult.txt
 
          echo ----------------- $VAR230----------------
-python svmap.py -t0.0 $VAR230 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR230 -v >> Allworldresult.txt
 
          echo ----------------- $VAR231----------------
-python svmap.py -t0.0 $VAR231 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR231 -v >> Allworldresult.txt
 
          echo ----------------- $VAR232----------------
-python svmap.py -t0.0 $VAR232 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR232 -v >> Allworldresult.txt
 
          echo ----------------- $VAR233----------------
-python svmap.py -t0.0 $VAR233 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR233 -v >> Allworldresult.txt
 
          echo ----------------- $VAR234----------------
-python svmap.py -t0.0 $VAR234 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR234 -v >> Allworldresult.txt
 
          echo ----------------- $VAR235----------------
-python svmap.py -t0.0 $VAR235 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR235 -v >> Allworldresult.txt
 
          echo ----------------- $VAR236----------------
-python svmap.py -t0.0 $VAR236 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR236 -v >> Allworldresult.txt
 
          echo ----------------- $VAR237----------------
-python svmap.py -t0.0 $VAR237 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR237 -v >> Allworldresult.txt
 
          echo ----------------- $VAR238----------------
-python svmap.py -t0.0 $VAR238 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR238 -v >> Allworldresult.txt
 
          echo ----------------- $VAR239----------------
-python svmap.py -t0.0 $VAR239 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR239 -v >> Allworldresult.txt
 
          echo ----------------- $VAR240----------------
-python svmap.py -t0.0 $VAR240 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR240 -v >> Allworldresult.txt
 
          echo ----------------- $VAR241----------------
-python svmap.py -t0.0 $VAR241 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR241 -v >> Allworldresult.txt
 
          echo ----------------- $VAR242----------------
-python svmap.py -t0.0 $VAR242 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR242 -v >> Allworldresult.txt
 
          echo ----------------- $VAR243----------------
-python svmap.py -t0.0 $VAR243 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR243 -v >> Allworldresult.txt
 
          echo ----------------- $VAR244----------------
-python svmap.py -t0.0 $VAR244 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR244 -v >> Allworldresult.txt
 
          echo ----------------- $VAR245----------------
-python svmap.py -t0.0 $VAR245 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR245 -v >> Allworldresult.txt
 
          echo ----------------- $VAR246----------------
-python svmap.py -t0.0 $VAR246 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR246 -v >> Allworldresult.txt
 
          echo ----------------- $VAR247----------------
-python svmap.py -t0.0 $VAR247 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR247 -v >> Allworldresult.txt
 
          echo ----------------- $VAR248----------------
-python svmap.py -t0.0 $VAR248 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR248 -v >> Allworldresult.txt
 
          echo ----------------- $VAR249----------------
-python svmap.py -t0.0 $VAR249 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR249 -v >> Allworldresult.txt
 
          echo ----------------- $VAR250----------------
-python svmap.py -t0.0 $VAR250 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR250 -v >> Allworldresult.txt
 
          echo ----------------- $VAR251----------------
-python svmap.py -t0.0 $VAR251 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR251 -v >> Allworldresult.txt
 
          echo ----------------- $VAR252----------------
-python svmap.py -t0.0 $VAR252 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR252 -v >> Allworldresult.txt
 
          echo ----------------- $VAR253----------------
-python svmap.py -t0.0 $VAR253 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR253 -v >> Allworldresult.txt
 
          echo ----------------- $VAR254----------------
-python svmap.py -t0.0 $VAR254 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR254 -v >> Allworldresult.txt
 
          echo ----------------- $VAR255----------------
-python svmap.py -t0.0 $VAR255 -m  -v >> =Allworldresult.txt
+python svmap.py -t0.0 $VAR255 -v >> Allworldresult.txt
 
 
 
@@ -1292,11 +1292,11 @@ echo -e "\nEnding scanning port !\n"
 echo -e "\nStart SIP Responses ...\n"
 
 
-grep -Po "(\d+\.){3}\d+:?(\d?){6}" =Allworldresult.txt > IPS
+grep -Po "(\d+\.){3}\d+:?(\d?){6}" Allworldresult.txt > IPS
 perl run IPS
 cat 401.pal 400.pal 403.pal 404.pal 500.pal 486.pal 484.pal 407.pal 480.pal 482.pal >> ipSIP
 rm IPSx # remove the file IPS
-mv =Allworldresult.txt Allworld5060.txt # change file name
+mv Allworldresult.txt Allworld5060.txt # change file name
 sleep 1
 
 echo -e "\nEnding Responses !\n"
