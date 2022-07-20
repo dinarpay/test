@@ -24,3 +24,9 @@ cat vv.txt | perl -lane 'use warnings; use strict; for my $i (@F){if ($i =~/^(?:
 بنظف الملف وبسحب الارقام فقط يصلح للبرفكسات
 
 grep -Po "\\d+" pp > pppppppppppp
+
+تكوين باسوردات عشوائية
+7 باسوردات
+13 خانة
+
+gpw 7 13
