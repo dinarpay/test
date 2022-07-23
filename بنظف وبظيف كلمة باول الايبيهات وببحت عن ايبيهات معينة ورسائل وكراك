@@ -18,16 +18,18 @@ grep -Po "(\d+\.){3}\d+:?(\d?){6}" Allworldresult.txt >>Allworldresult2.txt
 awk '$0="Mohammad"$0' Allworldresult2.txt >Hosts.txt
 
 grep -R 'Mohammad190' Hosts.txt >newHosts.txt
-grep -R 'Mohammad191' Hosts.txt >newHosts.txt
-grep -R 'Mohammad192' Hosts.txt >newHosts.txt
-grep -R 'Mohammad193' Hosts.txt >newHosts.txt
-grep -R 'Mohammad194' Hosts.txt >newHosts.txt
-grep -R 'Mohammad195' Hosts.txt >newHosts.txt
-grep -R 'Mohammad196' Hosts.txt >newHosts.txt
-grep -R 'Mohammad197' Hosts.txt >newHosts.txt
-grep -R 'Mohammad198' Hosts.txt >newHosts.txt
-grep -R 'Mohammad199' Hosts.txt >newHosts.txt
-grep -R 'Mohammad200' Hosts.txt >newHosts.txt
+grep -R 'Mohammad191' Hosts.txt >newHosts1.txt
+grep -R 'Mohammad192' Hosts.txt >newHosts2.txt
+grep -R 'Mohammad193' Hosts.txt >newHosts3.txt
+grep -R 'Mohammad194' Hosts.txt >newHosts4.txt
+grep -R 'Mohammad195' Hosts.txt >newHosts5.txt
+grep -R 'Mohammad196' Hosts.txt >newHosts6.txt
+grep -R 'Mohammad197' Hosts.txt >newHosts7.txt
+grep -R 'Mohammad198' Hosts.txt >newHosts8.txt
+grep -R 'Mohammad199' Hosts.txt >newHosts9.txt
+grep -R 'Mohammad200' Hosts.txt >newHosts10.txt
+
+cat newHosts.txt newHosts1.txt newHosts2.txt newHosts3.txt newHosts4.txt newHosts5.txt newHosts6.txt newHosts7.txt newHosts8.txt newHosts9.txt newHosts10.txt >> newHosts.txt
 
 grep -Po "(\d+\.){3}\d+:?(\d?){6}" newHosts.txt >>newHosts1.txt
 grep -R ':' newHosts1.txt >IPS
