@@ -9,7 +9,7 @@ except ImportError:
 
 splash1 = """
     +----------------------------------+
-    | Masscan2Httpx2Dir             |
+    | Svmap 2 ExtractIP 2 Masscan 2 Httpx 2 Dir  |
     +----------------------------------+
     | by Mohammad Elnwajha                       |
     +----------------------------------+
@@ -17,8 +17,10 @@ splash1 = """
 print(splash1)
 
 
-
-os.system('masscan -iL ip.txt -p443,80,81,82,83,84,85,8080 --exclude 255.255.255.255 -oL masscan.txt --rate=1000000')
+os.system('grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" oOoOoOok.txt >>ipss.txt')
+os.system('grep -E -o "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" ipss.txt >>ip.txt')
+os.remove("ipss.txt")
+os.system('masscan -iL ip.txt -p443,80,81,82,83,84,85,86,87,88,89,90,8000,8001,8008,8014,8015,8020,8028,8040,8080,8081,8082,8085,8088,8090,8118,8123,8180,8181,8182,8222,8243,8280,8300,8800,8888,8899,8983,9000,9002,9060,9080,9090,9091 --rate=500000 --exclude 255.255.255.255 -oL masscan.txt')
 while True:
     if os.path.exists("masscan.txt"):
         break
@@ -89,7 +91,7 @@ else:
     print(splash5)
     exit()
 if os.path.exists("httpxresult.txt"):
-    os.system('split -l 250000 -d --additional-suffix=.txt httpxresult.txt /root/Masscan2Httpx2Dir/hosts/Pal-')
+    os.system('split -l 25000 -d --additional-suffix=.txt httpxresult.txt /root/dir/hosts/Pal-')
     os.system('python new.py')
     os.remove("httpxresult.txt")
     os.remove("masscanconvert.txt")
