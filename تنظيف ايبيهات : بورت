@@ -7,6 +7,10 @@ grep -Po "(\d+\.){3}\d+:?(\d?){6}" oOoOoOok.txt >>P6666.txt
 
 sed '/:[0-9]*$/ ! s/$/:14310/' bios.txt >>14310.txt
 
+اضافة نصوص ارقام نهاية الاسطر
+1001 1001
+sed 's/$/ 1001 1001/' ip > ipip
+
 تنظيف دون بورت
 
 grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" sipPORT.txt > sipSIPsipSIPPORT.txt
