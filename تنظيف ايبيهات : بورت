@@ -3,6 +3,10 @@
 
 grep -Po "(\d+\.){3}\d+:?(\d?){6}" oOoOoOok.txt >>P6666.txt
 
+امر التشغيل
+
+docker run -it --rm "webjitsu/dirsearch-original" -u voip.com -e php,html,js,zip
+
 اضافة بورت
 
 sed '/:[0-9]*$/ ! s/$/:14310/' bios.txt >>14310.txt
