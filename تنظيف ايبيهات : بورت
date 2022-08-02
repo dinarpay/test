@@ -3,6 +3,9 @@
 
 grep -Po "(\d+\.){3}\d+:?(\d?){6}" oOoOoOok.txt >>P6666.txt
 
+تشغيل httpx للردود 200 301
+cat ip.txt | docker run -i projectdiscovery/httpx -sc -path /provisioning,/log,/provision,/cfg -t 2500 -leave-default-ports -nc -mc 200,301 -v >> httpxDIR.txt
+
 امر التشغيل
 
 docker run -it --rm "webjitsu/dirsearch-original" -u voip.com -e php,html,js,zip
