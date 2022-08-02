@@ -10,7 +10,8 @@ cat urls.txt | docker run -i projectdiscovery/httpx -sc -path /provisioning,/log
 
 جيد
 cat urls.txt | docker run -i projectdiscovery/httpx -sc -path /provisioning,/log,/provision,/cfg,/spa.xml,/yealink,/gs,/asterisk.conf,/etc/asterisk/asterisk.conf,/cisco,/grandstream,/snom,/linksys,/aastra,/overrides,/cfgvoice,/cfgprov,/poly,/spaconf,/spacfg,/gsProvision,/ata,/cfgvoip,/pbxcfg -t 500 -title -leave-default-ports -nc --status-code --silent -v >> httpxDIR.txt
-
+فلتر خاص
+403 Forbidden
 
 امر التشغيل
 
