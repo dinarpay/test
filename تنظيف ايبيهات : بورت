@@ -9,7 +9,7 @@ cat ip.txt | docker run -i projectdiscovery/httpx -sc -path /provisioning,/log,/
 cat urls.txt | docker run -i projectdiscovery/httpx -sc -path /provisioning,/log,/provision,/cfg,/spa.xml,/yealink,/gs,/asterisk.conf,/etc/asterisk/asterisk.conf,/cisco,/grandstream,/snom,/linksys,/aastra,/overrides,/cfgvoice,/cfgprov,/poly,/spaconf,/spacfg,/gsProvision,/ata,/cfgvoip,/pbxcfg -t 2500 -leave-default-ports -nc -mc 200,301 -v >> httpxDIR.txt
 
 جيد
-cat urls.txt | docker run -i projectdiscovery/httpx -sc -path /provisioning,/log,/provision,/cfg,/spa.xml,/yealink,/gs,/asterisk.conf,/etc/asterisk/asterisk.conf,/cisco,/grandstream,/snom,/linksys,/aastra,/overrides,/cfgvoice,/cfgprov,/poly,/spaconf,/spacfg,/gsProvision,/ata,/cfgvoip,/pbxcfg -t 500 -title -leave-default-ports -nc --status-code --silent -v >> httpxDIR.txt
+cat 1.txt | docker run -i projectdiscovery/httpx -sc -mc 200,301 -title  -path /etc/asterisk,/provisioning,/log,/provision,/cfg,/yealink,/gs,/cisco,/grandstream,/snom,/linksys,/aastra,/overrides,/cfgvoice,/cfgprov,/spaconf,/spacfg,/gsProvision,/ata,/cfgvoip,/pbxcfg -t 5000 -leave-default-ports -nc -v >> httpxDIRindexOF.txt
 فلتر خاص
 403 Forbidden
 
