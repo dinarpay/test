@@ -7,6 +7,11 @@ grep -Po "(\d+\.){3}\d+:?(\d?){6}" oOoOoOok.txt >>P6666.txt
 cat ip.txt | docker run -i projectdiscovery/httpx -sc -path /provisioning,/log,/provision,/cfg -t 2500 -leave-default-ports -nc -mc 200,301 -v >> httpxDIR.txt
 
 cat urls.txt | docker run -i projectdiscovery/httpx -sc -path /provisioning,/log,/provision,/cfg,/spa.xml,/yealink,/gs,/asterisk.conf,/etc/asterisk/asterisk.conf,/cisco,/grandstream,/snom,/linksys,/aastra,/overrides,/cfgvoice,/cfgprov,/poly,/spaconf,/spacfg,/gsProvision,/ata,/cfgvoip,/pbxcfg -t 2500 -leave-default-ports -nc -mc 200,301 -v >> httpxDIR.txt
+
+جيد
+cat urls.txt | docker run -i projectdiscovery/httpx -sc -path /provisioning,/log,/provision,/cfg,/spa.xml,/yealink,/gs,/asterisk.conf,/etc/asterisk/asterisk.conf,/cisco,/grandstream,/snom,/linksys,/aastra,/overrides,/cfgvoice,/cfgprov,/poly,/spaconf,/spacfg,/gsProvision,/ata,/cfgvoip,/pbxcfg -t 500 -title -leave-default-ports -nc --status-code --silent -v >> httpxDIR.txt
+
+
 امر التشغيل
 
 docker run -it --rm "webjitsu/dirsearch-original" -u voip.com -e php,html,js,zip
