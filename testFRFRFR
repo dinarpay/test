@@ -1,0 +1,8 @@
+AuthName = SIPAM-1_8
+UserName = SIPAM-1_8
+password = s09UzsyuUw5
+SIPServerHost = 194.177.42.220
+SIPServerPort = 14310
+UseOutboundProxy = 0
+OutboundHost = 194.177.42.220
+OutboundPort = MM
