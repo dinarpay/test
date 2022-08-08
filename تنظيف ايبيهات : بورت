@@ -13,6 +13,10 @@ cat 1.txt | docker run -i projectdiscovery/httpx -sc -mc 200,301 -title  -path /
 فلتر خاص
 403 Forbidden
 
+
+grep -E '3cx|aastraprov|aastra|asterisk2|asterisk|ata1|ata2|ata3|ata|autoconfig|autodiscover|autoprov|backup|broadbandvoice|cdn|cfg1|cfg2|cfgprov|cfgvoice|cfgvoip|cisco-phones|cisco-prov|ciscoprov|ciscops|ciscospaprov|cisco|config01|config02|config03|config04|config05|config06|config_file|configs|config|conf|data|db|devicecfg|device|dms|east|elastic|endpoint|etc|files|freepbx|ftp2|ftp|fw|gateway|gigasetprov|gigaset|gigaset|grandstreamprov|grandstream|gsProvision|gsprov|gswave|gs|gw|gxp1|gxpprov|gxp|gxv|gxw|ipprov|iprov|linksys1|linksys-conf|linksysprov|linksys|lists|logs|log|manage|mysql|new1|new|old|ops|palcmspip|panasonic|pap2t|pbx1|pbx2|pbx3|pbxcfg|pbxprov|pbx|phone1|phoneprov|phone|polycom1|polycom2|polycomprov|polycoms|poly|prov1|prov2|prov3|prov-yealink|prov-y|provcfg|provisioner|provisioning1|provisioning2|provisoning|provis|provserv|prov|public|rootvoice|sdc1|sdc2|secprov2|secprov|secure|sftp|siemens|sip01|sip02|sip03|sip4|sip5|sip6|sipphone|sipprovisioning|sipprov|sipps|sipura|sip|snomprov|snom|spa1|spa302|spacfg|spaconf|spaprov|spa|sp|sql|ssh|sup7|tftp|thomson|thomson|tiemens|tmp|voip1|voip2|voip3|voip4|voip5|voip6|voipprov|voip|vvg|vvx|wprov|www|xml1|xml|xsplab-cisco|yealinkprov|yealink' dom> domnew
+
+
 امر التشغيل
 
 docker run -it --rm "webjitsu/dirsearch-original" -u voip.com -e php,html,js,zip
