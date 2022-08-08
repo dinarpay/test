@@ -33,6 +33,16 @@ sed 's/$/ 1001 1001/' ip > ipip
 
 grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" sipPORT.txt > sipSIPsipSIPPORT.txt
 
+
+تحميل  apt install dnsutils
+
+#!/bin/sh
+for IP in `cat ./ip.txt`;
+do
+	printf "%-4s", $IP 
+	nslookup $IP | grep -v nameserver | cut -f 2 | grep name | cut -f 2 -d "=" | sed 's/ //';
+	
+done
 توليد ارقام من والى 
 seq 10000 100000 >>number.txt
 
