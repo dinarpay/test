@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# Scan IPv4 range on port sip
+
+echo -e "\nStart nslookup ...\n"
+
+while read -r ip; do
+	echo "Checking $ip";
+	nslookup -type=txt $ip | grep name | awk '{print $4}' | sed 's/.$//' >> output1.txt
+    nslookup -type=mx $ip | grep name | awk '{print $4}' | sed 's/.$//' >> output2.txt
+    nslookup -type=a $ip | grep name | awk '{print $4}' | sed 's/.$//' >> output3.txt
+    nslookup -type=any $ip | grep name | awk '{print $4}' | sed 's/.$//' >> output4.txt
+    nslookup -type=aaa $ip | grep name | awk '{print $4}' | sed 's/.$//' >> output5.txt
+    nslookup -type=cname $ip | grep name | awk '{print $4}' | sed 's/.$//' >> output6.txt
+
+cat output1.txt output2.txt output3.txt output4.txt output5.txt output6.txt >> 10.txt
+
+
+done < ip.txt
+
+echo "we scaned Everythings"
+sleep 2
+
+echo -e "\nEnding scanning nslookup !\n"
+
+# scanning subfinder
+
+echo -e "\nStart subfinder ...\n"
+
+sort -u 10.txt > 20.txt
+awk -F\. '{print $(NF-1) FS $NF}' 20.txt > 30.txt
+sort -u 30.txt > 40.txt
+cat 40.txt | docker run -i projectdiscovery/subfinder >> subGOOD.txt
+grep -E 'polycom|3cx|spa|gs|cfg|yealink|provisioning|provision|asterisk|etc|iax|phone|sip|extensions|cisco|grandstream|snom|linksys|aastra|overrides|log|devicecfg|xml|logs|cfgvoice|cfgprov|poly|spaconf|spacfg|ata|cfgvoip|pbxcfg|sipphone|sipura|device|tftp|autoprov|panasonic|voipprov|pbx|pap|freepbx|voip|conf|configs|prov|provisoning|dms|config|backup|gigaset|endpoint|provisioner|archive|archiv|bootrom|dialplan|init|account|provserv|gswave|gxp|gxv|gxw|cp|wave|audiocodes|rootvoice|spaprov|phoneprov|gigasetprov|snomprov|linksysprov|ciscoprov|polycomprov|yealinkprov|sipprov|pbxprov|gsprov|gxpprov|grandstreamprov|aastraprov|sipprovisioning|broadbandvoice|autoconfig|old|lists|files|gateway|gw|data|manage|fw|ciscospaprov|elastic|xsp|tftpboot|algo|autoprovision|firmware|cfgphone|palcmspip|polycoms|autotftp|siemens|thomson|tmp|ftp|new|mysql|sql|secure|voiceprov|logprov|polyprov|cfgvoipprov|sipphoneprov|sipuraprov|deviceprov|polycomsprov|tftpprov|ftpprov|siemensprov|thomsonprov|panasonicprov|freepbxprov|asteriskprov|confprov|configsprov|configprov|backupprov|broadbandvoiceprov|autoconfigprov|polycomcfg|yealinkcfg|ciscocfg|grandstreamcfg|snomcfg|aastracfg|linksyscfg|logscfg|polycfg|sipuracfg|polycomscfg|tftpcfg|ftpcfg|siemenscfg|thomsoncfg|panasoniccfg|gscfg|etccfg|freepbxcfg|asteriskcfg|voipcfg|confcfg|sipcfg|configscfg|configcfg|backupcfg|gigasetcfg|autoconfigcfg|provcfg|vtigercrm|modules|goautodial|vicidial|acconfpolycom|app|atcom|autodiscover|boot|bootstrap|business|bvsip|bws|cfgconfig|cfgdevice|cfgpolycom|cfgpoly|cfgs|cfgsip|cfguser|cfgyealink|clearspan|clients|cnf|configdevice|configuration|configvoice|custom|deskphone|desktopphone|deviceconfig|devicegw|directory|ftppolycom' subGOOD.txt > output.txt
+rm output1.txt
+rm output2.txt
+rm output3.txt
+rm output4.txt
+rm output5.txt
+rm output6.txt
+rm 10.txt
+rm 20.txt
+rm 30.txt
+sleep 5
+
+echo -e "\nEnding subfinder !\n"
+
+echo -e "\nby Mohammad Elnwajha\n"
+
+يتبع تحديث السكربت وصولا للكراك يوزر وباس
