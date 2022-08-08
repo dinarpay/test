@@ -1,0 +1,95 @@
+#coding:utf-8
+import os
+import time
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse    
+
+
+splash1 = """
+    +----------------------------------+
+    | Masscan2Httpx2Nuclei             |
+    +----------------------------------+
+    | by mbskter                       |
+    +----------------------------------+
+"""
+print(splash1)
+
+
+
+os.system('cat ip | 1docker1 run -i projectdiscovery/subfinder >> subGOOD.txt')
+os.system('sort -u subGOOD.txt > subfinder.txt')
+while True:
+    if os.path.exists("subfinder.txt"):
+        break
+    else:
+        time.sleep(1)
+if os.path.getsize("subfinder.txt") == 0:
+    splash3 = """
+    +----------------------------------+
+    | ?????,?????!          |
+    +----------------------------------+
+    """
+    print(splash3)
+    exit()
+else :
+    splash4 = """
+    +----------------------------------+
+    | Masscan?????????httpx   |
+    +----------------------------------+
+    """
+if os.path.exists("subfinder.txt"):
+    os.system('cat subfinder.txt | docker run -i projectdiscovery/httpx -p 443,80,81,82,83,84,85,86,87,88,89,90,8000,8001,8008,8014,8015,8020,8028,8040,8080,8081,8082,8085,8088,8090,8118,8123,8180,8181,8182,8222,8243,8280,8300,8800,8888,8899,8983,9000,9002,9060,9080,9090,9091 -t 500 -leave-default-ports -nc -v >> httpxresult.txt')
+
+    name="httpxresult.txt"
+    fin = open(name, "rt")
+    #output file to write the result to
+    fout = open("out.txt", "wt")
+    #for each line in the input file
+    for line in fin:
+        #read replace the string and write to output file 
+        parsed = urlparse(line)
+        if parsed.port==None:
+            if parsed.scheme=='http':
+                fout.write(line.replace(line,line.strip()+":80\n"))
+            else:
+                fout.write(line.replace(line,line.strip()+":443\n"))
+        else:
+            fout.write(line)
+    #close input and output files
+    fin.close()
+    fout.close()
+    os.remove("httpxresult.txt")
+    os.rename("out.txt","httpxresult.txt")
+    splash2 = """
+    +----------------------------------+
+    | Httpx is done !                  |
+    +----------------------------------+
+    """
+    print(splash2)
+else:
+    splash5 = """
+    +----------------------------------+
+    | ???????masscan????    |
+    +----------------------------------+
+    """
+    print(splash5)
+    exit()
+if os.path.exists("httpxresult.txt"):
+    os.system('split -l 5000 -d --additional-suffix=.txt httpxresult.txt /root/dir/hosts/Pal-')
+    os.system('python new.py')
+    splash6 = """
+    +----------------------------------+
+    | Dir is done !
+    +----------------------------------+
+    """
+    print(splash6)
+else:
+    splash7 = """
+    +----------------------------------+
+    | ????????                 |
+    +----------------------------------+
+    """
+    print(splash7)
+    exit()
