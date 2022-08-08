@@ -40,8 +40,9 @@ grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" sipPORT.txt > sipSIPsipSIPPORT.txt
 
 while read -r ip; do
 	echo "Checking $ip";
-	nslookup $ip | grep name >> output.txt
-done < iplist.txt
+	nslookup $ip | grep name | awk '{print $4}' | sed 's/.$//' >> output.txt
+done < domains.txt
+
 
 
 
