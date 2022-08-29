@@ -1,65 +1,437 @@
-sudo apt update
-sudo apt-get update -y
-apt install perl -y
-apt list --installed | grep -i perl
-sudo apt install make
-sudo apt-get install -y perl-tk
-
-cpan
-install Parallel::ForkManager
-install String::Util
-install Net::SIP
-
-his module can be installed on perl5.8 if you add Net::DNS.
-حمل المكتبات
-Net::SIP:::SocketPool    بهيك طريقة
-It was not tested on older versions but it might work if you add
-Storable, List::Util, Hash::Util, Time::HiRes, Digest::MD5
-and IO::Socket.
-cpan Net::SIP:::SocketPool
-use Data::Dumper;
-use IO::Socket::INET;
-use Socket;
-use Test::More;
-use Net::SIP;
-use Parallel::ForkManager;
-use Term::ANSIColor;
-use Time::HiRes qw(gettimeofday tv_interval);
-
-The module itself is pure perl, so if the prerequisites are
-fullfilled no C-Compiler is necessary.
-
-For installation do the usual
-
-	perl Makefile.PL
-	make
-	make test
-	make install
-  
-------------------------------
-سينتوس
-
-yum update
-yum install perl
-rpm -qa | grep -i perl-5.16
-dnf install perl-CPAN
-dnf install "@Development Tools"
-
-cpan String::Utilcpan String::Util
-
-cpan -i String::Util
-cpan -i Net::SIP
-cpan -i Parallel::ForkManager
-
-
-yum -y install gcc make cmake
-
-
-cpan and force install
-cpan force install Net::SIP
-cpan force install String::Util
-cpan force install Parallel::ForkManager
-
-لحظف واعادة من جديد
-
-rm -rf ~/perl5
+apt-get update -y ;
+apt-get install git -y ;
+apt-get install wget -y ;
+apt-get install gcc* -y ;
+apt-get install glib* -y ;
+apt-get install glibc* -y ;
+apt-get install python* -y ;
+apt-get install perl* -y ;
+apt-get install bzip2 -y ;
+apt-get install tar -y ;
+apt-get install unzip -y ;
+apt-get install xz-utils -y ;
+apt-get install perl-Template-Toolkit -y ;
+apt-get install gcc make cmake -y ;
+apt-get install glibc.i686 -y ;
+apt-get install Parallel::ForkManager -y ;
+apt-get install build-essential -y ;
+apt-get install gfortran libblas-dev liblapack-dev libatlas-dev python-virtualenv -y ;
+apt-get install libnet-ssleay-perl -y ;
+apt-get install libparallel-forkmanager-perl -y ;
+apt-get install perl-Parallel-ForkManager.noarch -y ;
+apt-get install php-cli -y ;
+apt-get install php-curl -y ;
+apt-get install python-pip -y ;
+apt-get install php -y ;
+apt-get install zlib-devel -y ;
+apt-get install libswitch-perl -y ;
+apt-get install perl -y ;
+apt-get install perl-IO-Socket-SSL -y ;
+apt-get install perl-Net-SIP.noarch -y ;
+apt-get install dh-make-perl dpkg-dev -y ;
+apt-get install gcc -y ;
+apt-get install gcc php-devel php-pear libssh2 libssh2-devel -y ;
+apt-get install glibc-devel.i686 glibc.i686 -y ;
+apt-get install glibc.i686 -y ;apt-get install glibc.i386 -y ;
+apt-get install libdbi-perl libdbd-mysql-perl libdigest-md5-perl libdigest-sha1-perl libimage-size-perl libmime-lite-perl libmime-perl libcompress-zlib-perl libmime-base64-perl liburi-perl libhtml-tagset-perl libhtml-parser-perl libwww-perl libwww-perl libgd-perl libmailtools-perl libunicode-maputf8-perl libstorable-perl libtime-hires-perl -y ;
+apt-get install libdbi-perl libdbd-mysql-perl libdigest-md5-perl libdigest-sha1-perl libimage-size-perl libmime-lite-perl libmime-perl libcompress-zlib-perl libmime-base64-perl liburi-perl libhtml-tagset-perl libhtml-parser-perl libwww-perl libwww-perl libgd-perl libmailtools-perl libunicode-maputf8-perl libstorable-perl libtime-hires-perl -y ;
+apt-get install libdbi-perl libdbd-mysql-perl libdigest-md5-perl libdigest-sha1-perl libimage-size-perl libmime-lite-perl libmime-perl libcompress-zlib-perl libmime-base64-perl liburi-perl libhtml-tagset-perl libhtml-parser-perl libwww-perl libwww-perl libgd-perl libmailtools-perl libunicode-maputf8-perl libstorable-perl libtime-hires-perl -y ;
+apt-get install python-paramiko.noarch -y ;
+apt-get install libmath-gmp-perl -y ;
+apt-get install libnet-ssleay-perl -y ;
+apt-get install libcrypt-ssleay-perl -y ;
+apt-get install perl-IO-Socket-SSL -y ;
+apt-get install httpd rrdtool fping echoping curl perl perl-Net-Telnet perl-Net-DNS perl-LDAP perl-libwww-perl perl-RadiusPerl perl-IO-Socket-SSL perl-Socket6 perl-CGI-SpeedyCGI -y ;
+apt-get install libnet-lite-ftp-perl -y ;
+apt-get install libnet-perl libgd-graph-perl libproc-process-perl librpc-xml-perl libsoap-lite-perl libxml-rss-perl libstring-crc32-perl -y ;
+apt-get install libnet-perl libgd-graph-perl libproc-process-perl librpc-xml-perl libsoap-lite-perl libxml-rss-perl libstring-crc32-perl -y ;
+apt-get install libnet-telnet-cisco-perl libexpect-perl libxml-simple-perl -y ;
+apt-get install --skip-broken glibc.i686 arts.i686 audiofile.i686 bzip2-libs.i686 cairo.i686 cyrus-sasl-lib.i686 dbus-libs.i686 directfb.i686 esound-libs.i686 fltk.i686 freeglut.i686 gtk2.i686 hal-libs.i686 imlib.i686 lcms-libs.i686 lesstif.i686 libacl.i686 libao.i686 libattr.i686 libcap.i686 libdrm.i686 libexif.i686 libgnomecanvas.i686 libICE.i686 libieee1284.i686 libsigc++20.i686 libSM.i686 libtool-ltdl.i686 libusb.i686 libwmf.i686 libwmf-lite.i686 libX11.i686 libXau.i686 libXaw.i686 libXcomposite.i686 libXdamage.i686 libXdmcp.i686 libXext.i686 libXfixes.i686 libxkbfile.i686 libxml2.i686 libXmu.i686 libXp.i686 libXpm.i686 libXScrnSaver.i686 libxslt.i686 libXt.i686 libXtst.i686 libXv.i686 libXxf86vm.i686 lzo.i686 mesa-libGL.i686 mesa-libGLU.i686 nas-libs.i686 nss_ldap.i686 cdk.i686 openldap.i686 pam.i686 popt.i686 pulseaudio-libs.i686 sane-backends-libs-gphoto2.i686 sane-backends-libs.i686 SDL.i686 svgalib.i686 unixODBC.i686 zlib.i686 compat-expat1.i686 compat-libstdc++-33.i686 openal-soft.i686 alsa-oss-libs.i686 redhat-lsb.i686 alsa-plugins-pulseaudio.i686 alsa-plugins-oss.i686 alsa-lib.i686 nspluginwrapper.i686 libXv.i686 libXScrnSaver.i686 qt.i686 qt-x11.i686 pulseaudio-libs.i686 pulseaudio-libs-glib2.i686 alsa-plugins-pulseaudio.i686 -y ;
+apt-get install build-essential autoconf automake curl lua5.1 linux-headers-generic libncurses-dev zlib1g-dev libssl-dev libxml2-dev libsqlite3-dev uuid-dev libspeex-dev libspeexdsp-dev libogg-dev libvorbis-dev libasound2-dev portaudio19-dev libcurl4-gnutls-dev libpq-dev unixodbc-dev libsqlite3-dev libmysqlclient-dev libneon27-dev libgmime-2.6-dev libusb-dev liblua5.1-0-dev libgtk2.0-dev libmysqlclient-dev libbluetooth-dev libradiusclient-ng-dev freetds-dev libsnmp-dev libiksemel-dev libcorosync-dev libnewt-dev libpopt-dev libical-dev libspandsp-dev libjack-dev libresample-dev libc-client-dev binutils-dev libsrtp-dev libgsm1-dev libedit-dev libjansson-dev libldap-dev libxslt1-dev libmyodbc doxygen subversion git mpg123 e2fsprogs php5 php5-curl sqlite3 uuid php5-cli php5-mysql php5-gd php-pear sox bison flex tftpd mailutils nano ntp apache2 mysql-client mysql-server postfix -y ;
+apt-get install automake gcc gcc-c++ ncurses-devel openssl-devel libxml2-devel unixODBC-devel libcurl-devel libogg-devel libvorbis-devel speex-devel spandsp-devel freetds-devel net-snmp-devel iksemel-devel corosynclib-devel newt-devel popt-devel libtool-ltdl-devel lua-devel sqlite-devel radiusclient-ng-devel portaudio-devel libresample-devel neon-devel libical-devel openldap-devel gmime-devel mysql-devel bluez-libs-devel jack-audio-connection-kit-devel gsm-devel libedit-devel libuuid-devel jansson-devel libsrtp-devel git subversion libxslt-devel kernel-devel audiofile-devel gtk2-devel libtiff-devel libtermcap-devel bison php php-mysql php-process php-pear php-mbstring php-xml php-gd tftp-server httpd sox tzdata mysql-connector-odbc mysql-server fail2ban -y ;
+apt-get install gcc gcc-c++ lynx bison mysql-devel mysql-server php php-mysql php-pear php-mbstring tftp-server httpd make ncurses-devel libtermcap-devel caching-nameserver sox newt-devel libxml2-devel libtiff-devel audiofile-devel gtk2-devel subversion kernel-devel git subversion kernel-devel php-process crontabs cronie cronie-anacron -y ;
+apt-get install -y make wget openssl-devel ncurses-devel newt-devel libxml2-devel kernel-devel gcc gcc-c++ sqlite-devel -y ;
+apt-get groupinstall "Development Tools" -y ;
+apt-get install glib2.i686 qt.i686 zlib.i686 alsa-lib.i686 libX11.i686 libXv.i686 libXScrnSaver.i686 -y ;
+apt-get install glibc.i686 alsa-lib.i686 libXv.i686 libXScrnSaver.i686 qt.i686 qt-x11.i686 -y ;
+apt-get install alsa-lib.i686 -y ;
+apt-get install glibc.i686 alsa-lib.i686 libXv.i686 -y ;
+apt-get install libXScrnSaver.i686 libSM.i686 libXi.i686 libXrender.i686 -y ;
+apt-get install libXrandr.i686 freetype.i686 fontconfig.i686 zlib.i686 -y ;
+apt-get install glib2.i686 libstdc++.i686 -y ;
+apt-get install pulseaudio-libs.i686 alsa-plugins-pulseaudio.i686 -y ;
+apt-get install libasound.so.2 libXv.so.1 libXss.so.1 libSM.so.6 libXi.so.6 libXrender.so.1 libXrandr.so.2 libfreetype.so.6 libfontconfig.so.1 libz.so.1 libgthread-2.0.so.0 libstdc++.so.6 libQtDBus.so.4 libQtGui.so.4 pulseaudio-libs.i686 -y ;
+apt-get install http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm -y ;
+apt-get install qtwebkit.i686 webkitgtk.i686 -y ;
+apt-get install glibc.i686 alsa-lib.i686 libXv.i686 libXScrnSaver.i686 qt.i686 gtk2-engines.i686 PackageKit-gtk-module.i686 libcanberra.i686 libcanberra-gtk2.i686 -y ;
+apt-get install bind-utils -y ;
+apt-get install libstdc++.i686 -y ;
+apt-get install ncurses-libs.i686 -y ;
+apt-get install zlib.i686 -y ;
+apt-get install glibc.i686 glibc-devel.i686 libstdc++.i686 zlib-devel.i686 ncurses-devel.i686 libX11-devel.i686 libXrender.i686 libXrandr.i686 -y ;
+apt-get install pam.i686 -y ;
+apt-get install bind-utils -y ;
+apt-get install bind-utils -y ;
+apt-get install libstdc++.i686 -y ;
+apt-get install ncurses-libs.i686 -y ;
+apt-get install zlib.i686 -y ;
+apt-get install mutt -y ;
+apt-get install ssmtp -y ;
+apt-get install cyrus-sasl -y ;
+apt-get install cyrus-imapd -y ;
+apt-get install glibc.i686 glibc-devel.i686 libstdc++.i686 zlib-devel.i686 ncurses-devel.i686 libX11-devel.i686 libXrender.i686 libXrandr.i686 -y ;
+apt-get install glibc.i686 -y ;
+apt-get install libgcc.x86_64 pam.x86_64 -y ;
+apt-get upgrade libgcc.x86_64 pam.x86_64 -y ;
+apt-get install pam.i686 -y ;
+apt-get install libXm.so.* -y ;
+apt-get install java-1.7.0-openjdk -y ;
+apt-get install build-essential -y ;
+apt-get install libparallel-forkmanager-perl -y ;
+apt-get install perl-Parallel-ForkManager.noarch -y ;
+apt-get install perl-Params-Validate -y ;
+rpm -ql perl-Params-Validate -y ;
+apt-get install perl-ExtUtils-MakeMaker perl-Test-Harness -y ;
+apt-get install perl-CGI -y ;
+apt-get install dos2unix -y ;
+##========================##
+##========================##
+# wget --no-check-certificate http://www.cpan.org/src/5.0/perl-5.26.0.tar.gz ;
+# tar -xzf perl-5.26.0.tar.gz ;
+# cd perl-5.26.0 ;
+# ./Configure -des -Dprefix=$HOME/localperl ;
+# make ;make test ;make install ;
+##========================##
+##========================##
+wget https://www.cpan.org/src/5.0/perl-5.32.0.tar.gz ;
+tar -xzf perl-5.32.0.tar.gz ;
+cd perl-5.32.0 ;
+./Configure -des -Dprefix=$HOME/localperl ;
+make ;
+make test ;
+make install ;
+##========================##
+##========================##
+wget http://python.org/ftp/python/2.7.14/Python-2.7.14.tar.xz ;
+tar xf Python-2.7.14.tar.xz ;
+cd Python-2.7.14 ;
+./configure --prefix=/usr/local --enable-unicode=ucs4 --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib" ;
+make && make altinstall ;
+##========================##
+curl -O https://www.python.org/ftp/python/3.8.1/Python-3.8.1.tgz ;
+tar -xzf Python-3.8.1.tgz ;
+cd Python-3.8.1/ ;
+./configure --enable-optimizations ;
+make altinstall ;
+##========================##
+# curl -O https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz ;
+# tar xvfz Python-2.7.10.tgz ;
+# cd Python-2.7.10 ;
+# export PYTHON_TOP_DIR=/tmp/python2.7.10 ;
+# ./configure --enable-shared --prefix=$PYTHON_TOP_DIR --enable-unicode=ucs4 ;
+# make ;make install ;
+# export PYTHON_TOP_DIR=/tmp/python2.7.10 ;
+# export PATH=$PYTHON_TOP_DIR/bin:$PATH ;
+##========================##
+##========================##
+apt-get groupinstall development -y ;
+apt-get install -y zlib-devel openssl-devel sliteq-devel bzip2-devel ;
+apt-get install GeoIP GeoIP-data -y ;
+##========================##
+git clone https://github.com/openssl/openssl.git
+cd openssl ;./config ;make ;make test ;make install ;
+##========================##
+curl -O https://bootstrap.pypa.io/get-pip.py ;
+python get-pip.py ;
+pip install setuptools ;
+apt-get groupinstall development -y ;
+apt-get install -y zlib-devel openssl-devel sliteq-devel bzip2-devel ;
+pip install --upgrade requests ;
+pip install --upgrade threading ;
+pip install --upgrade InsecureRequestWarning ;
+pip install --upgrade exceptions ;
+pip install --upgrade urllib3 ;
+pip install --upgrade Queue ;
+pip install queuelib ;
+pip install httplib2 ;
+git clone git://github.com/requests/requests.git ;cd requests ;python setup.py install ;cd .. ;
+pip install git+https://github.com/disqus/disqus-python.git ;
+git clone git://github.com/urllib3/urllib3.git ;cd urllib3 ;python setup.py install ;cd .. ;
+apt-get install python-pip python-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev -y ;
+apt-get install python-setuptools -y ;
+git clone git://github.com/dound/ltprotocol.git ;
+cd ltprotocol ;
+python setup.py install ;
+wget --no-check-certificate http://pypi.python.org/packages/source/p/pip/pip-0.7.2.tar.gz ;
+tar xzf pip-0.7.2.tar.gz ;
+cd pip-0.7.2 ;
+python setup.py install ;
+apt-get install zlib-devel -y ;
+apt-get install bzip2-devel -y ;
+apt-get install openssl-devel -y ;
+apt-get install ncurses-devel -y ;
+apt-get install sqlite-devel -y ;
+apt-get install python-setuptools-devel -y ;
+apt-get install -y python-setuptools-devel.noarch -y ;
+apt-get install python-setuptools -y ;
+easy_install -U setuptools ;
+apt-get install python-devel -y ;
+apt-get install memcached -y ;
+easy_install python-memcached ;
+apt-get install patch -y ;
+easy_install ReviewBoard ;
+easy_install mysql-python ;
+easy_install psycopg2 ;
+easy_install pysqlite ;
+apt-get install py-pysqlite2 -y ;
+apt-get install cvs -y ;
+apt-get install git-core -y ;
+easy_install mercurial ;
+easy_install P4PythonInstaller ;
+apt-get install subversion pysvn -y ;
+apt-get install subversion -y ;
+easy_install django-storages ;
+easy_install nose Sphinx ;
+apt-get install python-pip -y ;
+apt-get install epel-release -y ;
+apt-get install python-django -y ;
+apt-get install python-virtualenv -y ;
+apt-get groupinstall development -y ;
+apt-get groupinstall 'development tools' -y ;
+pip install pycryptodome ;
+easy_install pycryptodome ;
+apt-get install zlib-dev openssl-devel sqlite-devel bzip2-devel -y ;
+apt-get install xz-libs -y ;
+apt-get install python -y ;
+easy_install pip ;
+pip install --upgrade pip ;
+pip install paramiko ;
+easy_install paramiko ;
+pip install python-parse ;
+easy_install python-parse ;
+pip install pycrypto ;
+easy_install pycrypto ;
+easy_install fabric ;
+pip install fabric ;
+apt-get install perl-CPAN -y ;
+apt-get install perl-YAML perl-CPAN-DistnameInfo perl-Test-Mock-LWP gcc-c++ -y ;
+apt-get install libcrypto.so.1 -y ;
+apt-get install libcrypto.so.2 -y ;
+apt-get install libcrypto.so.3 -y ;
+apt-get install libcrypto.so.4 -y ;
+apt-get install libcrypto.so.5 -y ;
+apt-get install libcrypto.so.6 -y ;
+apt-get install libcrypto.so.* -y ;
+apt-get install glibc-devel.i686 glibc.i686 -y ;
+apt-get install perl-IO-Socket-SSL -y ;
+apt-get install httpd rrdtool fping echoping curl perl perl-Net-Telnet perl-Net-DNS perl-LDAP perl-libwww-perl perl-RadiusPerl perl-IO-Socket-SSL perl-Socket6 perl-CGI-SpeedyCGI -y ;
+apt-get install git gcc make libpcap-dev -y ;
+apt-get install wireshark -y ;
+apt-get install git* gcc* make libpcap-dev* -y ;
+apt-get install wireshark* -y ;
+apt-get install zlib-devel -y ;
+apt-get install httpd -y ;
+apt-get install mysql-server -y ;
+apt-get install mutt -y ;
+apt-get install ssmtp -y ;
+apt-get install cyrus-sasl -y ;
+apt-get install cyrus-imapd -y ;
+apt-get install postfix dovecot system-switch-mail system-switch-mail-gnome -y ;
+apt-get install postfix -y ;
+apt-get install mailx -y ;
+service postfix start -y ;
+apt-get install mutt -y ;
+apt-get install ssmtp -y ;
+service mysqld start ;
+apt-get install glibc-devel -y ;
+apt-get install glib* -y ;
+apt-get groupinstall "Development tools" -y ;
+apt-get install glibc-devel.i686 glibc-i686 -y ;
+apt-get install glibc.i686 -y ;
+apt-get install ia32-libs-y ;
+apt-get install binfmt-support qemu qemu-user-static -y ;
+apt-get install glibc-2.13-2.x86_64 -y ;
+wget http://ftp.gnu.org/gnu/glibc/glibc-2.16.0.tar.gz ;
+tar -xvzf glibc-2.16.0.tar.gz ;
+cd glibc-2.16.0 ;
+mkdir glibc-build ;
+cd glibc-build ;
+./configure --prefix='/usr' ;
+apt-get install net-tools -y ;
+apt-get install libopal-dev -y ;
+sudo apt-get install centos-release-scl -y ;
+sudo apt-get install devtoolset-4-gcc* -y ;
+apt-get install libmpc-devel mpfr-devel gmp-devel -y ;
+apt-get install zlib-devel* -y ;
+wget https://www.openssl.org/source/openssl-1.0.2q.tar.gz ;
+tar xvf openssl-1.0.2q.tar.gz ;cd openssl-1.0.2q ;
+sudo ./config -Wl,--enable-new-dtags,-rpath,'$(LIBRPATH)' ;sudo make ;sudo make install ;
+cpan Asterisk::AGI ;
+cpan Asterisk::AMI ;
+cpan Authen::Radius ;
+cpan Bundle::CPAN ;
+cpan Bundle::LWP ;
+cpan Bundle:BI ;
+cpan Class::ErrorHandler ;
+cpan Convert::PEM ;
+cpan DBD::mysql ;
+cpan Digest::MD4 ;
+cpan Digest::MD5 ;
+cpan Digest::SHA ;
+cpan ExtUtils::Embed ;
+cpan Geo::IP ;
+cpan Getopt::Long ;
+cpan HTTP::Cookies ;
+cpan HTTP::Lite ;
+cpan HTTP::Request::Common ;
+cpan HTTP::Request ;
+cpan IO::Socket::SSL ;
+cpan IO::Socket ;
+cpan IO::Tty ;
+cpan LWP::Protocol::https ;
+cpan LWP::UserAgent ;
+cpan Math::GMP ;
+cpan Math::Pari ;
+cpan MIME::Base64 ;
+cpan Module::Build ;
+cpan Net::Address::IP::Local ;
+cpan Net::DNS::SEC ;
+cpan Net::OpenSSH ;
+cpan Net::SFTP ;
+cpan Net::SIP::SDP ;
+cpan Net::SIP ;
+cpan Net::SSH ;
+cpan Net::SSL ;
+cpan Net::SSLeay ;
+cpan Net::Telnet::Cisco ;
+cpan Net::Telnet ;
+cpan NetAddr::IP ;
+cpan NetPacket::Ethernet ;
+cpan PAR::Filter::Bleach ;
+cpan Parallel::ForkManager ;
+cpan Perl::Critic ;
+cpan Test::Harness::Straps ;
+cpan Time::HiRes ;
+cpan URI::Escape ;
+cpan URL::Encode ;
+cpan XML::LibXML ;
+cpan XML::Simple ;
+perl -MCPAN -e 'install "Geo::IP"' ;
+perl -MCPAN -e 'install "Getopt::Long"' ;
+perl -MCPAN -e 'install "Net::Address::IP::Local"' ;
+perl -MCPAN -e 'install "Net::SIP"' ;
+perl -MCPAN -e 'install Asterisk::AGI' ;
+perl -MCPAN -e 'install Asterisk::AMI' ;
+perl -MCPAN -e 'install Authen::Radius' ;
+perl -MCPAN -e 'install Bundle::CPAN' ;
+perl -MCPAN -e 'install Bundle::LWP' ;
+perl -MCPAN -e 'install Bundle:BI' ;
+perl -MCPAN -e 'install Class::ErrorHandler' ;
+perl -MCPAN -e 'install Convert::PEM' ;
+perl -MCPAN -e 'install DBD::mysql' ;
+perl -MCPAN -e 'install Digest::MD4' ;
+perl -MCPAN -e 'install Digest::MD5' ;
+perl -MCPAN -e 'install Digest::SHA' ;
+perl -MCPAN -e 'install HTTP::Lite' ;
+perl -MCPAN -e 'install IO::Socket' ;
+perl -MCPAN -e 'install IO::Socket::SSL' ;
+perl -MCPAN -e 'install IO::Tty' ;
+perl -MCPAN -e 'install LWP::Protocol::http' ;
+perl -MCPAN -e 'install LWP::Protocol::https' ;
+perl -MCPAN -e 'install LWP::UserAgent' ;
+perl -MCPAN -e 'install Math::GMP' ;
+perl -MCPAN -e 'install Math::Pari' ;
+perl -MCPAN -e 'install MIME::Base64' ;
+perl -MCPAN -e 'install Net::SFTP' ;
+perl -MCPAN -e 'install Net::SIP' ;
+perl -MCPAN -e 'install Net::SIP::SDP' ;
+perl -MCPAN -e 'install Net::SSH::Perl' ;
+perl -MCPAN -e 'install Net::SSL' ;
+perl -MCPAN -e 'install Net::SSLeay' ;
+perl -MCPAN -e 'install Net::Telnet' ;
+perl -MCPAN -e 'install Net::Telnet::Cisco' ;
+perl -MCPAN -e 'install Parallel::ForkManager' ;
+perl -MCPAN -e 'install Perl::Critic' ;
+perl -MCPAN -e 'install Time::HiRes' ;
+perl -MCPAN -e 'install URI::Escape' ;
+perl -MCPAN -e 'install XML::LibXML' ;
+perl -MCPAN -e 'install XML::Simple' ;
+wget http://search.cpan.org/CPAN/authors/id/S/SU/SULLR/Net-SIP-0.687.tar.gz ;
+tar xvzf Net-SIP-0.687.tar.gz ;
+cd Net-SIP-0.687 ;
+perl Makefile.PL ;make test ;make install ;
+apt-get install perl-ExtUtils-Embed -y ;wget http://files1.directadmin.com/services/all/perl_modules/ExtUtils-Embed-1.14.tar.gz ;tar xvzf ExtUtils-Embed-1.14.tar.gzcd ExtUtils-Embed-1.14 ;perl Makefile.PL ;make ;make install ;cpan -i ExtUtils::Embed ;
+# =====================########
+apt-get install python-requests -y ;apt-get install python-urllib3 -y ;pip install --upgrade urllib3 ;pip install --upgrade requests ;apt-get install python-requests -y ;apt-get install python-urllib3 -y ;pip install --upgrade urllib3 ;pip install --upgrade requests ;
+# =================-----#*#*#*#*#*#*#*#*
+cpan Net::SSH ;cpan Net::SSH2 ;
+pip install --upgrade requests ;
+pip install --upgrade threading ;
+pip install --upgrade InsecureRequestWarning ;
+pip install --upgrade exceptions ;
+pip install --upgrade urllib3 ;
+pip install --upgrade Queue ;
+pip install queuelib ;
+pip install httplib2 ;
+apt-get install python-pip python-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev -y ;
+apt-get install python-requests -y ;apt-get install python-urllib3 -y ;
+git clone git://github.com/requests/requests.git ;cd requests ;python setup.py install ;cd .. ;
+pip install git+https://github.com/disqus/disqus-python.git ;
+git clone git://github.com/urllib3/urllib3.git ;cd urllib3 ;python setup.py install ;cd .. ;
+# =====================########
+#===========================#
+#===========================#
+cpan Term::ANSIColor ;
+cpan HTTP::Cookies ;
+cpan LWP::UserAgent ;
+cpan Time::HiRes ;
+cpan Net::SSH2 ;
+cpan MIME::Base64 ;
+cpan Parallel::ForkManager ;
+cpan WWW::UserAgent::Random ;
+#===========================#
+easy_install requests ;
+easy_install urllib3 ;
+easy_install Queue ;
+easy_install threading ;
+easy_install Thread ;
+easy_install subprocess ;
+#===========================#
+pip install requests ;
+pip install urllib3 ;
+pip install Queue ;
+pip install threading ;
+pip install Thread ;
+pip install subprocess ;
+#===========================#
+python -m pip install requests ;
+python -m pip install urllib3 ;
+python -m pip install Queue ;
+python -m pip install threading ;
+python -m pip install Thread ;
+python -m pip install subprocess ;
+#===========================#
+#===========================#
+# =====================########
+# wget https://www.samba.org/ftp/ccache/ccache-3.6.tar.bz2 ;tar -xvf ccache-3.6.tar.bz2 ;./configure ;./make ;sudo make install ;
+# sudo make install ;
+# export CCACHE_DIR=/home/user_name/.ccache ;
+# export CCACHE_TEMPDIR=/home/user_name/.ccache ;
+# source ~/.bashrc ;
+# ccache -M 10G ;
+# ccache -s ;
+# =====================########
+# apt-get update -y ;
+# apt-get groupinstall "Development tools" -y ;
+# curl ftp://ftp.gnu.org/pub/gnu/gcc/gcc-5.3.0/gcc-5.3.0.tar.bz2 -O ;tar xvfj gcc-5.3.0.tar.bz2 ;cd gcc-5.3.0 ;./configure --with-system-zlib --disable-multilib --enable-languages=c,c++ ;make -j 4 ;make install ;apt-get --setopt=group_package_types=mandatory,default,optional groupinstall "Development Tools" -y ;
+# apt-get install wget gcc gcc-c++ ncurses-devel libxml2-devel sqlite-devel libuuid-devel openssl-devel -y ;
+# apt-get install gcc-c++ make gnutls-devel kernel-devel subversion doxygen texinfo curl-devel net-snmp-devel neon-devel -y ;
+# apt-get install uuid-devel libuuid-devel sqlite-devel sqlite git speex-devel gsm-devel -y ;
+# apt-get install -y epel-release dmidecode gcc-c++ ncurses-devel libxml2-devel make wget openssl-devel newt-devel kernel-devel sqlite-devel libuuid-devel gtk2-devel jansson-devel binutils-devel ;
+# wget http://www.pjsip.org/release/2.7.2/pjproject-2.7.2.tar.bz2 &&
+# tar -jxvf pjproject-2.7.2.tar.bz2 ;cd pjproject-2.7.2 ;./configure CFLAGS="-DNDEBUG -DPJ_HAS_IPV6=1" --prefix=/usr --libdir=/usr/lib64 --enable-shared --disable-video --disable-sound --disable-opencore-amr ;make dep ;make ;make install ;ldconfig ;ldconfig -p | grep pj &&
+# ./configure ;make dep && make clean && make ;cd pjsip-apps/bin/ ;
+# ./pjsua-x86_64-unknown-linux-gnu ;
+# =====================########
+# =====================########
+echo "FiiiiNsH-----INSTALL----TOOLS------Hima" ;
