@@ -2,6 +2,10 @@
 split -l 50 -d --additional-suffix=.txt IP.txt Pal-       العدد 50 فقط لكل ملف 
 
 
+استبدال الفاصلة بفراغ   لشغل الكراك والبرفكس
+sed 's/, / /g' ipuser >ips
+
+
 التنظيف عدد البورتات الى غاية 6
 
 grep -Po "(\d+\.){3}\d+:?(\d?){6}" oOoOoOok.txt >>P6666.txt
