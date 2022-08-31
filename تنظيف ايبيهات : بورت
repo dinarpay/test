@@ -6,6 +6,9 @@ split -l 50 -d --additional-suffix=.txt IP.txt Pal-       العدد 50 فقط �
 sed 's/, / /g' ipuser >ips
 
 
+سحب اليوزر من السطر
+awk '{print $2}' 1 >> user.txt
+
 التنظيف عدد البورتات الى غاية 6
 
 grep -Po "(\d+\.){3}\d+:?(\d?){6}" oOoOoOok.txt >>P6666.txt
