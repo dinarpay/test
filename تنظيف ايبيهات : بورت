@@ -5,7 +5,7 @@ split -l 50 -d --additional-suffix=.txt IP.txt Pal-       العدد 50 فقط �
 تنظيف بورت - حدف المكرر -حذف أخر جزء فى الاى بى - اضافة نهاية ليصبح رانج صالح للعمل
 
 grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" all.txt > allNEW.txt
-sort -u allNEW.txt > testip.txt
+awk '!a[$0]++' allNEW.txt >testip.txt
 awk -F'.' '{print $1,$2,$3}' OFS='.' testip.txt >sip3.txt
 awk '{print $0".0/24"}' sip3.txt >sipgoodRANGE.txt
 
