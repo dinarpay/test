@@ -7,6 +7,8 @@ cpan install Test::More
 cpan install Parallel::ForkManager
 cpan install Term::ANSIColor
 cpan install Time::HiRes
+make
+make install
 ===================================
 
 apt-get update -y ;
