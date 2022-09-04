@@ -20,6 +20,48 @@
 رقم صينيى
 1051924000
 288582200
+
+
+=========== بحث  ==================
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Shanghai" && "SIP/2.0 404 Not Found"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Jiangsu"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Unknown"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Henan"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Shanghai"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Hunan"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Beijing"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Anhui"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Fujian"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Qinghai"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Guangdong"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Shandong"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Shaanxi"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Shanxi"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Sichuan"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Chongqing"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Jilin"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Zhejiang"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Xinjiang Uyghur Autonomous Region"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Hubei"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Tianjin"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Guangxi"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Liaoning"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Jiangxi"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Hebei"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Guizhou"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Gansu"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Heilongjiang"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Inner Mongolia Autonomous Region"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Yunnan"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Ningxia Hui Autonomous Region"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" region="Hainan"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found"
+protocol="sip" && country="CN" && base_protocol="udp" && "403 Forbidden"
+protocol="sip" && country="CN" && base_protocol="udp" && " 401 Unauthorized"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" && region="HK"
+protocol="sip" && country="CN" && base_protocol="udp" && "404 Not Found" && region="MO"
+
+
 =============================
 6069
 5060,6072,6073,7073,6069,6079,6099,6089,5059,5260,5061,5070,5069,6655,5038,5080,5062,15060,6050,6051,5063,5064,5065,5067,5068,5071,5072,5073,5076,5075,5077,5078,1020,5079,1021,1022,1023,6052,6053,6054,6055,6057,6058,6059,6061,6062,6063,6070,6064,6080,6010,5090,5566,9060,4002,5678,5088,6020,5600,5160,1025,9090,5506,6060
