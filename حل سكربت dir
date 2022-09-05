@@ -1,0 +1,24 @@
+sudo apt install --fix-broken
+sudo apt-get install build-essential libssl-dev libffi-dev python-dev
+sudo apt-get install python-socks
+sudo pip install requests-ntlm==1.1.0
+
+asn1crypto==0.24.0
+certifi==2018.4.16
+cffi==1.11.5
+chardet==3.0.4
+cryptography==2.2.2
+enum34==1.1.6
+eventlet==0.23.0
+greenlet==0.4.13
+idna==2.6
+ipaddress==1.0.22
+ntlm-auth==1.1.0
+pycparser==2.18
+PySocks==1.6.8
+requests==2.18.4
+requests-ntlm==1.1.0
+six==1.11.0
+stem==1.6.0
+urllib3==1.22
+win-inet-pton==1.0.1
