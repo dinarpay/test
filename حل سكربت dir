@@ -3,6 +3,10 @@ sudo apt-get install build-essential libssl-dev libffi-dev python-dev
 sudo apt-get install python-socks
 sudo pip install requests-ntlm==1.1.0
 
+curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
+sudo python2 get-pip.py
+python -m pip install requests
+
 asn1crypto==0.24.0
 certifi==2018.4.16
 cffi==1.11.5
