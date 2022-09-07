@@ -1,0 +1,470 @@
+http://maj.sira38-voip.fr/golf/provisionning.xml
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<provisioning version="1.1" productID="e2">
+
+<nvm>
+
+<oper name="add_hs" value="0335B3A7A7">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1005"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1005"/>
+<param name="SipAccount.DisplayName" value="CHB 5"/>
+</oper>
+
+<oper name="add_hs" value="0335B36A54">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1006"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1006"/>
+<param name="SipAccount.DisplayName" value="CHB 6"/>
+</oper>
+
+<oper name="add_hs" value="0335B95D51">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1007"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1007"/>
+<param name="SipAccount.DisplayName" value="CHB 7"/>
+</oper>
+
+<oper name="add_hs" value="0335B95D00">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1008"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1008"/>
+<param name="SipAccount.DisplayName" value="CHB 8"/>
+</oper>
+
+<oper name="add_hs" value="0325027082">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1101"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1101"/>
+<param name="SipAccount.DisplayName" value="CHB 101"/>
+</oper>
+
+<oper name="add_hs" value="0335B95D52">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1102"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1102"/>
+<param name="SipAccount.DisplayName" value="CHB 102"/>
+</oper>
+
+<oper name="add_hs" value="0335B95C6C">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1103"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1103"/>
+<param name="SipAccount.DisplayName" value="CHB 103"/>
+</oper>
+
+<oper name="add_hs" value="0325027697">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1104"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1104"/>
+<param name="SipAccount.DisplayName" value="CHB 104"/>
+</oper>
+
+<oper name="add_hs" value="0335B95D5B">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1105"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1105"/>
+<param name="SipAccount.DisplayName" value="CHB 105"/>
+</oper>
+
+<oper name="add_hs" value="0335B95D8D">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1106"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1106"/>
+<param name="SipAccount.DisplayName" value="CHB 106"/>
+</oper>
+
+<oper name="add_hs" value="0335B95D91">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1107"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1107"/>
+<param name="SipAccount.DisplayName" value="CHB 107"/>
+</oper>
+
+<oper name="add_hs" value="032502D098">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1108"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1108"/>
+<param name="SipAccount.DisplayName" value="CHB 108"/>
+</oper>
+
+<oper name="add_hs" value="032502C51D">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1109"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1109"/>
+<param name="SipAccount.DisplayName" value="CHB 109"/>
+</oper>
+
+<oper name="add_hs" value="032502D4A0">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1110"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1110"/>
+<param name="SipAccount.DisplayName" value="CHB 110"/>
+</oper>
+
+<oper name="add_hs" value="0335B95CFF">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1111"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1111"/>
+<param name="SipAccount.DisplayName" value="CHB 111"/>
+</oper>
+
+<oper name="add_hs" value="032502B866">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1112"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1112"/>
+<param name="SipAccount.DisplayName" value="CHB 112"/>
+</oper>
+
+<oper name="add_hs" value="0335B95AB6">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1113"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1113"/>
+<param name="SipAccount.DisplayName" value="CHB 113"/>
+</oper>
+
+<oper name="add_hs" value="0335B95CFC">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1114"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1114"/>
+<param name="SipAccount.DisplayName" value="CHB 114"/>
+</oper>
+
+<oper name="add_hs" value="0335B9222B">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1115"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1115"/>
+<param name="SipAccount.DisplayName" value="CHB 115"/>
+</oper>
+
+<oper name="add_hs" value="0335B95C73">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1116"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1116"/>
+<param name="SipAccount.DisplayName" value="CHB 116"/>
+</oper>
+
+<oper name="add_hs" value="0335B3BF78">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1117"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1117"/>
+<param name="SipAccount.DisplayName" value="CHB 117"/>
+</oper>
+
+<oper name="add_hs" value="0335AE37D9">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1118"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1118"/>
+<param name="SipAccount.DisplayName" value="CHB 118"/>
+</oper>
+
+<oper name="add_hs" value="0335B3A868">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1119"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1119"/>
+<param name="SipAccount.DisplayName" value="CHB 119"/>
+</oper>
+
+<oper name="add_hs" value="0335B95C63">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1120"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1120"/>
+<param name="SipAccount.DisplayName" value="CHB 120"/>
+</oper>
+
+<oper name="add_hs" value="0335B95C72">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1121"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1121"/>
+<param name="SipAccount.DisplayName" value="CHB 121"/>
+</oper>
+
+<oper name="add_hs" value="03250270D7">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1201"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1201"/>
+<param name="SipAccount.DisplayName" value="CHB 201"/>
+</oper>
+
+<oper name="add_hs" value="0335B95D53">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1202"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1202"/>
+<param name="SipAccount.DisplayName" value="CHB 202"/>
+</oper>
+
+<oper name="add_hs" value="0335B9219C">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1203"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1203"/>
+<param name="SipAccount.DisplayName" value="CHB 203"/>
+</oper>
+
+<oper name="add_hs" value="032502D5ED">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1204"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1204"/>
+<param name="SipAccount.DisplayName" value="CHB 204"/>
+</oper>
+
+<oper name="add_hs" value="0335B922B3">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1205"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1205"/>
+<param name="SipAccount.DisplayName" value="CHB 205"/>
+</oper>
+
+<oper name="add_hs" value="0335B95AD0">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1206"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1206"/>
+<param name="SipAccount.DisplayName" value="CHB 206"/>
+</oper>
+
+<oper name="add_hs" value="0324E44875">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1207"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1207"/>
+<param name="SipAccount.DisplayName" value="CHB 207"/>
+</oper>
+
+<oper name="add_hs" value="0335B95D8F">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1208"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1208"/>
+<param name="SipAccount.DisplayName" value="CHB 208"/>
+</oper>
+
+<oper name="add_hs" value="0325027646">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1209"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1209"/>
+<param name="SipAccount.DisplayName" value="CHB 209"/>
+</oper>
+
+<oper name="add_hs" value="032502B97E">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1210"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1210"/>
+<param name="SipAccount.DisplayName" value="CHB 210"/>
+</oper>
+
+<oper name="add_hs" value="0335B3A8A5">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1211"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1211"/>
+<param name="SipAccount.DisplayName" value="CHB 211"/>
+</oper>
+
+<oper name="add_hs" value="0335B95D4D">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1212"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1212"/>
+<param name="SipAccount.DisplayName" value="CHB 212"/>
+</oper>
+
+<oper name="add_hs" value="0335B95EBE">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1213"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1213"/>
+<param name="SipAccount.DisplayName" value="CHB 213"/>
+</oper>
+
+<oper name="add_hs" value="0335B95A80">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1214"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1214"/>
+<param name="SipAccount.DisplayName" value="CHB 214"/>
+</oper>
+
+<oper name="add_hs" value="0335B95F19">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1215"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1215"/>
+<param name="SipAccount.DisplayName" value="CHB 215"/>
+</oper>
+
+<oper name="add_hs" value="0335B95F1B">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1216"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1216"/>
+<param name="SipAccount.DisplayName" value="CHB 216"/>
+</oper>
+
+<oper name="add_hs" value="032502B7A7">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1217"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1217"/>
+<param name="SipAccount.DisplayName" value="CHB 217"/>
+</oper>
+
+<oper name="add_hs" value="0335B0CD8A">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1218"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1218"/>
+<param name="SipAccount.DisplayName" value="CHB 218"/>
+</oper>
+
+<oper name="add_hs" value="032502D314">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1219"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1219"/>
+<param name="SipAccount.DisplayName" value="CHB 219"/>
+</oper>
+
+<oper name="add_hs" value="032502B924">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1220"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1220"/>
+<param name="SipAccount.DisplayName" value="CHB 220"/>
+</oper>
+
+<oper name="add_hs" value="0335B9224A">
+<param name="hs.RegStatus" value="ToReg"/>
+<param name="hs.DECT_AC" value="0000"/>
+<param name="SipAccount.AuthName" value="1221"/>
+<param name="SipAccount.AuthPassword" value="aee6ba4a303294aa2708a771583cf0f7"/>
+<param name="SipAccount.ProviderId" value="0"/>
+<param name="SipAccount.UserName" value="1221"/>
+<param name="SipAccount.DisplayName" value="CHB 221"/>
+</oper>
+
+</nvm>
+</provisioning>
