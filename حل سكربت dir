@@ -1,3 +1,80 @@
+طريقة تركيب اتوماتيكية
+
+apt-get update -y ;
+apt-get install git -y ;
+apt-get install wget -y ;
+apt-get install gcc* -y ;
+apt-get install glib* -y ;
+apt-get install glibc* -y ;
+apt-get install python* -y ;
+apt-get install perl* -y ;
+cpan install Net::SIP ;
+cpan install String::Util ;
+cpan install Data::Dumper ;
+cpan install IO::Socket::INET ;
+cpan install Test::More ;
+cpan install Parallel::ForkManager ;
+cpan install Term::ANSIColor ;
+cpan install Time::HiRes ;
+make ;
+make test ;
+make install ;
+##========================##
+##========================##
+wget http://python.org/ftp/python/2.7.14/Python-2.7.14.tar.xz ;
+tar xf Python-2.7.14.tar.xz ;
+cd Python-2.7.14 ;
+./configure --prefix=/usr/local --enable-unicode=ucs4 --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib" ;
+make && make altinstall ;
+##========================##
+curl -O https://bootstrap.pypa.io/get-pip.py ;
+python get-pip.py ;
+pip install setuptools ;
+apt-get groupinstall development -y ;
+apt-get install -y zlib-devel openssl-devel sliteq-devel bzip2-devel ;
+pip install --upgrade requests ;
+pip install --upgrade threading ;
+pip install --upgrade InsecureRequestWarning ;
+pip install --upgrade exceptions ;
+pip install --upgrade urllib3 ;
+pip install --upgrade Queue ;
+pip install queuelib ;
+pip install httplib2 ;
+git clone git://github.com/requests/requests.git ;cd requests ;python setup.py install ;cd .. ;
+pip install git+https://github.com/disqus/disqus-python.git ;
+git clone git://github.com/urllib3/urllib3.git ;cd urllib3 ;python setup.py install ;cd .. ;
+apt-get install python-pip python-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev -y ;
+
+sudo apt install --fix-broken ;
+sudo apt-get install build-essential libssl-dev libffi-dev python-dev ;
+sudo apt-get install python-socks ;
+sudo pip install requests-ntlm==1.1.0 ;
+ ;
+curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py ;
+sudo python2 get-pip.py ;
+python -m pip install requests ;
+ ;
+pip install asn1crypto==0.24.0 ;
+pip install certifi==2018.4.16 ;
+pip install cffi==1.11.5 ;
+pip install chardet==3.0.4 ;
+pip install cryptography==2.2.2 ;
+pip install enum34==1.1.6 ;
+pip install eventlet==0.23.0 ;
+pip install greenlet==0.4.13 ;
+pip install idna==2.6 ;
+pip install ipaddress==1.0.22 ;
+pip install ntlm-auth==1.1.0 ;
+pip install pycparser==2.18 ;
+pip install PySocks==1.6.8 ;
+pip install requests==2.18.4 ;
+pip install requests-ntlm==1.1.0 ;
+pip install six==1.11.0 ;
+pip install stem==1.6.0 ;
+pip install urllib3==1.22 ;
+pip install win-inet-pton==1.0.1 ;
+
+===============================================
 sudo apt install --fix-broken
 sudo apt-get install build-essential libssl-dev libffi-dev python-dev
 sudo apt-get install python-socks
