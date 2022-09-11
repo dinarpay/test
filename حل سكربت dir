@@ -8,17 +8,6 @@ apt-get install glib* -y ;
 apt-get install glibc* -y ;
 apt-get install python* -y ;
 apt-get install perl* -y ;
-cpan install Net::SIP ;
-cpan install String::Util ;
-cpan install Data::Dumper ;
-cpan install IO::Socket::INET ;
-cpan install Test::More ;
-cpan install Parallel::ForkManager ;
-cpan install Term::ANSIColor ;
-cpan install Time::HiRes ;
-make ;
-make test ;
-make install ;
 ##========================##
 ##========================##
 wget http://python.org/ftp/python/2.7.14/Python-2.7.14.tar.xz ;
@@ -31,29 +20,15 @@ curl -O https://bootstrap.pypa.io/get-pip.py ;
 python get-pip.py ;
 pip install setuptools ;
 apt-get groupinstall development -y ;
-apt-get install -y zlib-devel openssl-devel sliteq-devel bzip2-devel ;
-pip install --upgrade requests ;
-pip install --upgrade threading ;
-pip install --upgrade InsecureRequestWarning ;
-pip install --upgrade exceptions ;
-pip install --upgrade urllib3 ;
-pip install --upgrade Queue ;
-pip install queuelib ;
-pip install httplib2 ;
-git clone git://github.com/requests/requests.git ;cd requests ;python setup.py install ;cd .. ;
-pip install git+https://github.com/disqus/disqus-python.git ;
-git clone git://github.com/urllib3/urllib3.git ;cd urllib3 ;python setup.py install ;cd .. ;
-apt-get install python-pip python-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev -y ;
-
-sudo apt install --fix-broken ;
-sudo apt-get install build-essential libssl-dev libffi-dev python-dev ;
-sudo apt-get install python-socks ;
+##========================##
+sudo apt install --fix-broken -y ;
+sudo apt-get install build-essential libssl-dev libffi-dev python-dev -y ;
+sudo apt-get install python-socks -y ;
 sudo pip install requests-ntlm==1.1.0 ;
- ;
-curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py ;
+curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py -y ;
 sudo python2 get-pip.py ;
-python -m pip install requests ;
- ;
+python -m pip install requests -y ;
+##========================##
 pip install asn1crypto==0.24.0 ;
 pip install certifi==2018.4.16 ;
 pip install cffi==1.11.5 ;
@@ -73,6 +48,26 @@ pip install six==1.11.0 ;
 pip install stem==1.6.0 ;
 pip install urllib3==1.22 ;
 pip install win-inet-pton==1.0.1 ;
+##========================##
+cpan Net::SIP ;
+cpan String::Util ;
+cpan Data::Dumper ;
+cpan IO::Socket::INET ;
+cpan Test::More ;
+cpan Parallel::ForkManager ;
+cpan Term::ANSIColor ;
+cpan Time::HiRes ;
+cpan make install Net::SIP ;
+cpan make install String::Util ;
+cpan make install Data::Dumper ;
+cpan make install IO::Socket::INET ;
+cpan make install Test::More ;
+cpan make install Parallel::ForkManager ;
+cpan make install Term::ANSIColor ;
+cpan make install Time::HiRes ;
+##========================##
+echo "Finish INSTALL TOOLS------Mohammad Elnwajha" ;
+
 
 ===============================================
 sudo apt install --fix-broken
