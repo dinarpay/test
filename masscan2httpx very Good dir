@@ -1,0 +1,61 @@
+#coding:utf-8
+import os
+import time
+
+os.system('masscan -iL ip.txt -p80,443,8080,8000 --exclude 255.255.255.255 -oL masscan.txt --rate=250000')
+#Determine whether there is a masscan.txt file in the current directory, if not, wait for 1 second and judge again
+while True:
+    if os.path.exists("masscan.txt"):
+        break
+    else:
+        print("Waiting for masscan.txt...")
+        time.sleep(1)
+#Confirm whether the massscan.txt file is empty, if it is empty, print("no open ports") and exit the program, otherwise execute the following code
+if os.path.getsize("masscan.txt") == 0:
+    print("No open ports")
+    exit()
+else :
+    print("MasscanConvert is running...")
+    masscanfile = open("masscan.txt", "r")
+    masscanfile.seek(0)
+    for line in masscanfile:
+        if line.startswith("#"):
+            continue
+        if line.startswith("open"):
+            line = line.split(" ")
+            print(line[3]+":"+line[2])
+            with open("masscanconvert.txt", "a") as f:
+                f.write(line[3]+":"+line[2]+"\n")
+                f.close()
+    masscanfile.close()
+if os.path.exists("masscan.txt"):
+    os.system('cat masscanconvert.txt | docker run -i projectdiscovery/httpx -t 500 -nc -v >> httpxresult.txt')
+    os.remove("masscan.txt")
+    
+    
+    name="httpxresult.txt"
+    fin = open(name, "rt")
+    #output file to write the result to
+    fout = open("out.txt", "wt")
+    #for each line in the input file
+    for line in fin:
+        #read replace the string and write to output file 
+        parsed = urlparse(line)
+        if parsed.port==None:
+            if parsed.scheme=='http':
+                fout.write(line.replace(line,line.strip()+":80\n"))
+            else:
+                fout.write(line.replace(line,line.strip()+":443\n"))
+        else:
+            fout.write(line)
+    #close input and output files
+    fin.close()
+    fout.close()
+    os.remove("httpxresult.txt")
+    os.rename("out.txt","httpxresult.txt")
+    splash2 = """
+
+    print("httpx is done!")
+else:
+    print("The masscan.txt file was not found")
+    exit()
