@@ -51,6 +51,7 @@ pip install win-inet-pton==1.0.1 ;
 cpan Net::SIP ;
 cpan String::Util ;
 cpan Data::Dumper ;
+cpan MCE::Shared ;
 cpan IO::Socket::INET ;
 cpan Test::More ;
 cpan Parallel::ForkManager ;
@@ -64,6 +65,8 @@ cpan make install Test::More ;
 cpan make install Parallel::ForkManager ;
 cpan make install Term::ANSIColor ;
 cpan make install Time::HiRes ;
+cpan make install MCE::Shared ;
+
 ##========================##
 
 
