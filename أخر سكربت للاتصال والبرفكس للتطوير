@@ -6,14 +6,14 @@ echo -e "\nStart nslookup ...\n"
 
 while read -r ip; do
 	echo "Checking $ip";
-	python svmap.py $ip -p5060 -v -t0.0 >> output1.txt
-    python svmap.py $ip -p6060 -v -t0.0 >> output2.txt
-    python svmap.py $ip -p6069 -v -t0.0 >> output3.txt
-    python svmap.py $ip -p5061 -v -t0.0 >> output4.txt
-    python svmap.py $ip -p6080 -v -t0.0 >> output5.txt
-    python svmap.py $ip -p5080 -v -t0.0 >> output6.txt
+	python svmap.py $ip -p5060 -v -t0.0 >> 1.port
+    python svmap.py $ip -p6060 -v -t0.0 >> 2.port
+    python svmap.py $ip -p6069 -v -t0.0 >> 3.port
+    python svmap.py $ip -p5061 -v -t0.0 >> 4.port
+    python svmap.py $ip -p6080 -v -t0.0 >> 5.port
+    python svmap.py $ip -p5080 -v -t0.0 >> 6.port
 
-cat output1.txt output2.txt output3.txt output4.txt output5.txt output6.txt >> output
+cat *.port >> output
 
 
 done < ip.txt
@@ -59,6 +59,7 @@ echo -e "\nEnding SIP responses !\n"
 echo -e "\nStart SIP Crack ...\n"
 
 perl Crack 2000 2 IPss
+sudo rm *.pal
 sleep 1
 
 echo -e "\nEnding SIP Crack !\n"
