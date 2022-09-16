@@ -31,12 +31,7 @@ grep -Po "(\d+\.){3}\d+:?(\d?){7}" output >>cn1
 grep -R ':' cn1 >cn2
 awk '!a[$0]++' cn2 >IPS
 sleep 1
-rm output1.txt
-rm output2.txt
-rm output3.txt
-rm output4.txt
-rm output5.txt
-rm output6.txt
+rm *.port
 rm cn1
 rm cn2
 rm cn1
