@@ -68,10 +68,24 @@ echo -e "\nEnding SIP Crack !\n"
 echo -e "\nStart Prefix Testing ...\n"
 
 perl call VOIPresult 500 20 | tee callfile
-cat callfile | awk '{print $2 ":" $3 ":" $4 ":" $5 ":" $6}' > CallGood.txt
+cat callfile | awk '{print $2 ":" $3 ":" $4 ":" $5 ":" $6}' > successCALL.txt
 sudo rm callfile
 sleep 5
 
 echo -e "\nEnding Prefix Testing !\n"
+
+# Prefix Testing Prog
+
+echo -e "\nStart Prefix Testing ...\n"
+
+sed 's/$/ 1001 1001/' IPS > IPSprog
+
+perl calling IPSprog 500 20 | tee callfile
+cat callfile | awk '{print $2 ":" $3 ":" $4 ":" $5 ":" $6}' > successPROG.txt
+sudo rm callfile
+sudo rm IPSprog
+sleep 5
+
+echo -e "\nEnding Prefix Testing Prog !\n"
 
 echo -e "\nby Mohammad Elnwajha\n"
