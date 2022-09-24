@@ -9,8 +9,6 @@ auth => [ $user,$pass ]
 #!/bin/bash
 
 # Scan TLS Port
-
-sudo masscan -iL ip.txt -p5061  -oL masscan.txt --exclude 255.255.255.255 --rate=100000
 awk '{print $4}' masscan.txt > 5061.txt
 sudo cat 5061.txt | docker run -i projectdiscovery/tlsx -p 5061 -san -cn -nc -v >> TLSxresult.txt
 
@@ -31,7 +29,6 @@ sudo rm cnD
 sudo rm cnDD
 sudo rm ccn
 sudo rm 5061.txt
-sudo rm masscan.txt
 sleep 1
 
 echo -e "\nEnding IP Extractor !\n"
@@ -41,7 +38,7 @@ echo -e "\nEnding IP Extractor !\n"
 echo -e "\nStart SIP responses ...\n"
 
 perl run IPS
-cat SSL.pal >> IPss
+cat SSL.pal 403.pal 404.pal 401.pal >> IPss
 sleep 1
 
 echo -e "\nEnding SIP responses !\n"
@@ -67,7 +64,6 @@ awk '!a[$0]++' QWEASD.txt >successCALL.txt
 sudo rm callfile1
 sudo rm callfile2
 sudo rm QWEASD.txt
-sudo rm IPS
 sleep 2
 
 echo -e "\nEnding Prefix Testing !\n"
