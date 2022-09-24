@@ -63,10 +63,7 @@ awk '!a[$0]++' QWEASD.txt >successCALL.txt
 sudo rm callfile1
 sudo rm callfile2
 sudo rm QWEASD.txt
-sudo rm IPSprog
 sudo rm IPS
-sudo rm IPss
-
 sleep 2
 
 echo -e "\nEnding Prefix Testing !\n"
@@ -90,5 +87,4 @@ sleep 2
 echo -e "\nEnding Prefix Testing Prog !\n"
 
 echo -e "\nby Mohammad Elnwajha\n"
-
 
