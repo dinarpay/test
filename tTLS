@@ -9,7 +9,9 @@ auth => [ $user,$pass ]
 #!/bin/bash
 
 # Scan TLS Port
-sudo masscan -iL ip.txt -p5061  -oL masscan.txt --exclude 255.255.255.255 --rate=100000 --wait 0 | awk '{print $6}' > 5061.txt
+
+sudo masscan -iL ip.txt -p5061  -oL masscan.txt --exclude 255.255.255.255 --rate=100000
+awk '{print $4}' masscan.txt > 5061.txt
 sudo cat 5061.txt | docker run -i projectdiscovery/tlsx -p 5061 -san -cn -nc -v >> TLSxresult.txt
 
 echo -e "\nEnding Scan TLS !\n"
@@ -28,6 +30,8 @@ sudo rm cn2
 sudo rm cnD
 sudo rm cnDD
 sudo rm ccn
+sudo rm 5061.txt
+sudo rm masscan.txt
 sleep 1
 
 echo -e "\nEnding IP Extractor !\n"
