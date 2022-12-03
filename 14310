@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Scan IPv4 range on port sip
+
+echo -e "\nStart nslookup ...\n"
+
+while read -r ip; do
+	echo "Checking $ip";
+	python2 svmap.py $ip -p14310 -v -t0.0 >> 1.port
+
+done < ip.txt
+echo "we scaned Everythings"
+sleep 1
+
+echo -e "\nEnding scanning nslookup !\n"
+
+# IP Extractor
+
+echo -e "\nStart IP Extractor ...\n"
+
+grep -Po "(\d+\.){3}\d+:?(\d?){7}" 1.port >>cn1
+grep -R ':' cn1 >cn2
+awk '!a[$0]++' cn2 >IPS
+sleep 1
+rm *.port*
+rm cn1
+rm cn2
+rm cn1
+sleep 1
+
+echo -e "\nEnding Responses !\n"
+
+# Scan masscan ports
+
+echo -e "\nStart scan ports ...\n"
+
+masscan -iL IPS -p8008 --rate=200000 -oL masscan.txt
+awk '{print $4 ":" $3}' masscan.txt > 8008.txt # Save scan masscan Range 
+cat 8008.txt | docker run -i projectdiscovery/httpx -t 250 -leave-default-ports -nc -v >> httpxresult.txt
+rm =204ip.txt  # remove the temporary file
+rm masscan.txt # remove the temporary file
+sleep 5
+
+split -l 250000 -d --additional-suffix=.txt httpxresult.txt /root/dir/hosts/Pal-')
+python2 new.py
+
+echo -e "\nEnding crack !\n"
+echo -e "\nby Mohammad Elnwajha\n"
