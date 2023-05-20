@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Prefix Testing Call
+
+echo -e "\nStart Prefix Testing ...\n"
+
+sed 's/$/ 10001 12345/' IPScn > IPSprog
+
+perl call IPSprog 30 20 | tee callfile1
+grep -R 'MOHAMMAD' callfile1 >callfile2
+cat callfile2 | awk '{print $2,$3,$4,$5,$6}' > QWEASD.txt
+awk '!a[$0]++' QWEASD.txt >successCALL.txt
+sudo rm callfile1
+sudo rm callfile2
+sudo rm QWEASD.txt
+sleep 2
+
+echo -e "\nEnding Prefix Testing !\n"
+
+echo -e "\nby Mohammad Elnwajha\n"
