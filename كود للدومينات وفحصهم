@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# SIP scan
+
+echo -e "\nStart SIP scan ...\n"
+
+sudo masscan -iL ip.txt -p80,443,21,69,8080 --exclude 255.255.255.255 --open-only -oL masscan.txt --rate=1000000
+sleep 5
+
+grep -Po "([0-2]?\d?\d\.){3}[0-2]?\d?\d" masscan.txt > 1
+cat 1 | perl -lane 'use warnings; use strict; for my $i (@F){if ($i =~/^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[1-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){2}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$/) { print $i; } }' > ipmasscan.txt
+
+sudo rm 1
+echo -e "\nEnding scan !\n"
+sleep 1
+
+# IP 2 hostnames
+
+echo -e "\nStart IP 2 hostnames ...\n"
+
+# A list of the IP addresses whose hostnames you would like to find
+ip_list="ipmasscan.txt"
+
+# Use Parallel to handle 250 IP addresses simultaneously
+cat $ip_list | parallel -j 250 'nslookup {} | awk "/name/ {print \$4}" | sed "s/.$//"' >> hostnames.txt
+sleep 3
+
+echo -e "\nEnding IP 2 hostnames !\n"
+
+# subfinder
+
+echo -e "\nStart subfinder ...\n"
+sed 's/.*\.\([^.]\+\.[^.]\+\)$/\1/' subdomains.txt > clean_domains.txt
+cat hostnames.txt | parallel -j 250 docker run -i projectdiscovery/alterx  | alterx | dnsx -v >> output.txt
+sleep 3
+echo -e "\nEnding subfinder !\n"
+
+# Testing Grep keywords
+
+echo -e "\nStart Grep keywords ...\n"
+
+grep -f keywords.txt output.txt >subdomains.txt
+
+sleep 5
+
+# New Test subfinder
+
+echo -e "\nStart subfinder ...\n"
+
+# subfinder
+
+echo -e "\nStart subfinder ...\n"
+sed 's/.*\.\([^.]\+\.[^.]\+\)$/\1/' subdomains.txt > clean_domains.txt
+cat clean_domains.txt | parallel -j 250 docker run -i projectdiscovery/alterx  | alterx | dnsx -v >> NEWoutput.txt
+grep -f keywords.txt NEWoutput.txt >NEWsubdomains.txt
+sleep 3
+echo -e "\nEnding subfinder !\n"
+
+echo -e "\nby Mohammad Elnwajha\n"
+
