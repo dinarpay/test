@@ -1,3 +1,9 @@
+بده ترتيب
+cat ipmasscan.txt | docker run -i projectdiscovery/tlsx -p 443,80 -san -cn -silent -resp-only -v >> TESTTESToutput.txt
+بلاش استخدام  parallel
+يرجي استخدام ايبيهات مع بورت مرة واحدة ودمجهم فى سكربت بايثون لتكون جاهزة تماما للعمل مع سكربت الداير
+
+
 #!/bin/bash
 
 # SIP scan
