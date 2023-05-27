@@ -1,5 +1,21 @@
 #!/bin/bash
 
+# New Test
+
+echo -e "\nStart NEW TEST ...\n"
+awk -F'.' '{ if (NF > 2) { print $(NF-1)"."$NF } else { print $0 } }' ddd.txt > main_domains.txt
+sleep 3
+echo -e "\nEnding subfinder !\n"
+
+# Delete duplicate
+
+echo -e "\nStart Delete duplicate ...\n"
+awk '!seen[$0]++' main_domains.txt > domains.txt
+sleep 3
+echo -e "\nEnding Delete duplicate !\n"
+
+# subfinder
+
 input_domains="domains.txt"
 output_domains="results.txt"
 
@@ -9,5 +25,5 @@ done < <(cat "$input_domains")
 
 sort -u -o "$output_domains" "$output_domains"
 
-echo -e "\nEnding scan!\n"
+echo -e "\nEnding subfinder!\n"
 echo -e "by Mohammad Elnwajha\n"
