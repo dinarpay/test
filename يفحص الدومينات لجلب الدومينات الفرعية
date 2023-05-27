@@ -29,7 +29,7 @@ sort -u -o "$output_domains" "$output_domains"
 
 echo -e "\nStart Grep keywords ...\n"
 
-grep -E -f keywords.txt results.txt | grep -E "\b([[:alnum:]]+\.)?([[:alnum:]]+\.)?([[:alnum:]]+)\.[[:alnum:]]+\b" >subdomains.txt
+grep -wFf keywords.txt results.txt | grep -E "^[A-Za-z0-9-]+" > subdomains.txt
 sleep 5
 
 
