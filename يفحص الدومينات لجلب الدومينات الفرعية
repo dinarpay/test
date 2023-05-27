@@ -1,0 +1,13 @@
+#!/bin/bash
+
+input_domains="domains.txt"
+output_domains="results.txt"
+
+while IFS= read -r domain; do
+    curl -s "https://rapiddns.io/subdomain/$domain?full=1&down=1#result" | grep -oE '<td>[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)' | sort -u | cut -b 5- >> "$output_domains"
+done < <(cat "$input_domains")
+
+sort -u -o "$output_domains" "$output_domains"
+
+echo -e "\nEnding scan!\n"
+echo -e "by Mohammad Elnwajha\n"
