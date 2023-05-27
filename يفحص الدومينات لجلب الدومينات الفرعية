@@ -25,5 +25,13 @@ done < <(cat "$input_domains")
 
 sort -u -o "$output_domains" "$output_domains"
 
+# Testing Grep keywords
+
+echo -e "\nStart Grep keywords ...\n"
+
+grep -E -f keywords.txt results.txt | grep -E "\b([[:alnum:]]+\.)?([[:alnum:]]+\.)?([[:alnum:]]+)\.[[:alnum:]]+\b" >subdomains.txt
+sleep 5
+
+
 echo -e "\nEnding subfinder!\n"
 echo -e "by Mohammad Elnwajha\n"
