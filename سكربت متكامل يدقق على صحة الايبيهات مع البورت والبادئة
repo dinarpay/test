@@ -1,0 +1,112 @@
+#coding:utf-8
+import os
+import time
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse    
+
+
+splash1 = """
+    +----------------------------------+
+    | Masscan2Httpx2Dir             |
+    +----------------------------------+
+    | by Mohammad Elnwajha                       |
+    +----------------------------------+
+"""
+print(splash1)
+
+
+
+os.system('masscan -iL ip.txt -p443,80,81,82,83,84,85,8080 --exclude 255.255.255.255 -oL masscan.txt --rate=1000000')
+while True:
+    if os.path.exists("masscan.txt"):
+        break
+    else:
+        time.sleep(1)
+if os.path.getsize("masscan.txt") == 0:
+    splash3 = """
+    +----------------------------------+
+    | Scan PORTS!          |
+    +----------------------------------+
+    """
+    print(splash3)
+    exit()
+else :
+    splash4 = """
+    +----------------------------------+
+    | Masscan & httpx   |
+    +----------------------------------+
+    """
+    print(splash4)
+    masscanfile = open("masscan.txt", "r")
+    masscanfile.seek(0)
+    for line in masscanfile:
+        if line.startswith("#"):
+            continue
+        if line.startswith("open"):
+            line = line.split(" ")
+            with open("masscanconvert.txt", "a") as f:
+                f.write(line[3]+":"+line[2]+"\n")
+                f.close()
+    masscanfile.close()
+if os.path.exists("masscan.txt"):
+    os.system('cat masscanconvert.txt | docker run -i projectdiscovery/httpx -t 500 -leave-default-ports -nc -v >> httpxresult.txt')
+    os.remove("masscan.txt")
+
+    name="httpxresult.txt"
+    fin = open(name, "rt")
+    #output file to write the result to
+    fout = open("out.txt", "wt")
+    #for each line in the input file
+    for line in fin:
+        #read replace the string and write to output file 
+        parsed = urlparse(line)
+        if parsed.port==None:
+            if parsed.scheme=='http':
+                fout.write(line.replace(line,line.strip()+":80\n"))
+            else:
+                fout.write(line.replace(line,line.strip()+":443\n"))
+        else:
+            fout.write(line)
+    #close input and output files
+    fin.close()
+    fout.close()
+    os.remove("httpxresult.txt")
+    os.rename("out.txt","httpxresult.txt")
+    splash2 = """
+    +----------------------------------+
+    | Httpx is done !                  |
+    +----------------------------------+
+    """
+    print(splash2)
+else:
+    splash5 = """
+    +----------------------------------+
+    | Split & Dir    |
+    +----------------------------------+
+    """
+    print(splash5)
+    exit()
+if os.path.exists("httpxresult.txt"):
+    os.system("cat httpxresult.txt | perl -lane 'use warnings; use strict; for my $i (@F) { if ($i =~ /^(http:\/\/|https:\/\/)?(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[1-9])\.)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){2}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9]):\d+$/) { print $i; } }' > 2")
+    os.system('split -l 25 -d --additional-suffix=.txt 2 /root/test/hosts/Pal-')
+    os.system('python new.py')
+    os.remove("httpxresult.txt")
+    splash6 = """
+    +----------------------------------+
+    | Dir is done !
+    +----------------------------------+
+    | Thank you , Mohammad Elnwajha             |
+    +----------------------------------+
+    """
+    print(splash6)
+else:
+    splash7 = """
+    +----------------------------------+
+    | Thank you                |
+    +----------------------------------+
+    """
+    print(splash7)
+    exit()
+
