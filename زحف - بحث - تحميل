@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# File containing a list of website URLs (one URL per line)
+urls_file="websites.txt"
+
+# Output folder path for saving the downloaded contents
+output_folder="voipvoip"
+
+# Regular expression pattern for file extensions
+allowed_extensions=".cfg|.xml|.txt|.log|.conf|.htm|.ini|.cnf"
+
+# Regular expression pattern for files with MAC address
+mac_address_pattern="^([0-9A-Fa-f]{2}){6}$"
+
+# Timeout in seconds for response
+timeout=25
+
+# Read the URLs from the file and process them one by one
+while IFS= read -r url; do
+  echo "Processing $url"
+
+  # Execute wget command with timeout to crawl and download the website contents
+  output=$(timeout $timeout wget \
+    --recursive \
+    --no-clobber \
+    --page-requisites \
+    --html-extension \
+    --convert-links \
+    --no-parent \
+    --directory-prefix="$output_folder" \
+    --no-check-certificate \
+    --timeout=$timeout \
+    --accept-regex ".*\.\($allowed_extensions\)|$mac_address_pattern" \
+    "$url" 2>&1)
+
+  echo "Website contents downloaded and saved in directory: $output_folder"
+  echo
+done < "$urls_file"
