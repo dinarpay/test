@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Website URL
+url="https://prx.ca/config/"
+
+# Output folder path for saving the downloaded contents
+output_folder="voip"
+
+# Execute wget command to crawl and download the website contents
+wget \
+  --recursive \
+  --no-clobber \
+  --page-requisites \
+  --html-extension \
+  --convert-links \
+  --no-parent \
+  --directory-prefix="$output_folder" \
+  --no-check-certificate \
+  "$url"
+
+echo "Website contents downloaded and saved in directory: $output_folder"
