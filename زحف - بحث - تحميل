@@ -7,7 +7,7 @@ urls_file="websites.txt"
 output_folder="voipvoip"
 
 # Regular expression pattern for file extensions
-allowed_extensions=".cfg|.xml|.txt|.log|.conf|.htm|.ini|.cnf"
+allowed_extensions=".cfg|.xml|.txt|.log|.conf|.htm|.ini|.cnf|.env|.csv|.ftp-access|.config|.memdump|.cvs|.bak|.sql"
 
 # Regular expression pattern for files with MAC address
 mac_address_pattern="^([0-9A-Fa-f]{2}){6}$"
