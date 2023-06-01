@@ -1,0 +1,16 @@
+#!/bin/bash
+
+results_files=("results.txt" "results1.txt")
+output_file="subdomains.txt"
+keywords_file="keywords.txt"
+
+for file in "${results_files[@]}"
+do
+    while IFS= read -r keyword
+    do
+        grep -iwE "(^|.*[[:space:]_.-])${keyword}([[:alnum:]]*|.*[[:space:]_.-])" "$file" | \
+        awk -F'[/.]' '{ if (NF > 2) print $0 }' | sort -u | \
+        awk '!/^[[:alnum:]]+\.[[:alnum:]]+\.[[:digit:]]+\.[[:digit:]]+/' | \
+        awk '!/^[[:alnum:]]+\.[[:alnum:]]+\.[[:alnum:]]+\.[[:digit:]]+\.[[:digit:]]+/ && !/\.[[:digit:]]+\.[[:alnum:]]+\.[[:alnum:]]+$/' >> "$output_file"
+    done < "$keywords_file"
+done
