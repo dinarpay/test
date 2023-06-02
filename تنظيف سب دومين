@@ -4,6 +4,10 @@ sed  's/.*\.\([^.]\+\.[^.]\+\)$/\1/' moh.txt > 415263.txt
 
 awk -F '.' '!seen[$(NF-1)"."$NF]++' subdomainsMOHAMMAD.txt > output50.txt
 
+يقوم بحدف اسطر الدومينات المكررة اكثر من 5 مرات بهيك بحتفظ بكثير نتائج دون مشاكل
+awk -F '.' '{ domain = $(NF-1)"."$NF; count[domain]++ } END { for (d in count) if (count[d] <= 5) print d }' subdomainsMOHAMMAD.txt > output50.txt
+
+
 
 ipswjw0073atl2.public.registeredsite.com
 
