@@ -6,3 +6,8 @@ awk -F '.' '!seen[$(NF-1)"."$NF]++' subdomainsMOHAMMAD.txt > output50.txt
 
 
 ipswjw0073atl2.public.registeredsite.com
+
+معرفة الدومينات الاساسية المكررة التى تم حدفها
+
+awk -F '.' '++seen[$(NF-1)"."$NF] > 1 { print $(NF-1)"."$NF }' subdomains.txt > duplicate_domains.txt
+
