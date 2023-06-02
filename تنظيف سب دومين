@@ -1,1 +1,8 @@
 sed  's/.*\.\([^.]\+\.[^.]\+\)$/\1/' moh.txt > 415263.txt
+
+امر لحدف الدومينات الاساسية المكررة مع الدومينات الفرعية المرتبطة بهم
+
+awk -F '.' '!seen[$(NF-1)"."$NF]++' subdomainsMOHAMMAD.txt > output50.txt
+
+
+ipswjw0073atl2.public.registeredsite.com
