@@ -1,0 +1,14 @@
+بناء vpn سهل 
+
+wget https://raw.githubusercontent.com/Saleh7/Auto_Setup_VPN_PPTP_Server_Ubuntu-Debian/master/pptp.sh
+
+sudo bash pptp.sh -h
+
+
+
+sudo bash pptp.sh -u moh -p 415263
+
+
+server ip address: 107.152.38.248
+
+user = moh   pass = pass1231
