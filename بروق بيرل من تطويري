@@ -40,7 +40,7 @@ foreach my $proxy (@proxies) {
         $ip =~ s/\x0a//g;
         $user //= $default_user;
         $pass //= $default_pass;
-        
+
         for my $protocol ('udp', 'tcp', 'tls') {
             for my $port (@ports) {
                 my $pid = $pm->start and next;
@@ -90,34 +90,35 @@ sub call {
                 print color("bold green"), "Call established to $ip\n";
                 write_to_file('successful_results.log', "$ip $user $pass $to $protocol $port - Call established\n");
                 $call->bye;
-                exit;
             },
-            cb_early => sub {
-                my $call = shift;
-                print color("bold yellow"), "Early response from $ip\n";
-                $call->bye;
-                exit;
+            cb_cleanup => sub {
+                my ($call, $reason) = @_;
+                print color("bold red"), "Call terminated to $ip\n";
+                write_to_file('successful_results.log', "$ip $user $pass $to $protocol $port - Call terminated\n");
             },
-            cb_noanswer => sub {
-                my $call = shift;
-                print color("bold blue"), "No answer from $ip\n";
-                $call->bye;
-                exit;
+            cb_error => sub {
+                my ($call, $error) = @_;
+                print color("bold yellow"), "Error occurred to $ip: $error\n";
+                write_to_file('failed_results.log', "$ip $user $pass $to $protocol $port - Error: $error\n");
             },
-            ring_time => $ring_time,
         );
         alarm 0;
     };
     if ($@) {
-        die unless $@ eq "alarm\n";
-        print color("bold magenta"), "Timeout reached for $ip\n";
+        if ($@ eq "alarm\n") {
+            print color("bold yellow"), "Timeout occurred to $ip\n";
+            write_to_file('failed_results.log', "$ip $user $pass $to $protocol $port - Timeout\n");
+        }
+        else {
+            die; # propagate unexpected errors
+        }
     }
-    $call->bye if $call;
 }
 
 sub write_to_file {
-    my ($filename, $content) = @_;
-    open my $fh, '>>', $filename or die "Cannot open file: $!";
-    print $fh $content;
+    my $filename = shift;
+    my $line = shift;
+    open(my $fh, '>>', $filename) or die "Could not open file '$filename' $!";
+    print $fh "$line\n";
     close $fh;
 }
