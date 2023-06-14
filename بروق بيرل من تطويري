@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use Data::Dumper;
 use IO::Socket::INET;
- Socket;
+use Socket;
 use Test::More;
 use Net::SIP;
 use Parallel::ForkManager;
@@ -79,14 +79,15 @@ sub call {
         leg => $protocol eq 'tls' ? { socktype => 'tls', ssl => { SSL_verify_mode => SSL_VERIFY_NONE } } : undef,
     );
 
-    my $;
+    my $call;
     eval {
         local $SIG{ALRM} = sub { die "alarm\n" };
         alarm $timeout;
         $call = $ua->invite( $to,
-            cb_established => {
+            cb_established => sub {
                 my $call = shift;
                 print color("bold green"), "Call established to $ip\n";
+                write_to_file('successful_results.log', "$ip $user $pass $to $protocol $port - Call established\n");
                 $call->bye;
                 exit;
             },
@@ -111,4 +112,11 @@ sub call {
         print color("bold magenta"), "Timeout reached for $ip\n";
     }
     $call->bye if $call;
+}
+
+sub write_to_file {
+    my ($filename, $content) = @_;
+    open my $fh, '>>', $filename or die "Cannot open file: $!";
+    print $fh $content;
+    close $fh;
 }
