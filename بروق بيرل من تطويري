@@ -29,7 +29,7 @@ if (@ARGV < 1) {
 my @ips = read_file($ip_file);
 my @proxies = read_file($proxy_file);
 
-my @ports = (5060, 5061, 5062); # The list of ports to be used.
+my @ports = (5060, 5061, 5062);
 
 my $pm = Parallel::ForkManager->new($max_processes);
 
@@ -38,8 +38,9 @@ foreach my $proxy (@proxies) {
         my $to = "$proxy$num";
         my ($ip, $user, $pass) = split(/ /, $line);
         $ip =~ s/\x0a//g;
+        $user //= $default_user;
+        $pass //= $default_pass;
         
-        # Try experimenting with different protocols and ports.
         for my $protocol ('udp', 'tcp', 'tls') {
             for my $port (@ports) {
                 my $pid = $pm->start and next;
