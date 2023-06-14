@@ -11,7 +11,7 @@ use Time::HiRes qw(gettimeofday tv_interval);
 use IO::Socket::SSL;
 
 my $ip_file = $ARGV[0];
-my $num = '184885651';
+my $num = '972599422641';
 my $proxy_file = 'prx';
 my $filename = 'caller.log';
 my $ring_time = '40';
@@ -29,7 +29,7 @@ if (@ARGV < 1) {
 my @ips = read_file($ip_file);
 my @proxies = read_file($proxy_file);
 
-my @ports = (5060, 5061, 5062); # قائمة المنافذ المراد استخدامها
+my @ports = (5060, 5061, 5062); # The list of ports to be used.
 
 my $pm = Parallel::ForkManager->new($max_processes);
 
@@ -39,7 +39,7 @@ foreach my $proxy (@proxies) {
         my ($ip, $user, $pass) = split(/ /, $line);
         $ip =~ s/\x0a//g;
         
-        # جرب البروتوكولات والناف المختلفة
+        # Try experimenting with different protocols and ports.
         for my $protocol ('udp', 'tcp', 'tls') {
             for my $port (@ports) {
                 my $pid = $pm->start and next;
