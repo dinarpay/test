@@ -1,0 +1,11 @@
+ظغط الملف
+xz -k -9 results.txt
+
+
+طريقة فك الظغط
+xz -d -k -9 results.txt.xz
+
+
+لحدف الملف المظغوط
+rm results.txt.xz
+
