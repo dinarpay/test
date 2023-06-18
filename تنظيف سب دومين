@@ -1,3 +1,29 @@
+للبحث فى ملف دومينات فرعية عن كلمات
+ 
+grep -E ".*[A-Za-z0-9]{0,4}(aastra|account|authentication|avaya|billing|call|carrier|cfg|cisco|client|cloud|conference|config|configuration|device|dialing|dialplan|fax|forward|gateway|grandstream|gxp|hosted|inbound|ivr|linksys|log|mobile|outbound|panasonic|pbx|phone|polycom|prov|provision|provisioning|proxy|reg|registration|secure|server|session|sip|snom|switch|tele|telecom|trunk|voice|voip|webphone|yealink|3cx|mitel|sangoma|digium|huawei|gigaset|asterisk|fanvil|opensips|siemens|freepbx|elastix|openvox|systems|patton|atcom|ipoffice|yeastar|freeswitch|omnipcx|nortel|ericsson|broadband|auto|elastic|firmware|fw|tftp)[A-Za-z0-9]{0,4}.*" results555.txt >> mohammad020.txt
+
+
+حدف المكرر
+awk '!seen[$0]++' mohammad020.txt > mohammad020_no_duplicates.txt
+
+حدف الدومينات الفرعية الموجود فيها ايبيهات مع بعض
+grep -vE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+(\.[a-zA-Z0-9]+)+' mohammad020_no_duplicates.txt > newfile.txt
+
+
+يستخدم هذا الامر عند مقارنة ملفين وحدف الموجود الاسطر الموجود فى ملف واحد من الملف اتنين
+
+dos2unix patterns.txt
+
+grep -vFf domain.txt fulldomain.txt > filtered_domains.txt
+هذا  domain.txt هو الملف الذي فيه دومينات اساسية نريد مقارنتها بملف الدومينات الكاملة وحدفها من هنا
+
+
+ملف الدومينات الكاملة والدومينات الفرعية  fulldomain.txt
+
+ملف الحفظ  filtered_domains.txt
+
+
+
 sed  's/.*\.\([^.]\+\.[^.]\+\)$/\1/' moh.txt > 415263.txt
 
 حدف الدومينات الرئيسية المكررة مثال  x.x  يحتفظ فى واحد فقط ويحدف الباقي الذي يكون بنفس اسم الدومين بالظبط
