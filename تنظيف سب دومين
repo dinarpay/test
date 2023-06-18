@@ -21,7 +21,26 @@ grep -vFf domain.txt fulldomain.txt > filtered_domains.txt
 ملف الدومينات الكاملة والدومينات الفرعية  fulldomain.txt
 
 ملف الحفظ  filtered_domains.txt
+=======
 
+أمر استبدال 
+
+sed 's/\[.\]/./g' input.txt > output.txt
+
+أمثلة
+08auto[.]cn
+0958699518[.]com
+131cai[.]com
+15550019997[.]com
+163[.]com
+
+النتيجة
+08auto.cn
+0958699518.com
+131cai.com
+15550019997.com
+163.com
+==========
 
 
 sed  's/.*\.\([^.]\+\.[^.]\+\)$/\1/' moh.txt > 415263.txt
