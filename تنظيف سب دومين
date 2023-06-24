@@ -5,7 +5,6 @@ awk -F'/' '{sub(":[0-9]+","",$3); domains[$3]++} {lines[NR]=$0} END { for (i in 
 يزيل الفراغ ويضيف /
 sed 's| /|/|g' final_output.txt > final_output_fixed.txt
 ====================================================================
-
 #!/bin/bash
 
 # Script: code httpx Targets
@@ -19,12 +18,12 @@ sed 's| /|/|g' final_output.txt > final_output_fixed.txt
     # Extract URLs with "[Index of /]" in the title and store them in fileVOIP.txt
     echo "Filtering the results..."
     awk '/ \[404]/ && $1 ~ /^http[s]?:\/\/.*\.(cfg|xml|txt|log|conf|htm|ini|cnf|dat|boot|template|xsl|pcfg|prd|tfw|csv|gz|zip|tar|secret|passwd|pwd|key|backup|rar|bak|config|cvs|env|ftp-access|ftppass|logfile|login|login_conf|members|memdump|sql)\047$/ {print $1}' valid_urls2.txt >> link.txt
-    sed "s/'$//" link.txt > filefile.txt
+    sed "s/'$//" link.txt > HTTPXfileVOIP.txt
 
 echo "Filtering completed! Filtered results are saved in the file"
 
 
-awk -F'/' '{sub(":[0-9]+","",$3); domains[$3]++} {lines[NR]=$0} END { for (i in domains) { if (domains[i] <= 50) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' filefile.txt | sed 's| | /|g' > final_output.txt
+awk -F'/' '{sub(":[0-9]+","",$3); domains[$3]++} {lines[NR]=$0} END { for (i in domains) { if (domains[i] <= 50) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' HTTPXfileVOIP.txt | sed 's| | /|g' > final_output.txt
 
 sed 's| /|/|g' final_output.txt > fileVOIP.txt
 
@@ -39,6 +38,7 @@ rm final_output.txt
 
 echo "downloaded is done!"
 echo "Thank you , Mohammad Elnwajha!"
+
 
 
 ===============================================
