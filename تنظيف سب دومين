@@ -1,4 +1,5 @@
-الامر يقوم بتنظيف الدومينات الرئيسية فى الرابط المكررة اكثر من 50 مرة ويحظفهم دون اضافة /
+الامر يقوم بتنظيف الدومينات الرئيسية فى الرابط المكررة اكثر من 50 مرة ويحظفهم دون اضافة
+/
 
 awk -F'/' '{sub(":[0-9]+","",$3); domains[$3]++} {lines[NR]=$0} END { for (i in domains) { if (domains[i] <= 50) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' final_results.txt | sed 's| | /|g' > final_output.txt
 
@@ -38,8 +39,9 @@ echo "Thank you , Mohammad Elnwajha!"
 
 
 ===============================================
+حدف اى نص بعد الموقع 
 
-
+sed 's|^\(https\?://[^/]*\)/.*|\1/|g' filename.txt > newfilename.txt
 
 للبحث فى ملف دومينات فرعية عن كلمات
  
