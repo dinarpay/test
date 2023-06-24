@@ -22,22 +22,18 @@ sed 's| /|/|g' final_output.txt > final_output_fixed.txt
 
 echo "Filtering completed! Filtered results are saved in the file"
 
-
-awk -F'/' '{sub(":[0-9]+","",$3); domains[$3]++} {lines[NR]=$0} END { for (i in domains) { if (domains[i] <= 50) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' HTTPXfileVOIP.txt | sed 's| | /|g' > final_output.txt
-
-sed 's| /|/|g' final_output.txt > fileVOIP.txt
-
+awk -F'/' '{portsplit = split($3, port, ":"); if (portsplit > 1) { domain=substr($3, 0, length($3)-length(port[2])-1); domains[domain ":" port[2]]++ } else { domain=$3; domains[domain]++ } } {lines[NR]=$0} END { for (i in domains) { if (domains[i] <= 50) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' HTTPXfileVOIP.txt | awk -F/ '{if (NF<=3 || $(NF-2)!~"^[[:digit:]]{1,5}$") print $0}' | sed 's| | /|g' | sort -u -o fileVOIP.txt
 
 
 rm valid_urls1.txt
 rm valid_urls2.txt
 rm filefile.txt
 rm link.txt
-rm final_output.txt
-rm final_output.txt
 
 echo "downloaded is done!"
 echo "Thank you , Mohammad Elnwajha!"
+
+
 
 
 
