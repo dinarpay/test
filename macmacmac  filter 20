@@ -1,0 +1,103 @@
+# coding: utf-8
+
+# Import required libraries
+import requests
+import datetime
+import re
+import os
+import sys
+import time
+from multiprocessing.dummy import Pool
+
+requests.packages.urllib3.disable_warnings()
+
+now = datetime.datetime.now()
+useragent = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0'}
+Fmac = re.compile(u'(?:[0-9a-fA-F]:?){12}', re.IGNORECASE)
+maxpathLock = Pool(3)
+maxThreadingpathLock = Pool(100)
+y = ''
+from config import config
+proxies = {'http': config['PortProxy'],
+           'https': config['PortProxy']}
+
+def flashPrint(msg):
+    sys.stdout.write('\r%s\r' % (msg + '          '))
+    sys.stdout.flush()
+
+def fetch(arg):
+    global y
+    threads = []
+    s = arg
+    if y[0].lower() == y[0]:
+        if '*' in line[:line.find(y[0])]:
+            url = line[:line.find(y[0])][:-1] + y[0][:6] + '{:06x}'.format(s) + line[line.find(y[0]) + 12:].strip()
+        else:
+            url = line[:line.find(y[0])] + y[0][:6] + '{:06x}'.format(s) + line[line.find(y[0]) + 12:].strip()
+    if y[0].lower() != y[0]:
+        if '*' in line[:line.find(y[0])]:
+            url = line[:line.find(y[0])][:-1] + y[0][:6] + '{:06X}'.format(s) + line[line.find(y[0]) + 12:].strip()
+        else:
+            url = line[:line.find(y[0])] + y[0][:6] + '{:06X}'.format(s) + line[line.find(y[0]) + 12:].strip()
+    threads.append(url)
+    if len(threads):
+        pm = maxThreadingpathLock.imap_unordered(scan, threads)
+        pm = [i for i in pm if i]
+        threads = []
+
+def scan(url):
+    url = url.rstrip()
+    try:
+        if config['proxies']:
+            r = requests.get(url, allow_redirects=False, timeout=5, verify=False, headers=useragent, proxies=proxies)
+        else:
+            r = requests.get(url, allow_redirects=False, timeout=5, verify=False, headers=useragent)
+        if r.status_code == 200 and len(r.content) != config['length'] and len(r.content) > 20:
+            result = open('result.txt', 'a')
+            result.write(url + ' >> Size: ' + str(len(r.content)) + '\n')
+            result.flush()
+            result.close()
+            flashPrint(url + ' >> Size: ' + str(len(r.content)) + '  True')
+        else:
+            flashPrint(url + '  False')
+    except Exception as ex:
+        s = url + '  Error'
+        flashPrint(s)
+
+def ReloudIp():
+    flashPrint('<<<<<<  RESTART TOR PROXY  >>>>>>')
+    os.system(config['reloudIP'])
+    u = 'http://ifconfig.me/ip'
+    response = requests.get(u)
+    flashPrint('ip: {}'.format(response.text.strip()))
+    response = requests.get(u, proxies=proxies)
+    flashPrint('tor ip: {}'.format(response.text.strip()))
+    time.sleep(5)
+
+if __name__ == '__main__':
+    threads = []
+    flashPrint('#####################################################')
+    flashPrint('###     Engineer programs: Mohammad Elnwajha      ###')
+    flashPrint('#####################################################')
+    xx = config['StartMac']
+    yy = config['EndMac']
+    if config['proxies']:
+        ReloudIp()
+    with open('data.txt') as my_file:
+        for line in my_file:
+            y = [x.group() for x in Fmac.finditer(line)]
+            if y:
+                xxx = int(xx.rstrip(), 16)
+                yyy = int(yy.rstrip(), 16)
+                for value in range(xxx, yyy):
+                    threads.append(value)
+                    if len(threads) > 20000:
+                        pm = maxpathLock.imap_unordered(fetch, threads)
+                        pm = [i for i in pm if i]
+                        threads = []
+                        if config['proxies']:
+                            ReloudIp()
+                if len(threads):
+                    pm = maxpathLock.imap_unordered(fetch, threads)
+                    pm = [i for i in pm if i]
+                    threads = []
