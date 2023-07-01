@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Specify the full path for the temporary and final result files
+temp_results_dir="/root/mac4/testfile/temp_results"
+final_results_file="/root/mac4/testfile/final_results.txt"
+
+# Read the target list from a file
+targets_file="/root/mac4/testfile/ip.txt"
+targets=($(cat "$targets_file"))
+
+# Create the temporary results directory if it doesn't exist
+mkdir -p "$temp_results_dir"
+
+# Iterate over the targets and execute commands
+for ((i=0; i<${#targets[@]}; i++)); do
+    target="${targets[$i]}"
+    command="docker run -it --rm -v /root/mac4/testfile:/data secsi/ffuf -u '$target' -w /data/PyMAC_partaa:FUZZ -mc 200 -t 1000 --ignore-body -sf -c -o '/data/temp_results/result_$((i+1)).txt'"
+    eval "$command"
+done
+
+# Merge temporary result files into the final result file
+for ((i=0; i<${#targets[@]}; i++)); do
+    cat "${temp_results_dir}/result_$((i+1)).txt" >> "$final_results_file"
+done
+
+# Delete temporary result files
+rm -rf "$temp_results_dir"
+
+# Filter the results to include only status 200 and save them to a separate file
+filtered_results_file="/root/mac4/testfile/filtered_results200.txt"
+grep -E '.{40,}' "$final_results_file" | jq -r '.results[] | select(.status == 200) | .url' > "$filtered_results_file"
+
+echo " is done!"
+echo "Thank you, Mohammad Elnwajha!"
