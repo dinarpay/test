@@ -1,0 +1,22 @@
+import random
+
+total_combinations = 1000000
+
+def generate_combinations():
+    combinations = []
+    for _ in range(total_combinations):
+        digits = ''.join(str(random.randint(0, 9)) for _ in range(3))
+        characters = ''.join(random.choice('abcdef') for _ in range(3))
+        combination = digits + characters
+        combinations.append(combination)
+    return combinations
+
+def save_combinations(combinations):
+    with open('combinations.txt', 'w') as file:
+        for combination in combinations:
+            file.write(combination + '\n')
+
+if __name__ == '__main__':
+    combinations = generate_combinations()
+    save_combinations(combinations)
+    print('Combinations saved to combinations.txt')
