@@ -1,3 +1,10 @@
+نسخة حديثة
+تقوم بتقسيم التخمينات الى 1 مليون لكل ملف
+كل ملف سيتم تجريبه على كل الاهداف ويتم تخزين النتائج فى مجلدات وملفات مؤقتة
+بعد الانتهاء من تجربة كل ملفات التخمينات والاهداف 
+سيتم فلترة النتائج الصحيحة التى يحدد فيها الشروط
+الرد 200  والحجم اكثر من 20 بايت
+
 #!/bin/bash
 
 # Read the list of targets from targets.txt file
@@ -8,36 +15,40 @@ targets=($(cat "$targets_file"))
 batch_size=1
 
 # Set the maximum number of retries and number of threads
-num_threads=500
+num_threads=2000
 
 # Split the combinations.txt file into smaller files
 split -l 1000000 combinations.txt combinations_
 
 # Create a temporary directory to store the result files
 temp_dir="temp_results"
-mkdir "$temp_dir"
 
-# Iterate through targets and execute commands
-for ((i=0; i<${#targets[@]}; i+=batch_size)); do
-    batch_targets=("${targets[@]:i:batch_size}")
+# Iterate through combination files
+for combinations_file in combinations_*; do
+    # Create a unique temporary directory for each combination file
+    combinations_temp_dir="$temp_dir/$(basename "$combinations_file" .txt)"
+    mkdir -p "$combinations_temp_dir"
 
-    # Run Docker process for each batch of targets
-    for ((j=0; j<${#batch_targets[@]}; j++)); do
-        target="${batch_targets[$j]}"
+    # Iterate through targets and execute commands
+    for ((i=0; i<${#targets[@]}; i+=batch_size)); do
+        batch_targets=("${targets[@]:i:batch_size}")
 
-        # Iterate through the smaller combination files
-        for combinations_file in combinations_*; do
-            command="docker run -it --rm -v $(pwd):/data secsi/ffuf -u '$target' -w /data/$combinations_file -timeout 60 -mc 200 -t $num_threads --ignore-body -sf -c -v -o '/data/$temp_dir/result_$((i+j+1)).txt'"
+        # Run Docker process for each batch of targets
+        for ((j=0; j<${#batch_targets[@]}; j++)); do
+            target="${batch_targets[$j]}"
+
+            # Run ffuf command for the current combination file and target
+            command="docker run -it --rm -v $(pwd):/data secsi/ffuf -u '$target' -w /data/$combinations_file -timeout 60 -mc 200 -t $num_threads --ignore-body -sf -c -v -o '/data/$combinations_temp_dir/result_$((i+j+1)).txt'"
             eval "$command"
         done
-    done
 
-    # Wait for all processes to finish
-    wait
+        # Wait for all processes to finish
+        wait
+    done
 done
 
 # Merge temporary result files into the final results file
-cat "$temp_dir"/*.txt >> final_results.txt
+find "$temp_dir" -name "*.txt" -exec cat {} + >> final_results.txt
 
 # Filter the results to include only status 200 and size greater than 20 bytes, and save them to a separate file
 filtered_results_file="filtered_results.txt"
