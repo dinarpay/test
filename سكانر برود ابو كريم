@@ -1,0 +1,133 @@
+#!/bin/bash
+
+
+# Step 1: Run Masscan scan ports
+echo "Running Masscan..."
+masscan -iL ip.txt -p443 --exclude 255.255.255.255 -oL masscan.txt --rate=500000
+# Convert Masscan output to desired format
+output_file="443CN.txt"
+awk '/open tcp 443/ {print $4 ":" $3}' masscan.txt > "$output_file"
+
+# Step 1: Run HTTPX
+echo "Running HTTPX..."
+
+cat 443CN.txt | docker run -i projectdiscovery/httpx -hash mmh3  -ldp https -t 500 -nc -v | grep "1799753549" | awk '{print $1}' > filtered_targets.txt
+
+
+# Function to check if an element exists in an array
+containsElement() {
+    local element
+    for element in "${@:2}"; do
+        if [[ "$element" == "$1" ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+# Splitting the Target File
+split -l 1000 filtered_targets.txt target_file_
+
+# Get a list of target files
+target_files=(target_file_*)
+
+for target_file in "${target_files[@]}"; do
+    # Scanning for 301, 403, 404 Responses (Iteration)
+    docker run -it --rm -v "$(pwd)":/data secsi/ffuf -w "/data/${target_file}":URL -ignore-body -t 1000 -w /data/301file.txt:FUZZ  -mc 500 -u URL/FUZZ  -fc 200,204,301,302,307,401,403,405 -sf -c -v -o "/data/result1.txt"
+
+	    # Extracting URLs based on status codes
+    jq -r '.results[] | select(.status == 500) | .url' result1.txt >> temp500.txt
+
+
+    # Merge the extracted URLs into a single file
+    cat temp301.txt temp500.txt > temp1.txt
+    rm -f temp301.txt temp500.txt
+
+
+    # Applying Filter (Remove duplicates > 500)
+    awk -F'/' '{portsplit = split($3, port, ":"); if (portsplit > 1) { domain=substr($3, 0, length($3)-length(port[2])-1); domains[domain ":" port[2]]++ } else { domain=$3; domains[domain]++ } } {lines[NR]=$0} END { for (i in domains) { if (domains[i]  <= 500) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' temp1.txt | awk -F/ '{if (NF<=3 || $(NF-2)!~"^[[:digit:]]{1,5}$") print $0}' | sed 's| | /|g' | sort -u -o target_1.txt
+
+    # Scanning for 301, 403, 404 Responses (Second Iteration)
+    docker run -it --rm -v "$(pwd)":/data secsi/ffuf -w "/data/target_1.txt":URL -ignore-body -t 1000 -w /data/301file.txt:FUZZ  -mc 301,500 -u URL/FUZZ  -fc 404 -sf -c -v -o "/data/result2.txt"
+ 
+		    # Extracting URLs based on status codes
+    jq -r '.results[] | select(.status == 500) | .url' result2.txt >> temp500.txt
+
+
+    # Merge the extracted URLs into a single file
+    cat temp301.txt temp500.txt > temp2.txt
+    rm -f temp301.txt temp500.txt
+
+    # Applying Filter (Remove duplicates > 500)
+    awk -F'/' '{portsplit = split($3, port, ":"); if (portsplit > 1) { domain=substr($3, 0, length($3)-length(port[2])-1); domains[domain ":" port[2]]++ } else { domain=$3; domains[domain]++ } } {lines[NR]=$0} END { for (i in domains) { if (domains[i]  <= 500) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' temp2.txt | awk -F/ '{if (NF<=3 || $(NF-2)!~"^[[:digit:]]{1,5}$") print $0}' | sed 's| | /|g' | sort -u -o target_2.txt
+
+    # Scanning for 301 Responses
+    docker run -it --rm -v "$(pwd)":/data secsi/ffuf -w "/data/target_2.txt":URL -ignore-body -t 1000 -w /data/301file.txt:FUZZ  -mc 500 -u URL/FUZZ  -fc 200,204,301,302,307,401,403,405 -sf -c -v -o "/data/result3.txt"
+
+
+	    # Extracting URLs based on status codes
+    jq -r '.results[] | select(.status == 500) | .url' result3.txt >> temp500.txt
+
+    # Merge the extracted URLs into a single file
+    cat temp301.txt temp500.txt > temp3.txt
+    rm -f temp301.txt temp500.txt
+
+    # Applying Filter (Remove duplicates > 500)
+    awk -F'/' '{portsplit = split($3, port, ":"); if (portsplit > 1) { domain=substr($3, 0, length($3)-length(port[2])-1); domains[domain ":" port[2]]++ } else { domain=$3; domains[domain]++ } } {lines[NR]=$0} END { for (i in domains) { if (domains[i]  <= 500) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' temp3.txt | awk -F/ '{if (NF<=3 || $(NF-2)!~"^[[:digit:]]{1,5}$") print $0}' | sed 's| | /|g' | sort -u -o target_3.txt
+	
+	# Scanning for 301 Responses
+    docker run -it --rm -v "$(pwd)":/data secsi/ffuf -w "/data/target_3.txt":URL -ignore-body -t 1000 -w /data/301file.txt:FUZZ  -mc 500 -u URL/FUZZ  -fc 200,204,301,302,307,401,403,405 -sf -c -v -o "/data/result6.txt"
+
+	    # Extracting URLs based on status codes
+    jq -r '.results[] | select(.status == 500) | .url' result6.txt >> temp500.txt
+
+
+    # Merge the extracted URLs into a single file
+    cat temp301.txt temp500.txt > temp6.txt
+    rm -f temp301.txt temp500.txt
+
+    # Applying Filter (Remove duplicates > 500)
+    awk -F'/' '{portsplit = split($3, port, ":"); if (portsplit > 1) { domain=substr($3, 0, length($3)-length(port[2])-1); domains[domain ":" port[2]]++ } else { domain=$3; domains[domain]++ } } {lines[NR]=$0} END { for (i in domains) { if (domains[i]  <= 500) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' temp6.txt | awk -F/ '{if (NF<=3 || $(NF-2)!~"^[[:digit:]]{1,5}$") print $0}' | sed 's| | /|g' | sort -u -o target_6.txt
+	
+	
+    # Merging the Final URLs
+cat target_1.txt target_2.txt target_3.txt target_6.txt >> 301301.txt
+sort -u -o 301301.txt 301301.txt
+    echo "Merged the final URLs to 301301.txt"
+
+
+    # Scanning for 200 Responses
+    docker run -it --rm -v "$(pwd)":/data secsi/ffuf -w "/data/301301.txt":URL -ignore-body -t 1000 -w /data/200file.txt:FUZZ  -u URL/FUZZ -sf -mc 200  -fc 404 -sf -c -v -o "/data/result4.txt"
+
+    # Extracting Final URLs
+    cat result4.txt | jq -r '.results[] | select(.status == 200) | .url' >> temp4.txt
+
+    # Filtering the Final URLs
+    awk -F'/' '{portsplit = split($3, port, ":"); if (portsplit > 1) { domain=substr($3, 0, length($3)-length(port[2])-1); domains[domain ":" port[2]]++ } else { domain=$3; domains[domain]++ } } {lines[NR]=$0} END { for (i in domains) { if (domains[i]  <= 500) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' temp4.txt | awk -F/ '{if (NF<=3 || $(NF-2)!~"^[[:digit:]]{1,5}$") print $0}' | sed 's| | /|g' | sort -u -o target_4.txt
+
+
+    # Merging the Final URLs
+cat target_4.txt target_5.txt >> 200.txt
+sort -u -o 200.txt 200.txt
+
+    cat 301301.txt >> 301.txt
+    echo "Appended 301301.txt to 301.txt"
+
+
+   # Removing temporary files
+   rm -f target_1.txt target_2.txt target_3.txt target_6.txt 301_3file.txt
+   rm -f result1.txt result2.txt result3.txt result4.txt result5.txt result6.txt
+   rm -f temp1.txt temp2.txt temp3.txt temp4.txt temp5.txt temp6.txt
+   rm target_4.txt target_5.txt
+   rm target_file_*
+   rm 301301.txt
+
+
+    echo "Completed scanning for target file: ${target_file}"
+    echo "Waiting for 1 minute before processing next targets..."
+    sleep 10
+done
+
+echo "Mohammad Elnwajha."
+echo "All targets have been processed successfully."
+
