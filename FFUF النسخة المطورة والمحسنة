@@ -5,6 +5,7 @@
 سيتم فلترة النتائج الصحيحة التى يحدد فيها الشروط
 الرد 200  والحجم اكثر من 20 بايت
 
+
 #!/bin/bash
 
 # Read the list of targets from targets.txt file
@@ -52,7 +53,7 @@ find "$temp_dir" -name "*.txt" -exec cat {} + >> final_results.txt
 
 # Filter the results to include only status 200 and size greater than 20 bytes, and save them to a separate file
 filtered_results_file="filtered_results.txt"
-grep -E '.{20,}' final_results.txt | jq -r '.results[] | select(.status == 200) | .url' > "$filtered_results_file"
+jq -r '.results[] | select(.status == 200 and .length > 20) | .url' final_results.txt > "$filtered_results_file"
 
 # Remove the temporary directory and files
 rm -r "$temp_dir"
