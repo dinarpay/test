@@ -6,10 +6,12 @@
 echo "Running Masscan..."
 masscan -iL ip.txt -p443 --exclude 255.255.255.255 -oL masscan.txt --rate=500000
 # Convert Masscan output to desired format
-output_file="443.txt"
+output_file="targets.txt"
 awk '/open tcp 443/ {print $4 ":" $3}' masscan.txt > "$output_file"
 
-sed -i 's/^/https:\/\//' 443.txt
+# Step 1: Run Httpx scan
+
+cat targets.txt | docker run -i projectdiscovery/httpx -leave-default-ports -t 500 -nc -v > 443.txt
 
 # Function to check if an element exists in an array
 containsElement() {
@@ -50,6 +52,9 @@ done
 
 # Removing final_results.txt as it's no longer needed
 rm final_results.txt
+rm targets.txt
+rm masscan.txt
+
 
 echo "All targets have been processed successfully."
 echo "Mohamamd Elnwajha.."
