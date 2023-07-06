@@ -16,7 +16,10 @@ targets=($(cat "$targets_file"))
 batch_size=1
 
 # Set the maximum number of retries and number of threads
-num_threads=2000
+num_threads=1000
+
+# Set the maximum running time for the entire process to 3.5 hours (12600 seconds)
+maxtime=12600
 
 # Split the combinations.txt file into smaller files
 split -l 1000000 combinations.txt combinations_
@@ -39,7 +42,7 @@ for combinations_file in combinations_*; do
             target="${batch_targets[$j]}"
 
             # Run ffuf command for the current combination file and target
-            command="docker run -it --rm -v $(pwd):/data secsi/ffuf -u '$target' -w /data/$combinations_file -timeout 60 -mc 200 -t $num_threads --ignore-body -sf -c -v -o '/data/$combinations_temp_dir/result_$((i+j+1)).txt'"
+            command="docker run -it --rm -v $(pwd):/data secsi/ffuf -u '$target' -w /data/$combinations_file -mc 200 -maxtime $maxtime -t $num_threads --ignore-body -sf -c -v -o '/data/$combinations_temp_dir/result_$((i+j+1)).txt'"
             eval "$command"
         done
 
@@ -59,5 +62,5 @@ jq -r '.results[] | select(.status == 200 and .length > 20) | .url' final_result
 rm -r "$temp_dir"
 rm combinations_*
 
-echo "Download completed!"
+echo "completed!"
 echo "Mohammad Elnwajha!"
