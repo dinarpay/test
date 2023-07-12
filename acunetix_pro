@@ -1,20 +1,12 @@
-https://hub.docker.com/r/hunganhprox/acunetix_pro
-
-Update Version: 14.2.210503151
+https://hub.docker.com/r/cryeye/docker-awvs
 
 Usage:
 
-docker run -it -d --name=acunetix -p 3443:3443 k4t3pr0/acunetix15pro
+docker pull secfa/docker-awvs
 
-Then visit https://YOUR_IP:3443
+docker run -it -d -p 13443:3443 secfa/docker-awvs
 
-[How to change User and Password login]
-
-1: docker exec -u root -it acunetix /bin/bash
-
-2: Run /home/acunetix/.acunetix/change_credentials.sh
-
-3: Input your new User and Password
+Then visit https://YOUR_IP:13443/
 
 INFO:
 
@@ -23,11 +15,3 @@ Username:admin@admin.com
 password:Admin123
 
 AWVS Version:201006145
-
-[How to change User and Password login]
-
-1: docker exec -u root -it $docker_names /bin/bash
-
-2: Run /home/acunetix/.acunetix/change_credentials.sh
-
-3: Input your new User and Password
