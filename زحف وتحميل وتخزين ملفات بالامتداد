@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# File containing a list of website URLs (one URL per line)
+urls_file="ip.txt"
+
+# Output folder path for saving the downloaded contents
+output_folder="voipvoip"
+
+# Regular expression pattern for file extensions
+allowed_extensions="\.cfg$|\.xml$|\.txt$|\.log$|\.conf$|\.htm$|\.ini$|\.cnf$|\.dat$|\.sql$|\.json$"
+
+# Regular expression pattern for MAC addresses
+mac_address_pattern="[0-9A-Fa-f]{12}"
+
+# Timeout in seconds for response
+timeout=25
+
+# Output file to store the downloaded file URLs
+downloaded_urls_file="downloaded_urls.txt"
+
+# Create the output folder if it doesn't exist
+mkdir -p "$output_folder"
+
+# Read the URLs from the file and process them one by one
+while IFS= read -r url; do
+  echo "Processing $url"
+
+  # Execute wget command with timeout to crawl and download the website contents
+  output=$(timeout $timeout wget \
+    --recursive \
+    --no-clobber \
+    --page-requisites \
+    --html-extension \
+    --convert-links \
+    --no-parent \
+    --directory-prefix="$output_folder" \
+    --no-check-certificate \
+    --timeout=$timeout \
+    --accept-regex ".*($allowed_extensions|$mac_address_pattern).*" \
+    "$url" 2>&1)
+
+  # Extract the downloaded file URLs from the wget output using grep and sed
+  downloaded_urls=$(echo "$output" | grep -Eo 'http://[^ ]+('"$allowed_extensions"'|'"$mac_address_pattern"')' \
+    | sed 's/[\?\"]/ /g' | awk '{print $1}' | tr -s ' ')
+
+  # Save the downloaded URLs to the file
+  echo "$downloaded_urls" >> "$downloaded_urls_file"
+
+done < "$urls_file"
+
+# Step 4:Delete blank lines
+
+sed '/^$/d' downloaded_urls.txt | uniq -u > file_downloaded.txt
+
+rm downloaded_urls.txt
+
+echo "downloaded is done!"
+echo "Thank you , Mohammad Elnwajha!"
