@@ -4,11 +4,17 @@ Update Version: 14.2.210503151
 
 Usage:
 
-docker pull hunganhprox/acunetix_pro
+docker run -it -d --name=acunetix -p 3443:3443 k4t3pr0/acunetix15pro
 
-docker run -it -d -p 3443:3443 hunganhprox/acunetix_pro
+Then visit https://YOUR_IP:3443
 
-Then visit https://YOUR_IP:3443/
+[How to change User and Password login]
+
+1: docker exec -u root -it acunetix /bin/bash
+
+2: Run /home/acunetix/.acunetix/change_credentials.sh
+
+3: Input your new User and Password
 
 INFO:
 
