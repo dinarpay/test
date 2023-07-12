@@ -1,0 +1,66 @@
+targets_file="301.txt"
+results_file="index.txt"
+processed_file="processed_targets.txt"
+
+function crawl_target {
+    target=$1
+    url="${target}/"
+
+    if curl -sL "$url" | grep -q "Index of /"; then
+        echo "Target URL: ${url}"
+        echo "${url}" >> "${results_file}"
+    fi
+
+    echo "Progress: $2/$3"
+}
+
+function crawl_targets {
+    targets=($(cat "${targets_file}"))
+    total_count=${#targets[@]}
+    completed_count=0
+
+    # Check if processed targets file exists
+    if [[ -f "${processed_file}" ]]; then
+        processed_targets=($(cat "${processed_file}"))
+    else
+        touch "${processed_file}"
+        processed_targets=()
+    fi
+
+    for target in "${targets[@]}"; do
+        if ! containsElement "${target}" "${processed_targets[@]}"; then
+            crawl_target "${target}" $((completed_count + 1)) $total_count &
+            pids[${completed_count}]=$!
+            completed_count=$((completed_count + 1))
+
+            # Append target to processed targets file
+            echo "${target}" >> "${processed_file}"
+        fi
+    done
+
+    for pid in ${pids[@]}; do
+        wait $pid
+    done
+}
+
+# Function to check if an element exists in an array
+function containsElement {
+    local element=$1
+    shift
+    local array=("$@")
+    local found=1
+    for item in "${array[@]}"; do
+        if [[ "${item}" == "${element}" ]]; then
+            found=0
+            break
+        fi
+    done
+    return $found
+}
+
+# Clear results file if exists
+if [[ -f "${results_file}" ]]; then
+    rm "${results_file}"
+fi
+
+crawl_targets
