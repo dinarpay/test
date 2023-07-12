@@ -1,7 +1,7 @@
 #!/bin/bash
 
+
 # Function for SIP scan
-function sip_scan() {
 
 ip_file="ip_ranges.txt"      # IP ranges file
 output_file="output.txt"    # Output file
@@ -93,6 +93,7 @@ for target_file in "${target_files[@]}"; do
     # Merge the extracted URLs into a single file
     cat temp301.txt temp302.txt temp307.txt temp405.txt temp401.txt temp403.txt >> temp1.txt
 
+    rm -f temp301.txt temp302.txt temp307.txt temp405.txt temp401.txt temp403.txt
     echo "Extracted 301 URLs from result1.txt"
 
     # Applying Filter (Remove duplicates > 150)
@@ -100,7 +101,7 @@ for target_file in "${target_files[@]}"; do
     echo "Applied filter and saved the filtered URLs to target_1.txt"
 
     # Scanning for 301 Responses (Second Iteration)
-    docker run -it --rm -v "$(pwd)":/data secsi/ffuf -w "/data/target_1.txt":URL -w /data/folders.txt:FUZZ -mc 301,403,302,307,401,405 -u URL/FUZZ -t $num_threads -ignore-body -fc 404 -sf -c -v -o "/data/result2.txt"
+    docker run -it --rm -v "$(pwd)":/data secsi/ffuf -w "/data/target_1.txt":URL -w /data/folders.txt:FUZZ -mc 301,302,307,401,405 -u URL/FUZZ -t $num_threads -ignore-body -fc 404 -sf -c -v -o "/data/result2.txt"
     echo "Scanned for 301 Responses (Second Iteration) on target_1.txt"
 
     # Extracting 301 URLs (Filtered)
@@ -111,10 +112,9 @@ for target_file in "${target_files[@]}"; do
     jq -r '.results[] | select(.status == 401) | .url' result1.txt > temp401.txt
     jq -r '.results[] | select(.status == 307) | .url' result1.txt > temp307.txt
     jq -r '.results[] | select(.status == 405) | .url' result1.txt > temp405.txt
-    jq -r '.results[] | select(.status == 403) | .url' result1.txt > temp403.txt
 
     # Merge the extracted URLs into a single file
-    cat temp301.txt temp302.txt temp307.txt temp405.txt temp401.txt temp403.txt >> temp2.txt
+    cat temp301.txt temp302.txt temp307.txt temp405.txt temp401.txt >> temp2.txt
 
     echo "Extracted 301 URLs (Filtered) from result2.txt"
 
@@ -225,7 +225,7 @@ for target_file in "${target_files[@]}"; do
     rm -f valid_urls1.txt valid_urls2.txt
     rm -f 301301.txt target_4.txt target_5.txt
     rm -f filefile.txt link.txt 200200200.txt 200200.txt HTTPXfileVOIP.txt
-    rm -f temp301.txt temp302.txt temp307.txt temp405.txt temp401.txt temp403.txt
+    rm -f temp301.txt temp302.txt temp307.txt temp405.txt temp401.txt
 	rm 
     echo "Completed scanning for target file: ${target_file}"
     echo "Waiting for 1 minute before processing next targets..."
