@@ -1,0 +1,199 @@
+#!/bin/bash
+
+# Function for Masscan scan
+masscan_scan() {
+    masscan -iL ip.txt -p443,80,81,82,83,84,85,86,8000,8001,8008,8080,8181,8888,9090 --exclude 255.255.255.255 -oL masscan.txt --rate=500000
+    # Convert Masscan output to desired format
+    output_file="targets.txt"
+    awk '/open tcp (443|80|81|82|83|84|85|86|8000|8001|8008|8080|8181|8888|9090)/ {print $4 ":" $3}' masscan.txt > "$output_file"
+}
+
+# Function for Httpx scan
+httpx_scan() {
+    echo "Running Httpx scan..."
+    cat targets.txt | docker run -i projectdiscovery/httpx -leave-default-ports -t 500 -nc -v > IPport.txt
+}
+
+# Execute the functions in the desired order
+masscan_scan
+httpx_scan
+
+# Function to check if an element exists in an array
+containsElement() {
+    local element
+    for element in "${@:2}"; do
+        if [[ "$element" == "$1" ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+# Splitting the Target File
+split -l 50 IPport.txt target_file_
+
+# Set the maximum number of retries and number of threads & Filter_code
+num_threads=1000
+Filter_code=404
+
+
+# Get a list of target files
+target_files=(target_file_*)
+
+for target_file in "${target_files[@]}"; do
+
+    # Scanning for 301 Responses final file (target_1.txt)
+    docker run -it --rm -v "$(pwd)":/data secsi/ffuf -w "/data/${target_file}":URL -w /data/folders.txt:FUZZ -mc 301 -u URL/FUZZ -t $num_threads -ignore-body -fc $Filter_code -sf -c -v -o "/data/result1.txt"
+    echo "Scanned for 301 Responses (Iteration) on ${target_file}"
+
+    # Extracting 301 URLs
+    jq -r '.results[] | select(.status == 301) | .url' result1.txt > temp1.txt
+    echo "Extracted 301 URLs (Filtered) from result1.txt"
+
+    # Applying Filter (Remove duplicates > 150)
+    awk -F'/' '{portsplit = split($3, port, ":"); if (portsplit > 1) { domain=substr($3, 0, length($3)-length(port[2])-1); domains[domain ":" port[2]]++ } else { domain=$3; domains[domain]++ } } {lines[NR]=$0} END { for (i in domains) { if (domains[i] <= 300) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' temp1.txt | awk -F/ '{if (NF<=3 || $(NF-2)!~"^[[:digit:]]{1,5}$") print $0}' | sed 's| | /|g' | sort -u -o target_1.txt
+    echo "Applied filter and saved the filtered URLs to target_1.txt"
+
+
+
+
+    # Scanning for 301 Responses final file (target_2.txt)
+    docker run -it --rm -v "$(pwd)":/data secsi/ffuf -w "/data/target_1.txt":URL -w /data/folders.txt:FUZZ -mc 301 -u URL/FUZZ -t $num_threads -ignore-body -fc $Filter_code -sf -c -v -o "/data/result2.txt"
+    echo "Scanned for 301 Responses (Second Iteration) on target_1.txt"
+
+    # Extracting 301 URLs (Filtered)
+	
+    # Extracting 301 URLs
+    jq -r '.results[] | select(.status == 301) | .url' result1.txt > temp2.txt
+    echo "Extracted 301 URLs (Filtered) from result2.txt"
+
+    # Applying Filter (Remove duplicates > 150)
+    awk -F'/' '{portsplit = split($3, port, ":"); if (portsplit > 1) { domain=substr($3, 0, length($3)-length(port[2])-1); domains[domain ":" port[2]]++ } else { domain=$3; domains[domain]++ } } {lines[NR]=$0} END { for (i in domains) { if (domains[i] <= 300) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' temp2.txt | awk -F/ '{if (NF<=3 || $(NF-2)!~"^[[:digit:]]{1,5}$") print $0}' | sed 's| | /|g' | sort -u -o target_2.txt
+    echo "Applied filter and saved the filtered URLs to target_2.txt"
+
+
+
+
+    # Scanning for 301 Responses final file (target_3.txt)
+    docker run -it --rm -v "$(pwd)":/data secsi/ffuf -w "/data/target_2.txt":URL -w /data/folders.txt:FUZZ -mc 301 -u URL/FUZZ -t $num_threads -ignore-body -fc $Filter_code -sf -c -v -o "/data/result3.txt"
+    echo "Scanned for 301 Responses (Second Iteration) on target_2.txt"
+
+    # Extracting 301 URLs
+    cat result3.txt | jq -r '.results[] | select(.status == 301) | .url' >> temp3.txt
+    echo "Extracted 301 URLs from result3.txt"
+
+    # Applying Filter (Remove duplicates > 150)
+    awk -F'/' '{portsplit = split($3, port, ":"); if (portsplit > 1) { domain=substr($3, 0, length($3)-length(port[2])-1); domains[domain ":" port[2]]++ } else { domain=$3; domains[domain]++ } } {lines[NR]=$0} END { for (i in domains) { if (domains[i] <= 300) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' temp3.txt | awk -F/ '{if (NF<=3 || $(NF-2)!~"^[[:digit:]]{1,5}$") print $0}' | sed 's| | /|g' | sort -u -o target_3.txt
+    echo "Applied filter and saved the filtered URLs to target_3.txt"
+
+
+
+
+    # Scanning for 301 Responses final file (target_4.txt)
+    docker run -it --rm -v "$(pwd)":/data secsi/ffuf -w "/data/target_3.txt":URL -w /data/folders.txt:FUZZ -mc 301 -u URL/FUZZ -t $num_threads -ignore-body -fc $Filter_code -sf -c -v -o "/data/result4.txt"
+    echo "Scanned for 301 Responses (Second Iteration) on target_3.txt"
+
+    # Extracting 301 URLs
+    cat result4.txt | jq -r '.results[] | select(.status == 301) | .url' >> temp4.txt
+    echo "Extracted 301 URLs from result4.txt"
+
+    # Applying Filter (Remove duplicates > 150)
+    awk -F'/' '{portsplit = split($3, port, ":"); if (portsplit > 1) { domain=substr($3, 0, length($3)-length(port[2])-1); domains[domain ":" port[2]]++ } else { domain=$3; domains[domain]++ } } {lines[NR]=$0} END { for (i in domains) { if (domains[i] <= 300) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' temp4.txt | awk -F/ '{if (NF<=3 || $(NF-2)!~"^[[:digit:]]{1,5}$") print $0}' | sed 's| | /|g' | sort -u -o target_4.txt
+    echo "Applied filter and saved the filtered URLs to target_4.txt"
+
+
+
+
+    # Scanning for 301 Responses final file (target_5.txt)
+    docker run -it --rm -v "$(pwd)":/data secsi/ffuf -w "/data/target_4.txt":URL -w /data/folders.txt:FUZZ -mc 301 -u URL/FUZZ -t $num_threads -ignore-body -fc $Filter_code -sf -c -v -o "/data/result5.txt"
+    echo "Scanned for 301 Responses (Second Iteration) on target_4.txt"
+
+    # Extracting 301 URLs
+    cat result5.txt | jq -r '.results[] | select(.status == 301) | .url' >> temp5.txt
+    echo "Extracted 301 URLs from result5.txt"
+
+    # Applying Filter (Remove duplicates > 150)
+    awk -F'/' '{portsplit = split($3, port, ":"); if (portsplit > 1) { domain=substr($3, 0, length($3)-length(port[2])-1); domains[domain ":" port[2]]++ } else { domain=$3; domains[domain]++ } } {lines[NR]=$0} END { for (i in domains) { if (domains[i] <= 300) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' temp5.txt | awk -F/ '{if (NF<=3 || $(NF-2)!~"^[[:digit:]]{1,5}$") print $0}' | sed 's| | /|g' | sort -u -o target_5.txt
+    echo "Applied filter and saved the filtered URLs to target_5.txt"
+
+
+    # Merging the Final URLs
+    cat target_1.txt target_2.txt target_3.txt target_4.txt target_5.txt >> 301301.txt
+    sort -u -o 301301.txt 301301.txt
+    echo "Merged the final URLs to 301301.txt"
+
+
+
+
+    # Scanning for 200 Responses final file (target_6.txt)
+    docker run -it --rm -v "$(pwd)":/data secsi/ffuf -w "/data/301301.txt":URL -w /data/file.txt:FUZZ -u URL/FUZZ -t $num_threads -mc 200 -ignore-body -fc $Filter_code -sf -c -v -o "/data/result6.txt"
+    echo "Scanned for 200 Responses (Second Iteration) on 301301.txt"
+
+    # Extracting Final URLs
+    cat result6.txt | jq -r '.results[] | select(.status == 200) | .url' >> temp6.txt
+    echo "Extracted final URLs from result6.txt"
+
+    # Filtering the Final URLs
+    awk -F'/' '{portsplit = split($3, port, ":"); if (portsplit > 1) { domain=substr($3, 0, length($3)-length(port[2])-1); domains[domain ":" port[2]]++ } else { domain=$3; domains[domain]++ } } {lines[NR]=$0} END { for (i in domains) { if (domains[i] <= 300) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' temp6.txt | awk -F/ '{if (NF<=3 || $(NF-2)!~"^[[:digit:]]{1,5}$") print $0}' | sed 's| | /|g' | sort -u -o target_6.txt
+    echo "Filtered the final URLs and saved the filtered URLs to target_6.txt"
+
+
+
+
+    # Scanning for 200 Responses final file (target_7.txt)
+    docker run -it --rm -v "$(pwd)":/data secsi/ffuf -w "/data/${target_file}":URL -w /data/file.txt:FUZZ -u URL/FUZZ -t $num_threads -mc 200 -ignore-body -fc $Filter_code -sf -c -v -o "/data/result7.txt"
+    echo "Scanned for 200 Responses (Second Iteration) on 301301.txt"
+
+    # Extracting Final URLs
+    cat result7.txt | jq -r '.results[] | select(.status == 200) | .url' >> temp7.txt
+    echo "Extracted final URLs from result5.txt"
+
+    # Filtering the Final URLs
+    awk -F'/' '{portsplit = split($3, port, ":"); if (portsplit > 1) { domain=substr($3, 0, length($3)-length(port[2])-1); domains[domain ":" port[2]]++ } else { domain=$3; domains[domain]++ } } {lines[NR]=$0} END { for (i in domains) { if (domains[i] <= 300) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' temp7.txt | awk -F/ '{if (NF<=3 || $(NF-2)!~"^[[:digit:]]{1,5}$") print $0}' | sed 's| | /|g' | sort -u -o target_7.txt
+    echo "Scanned for 200 Responses (Iteration) on ${target_file}"
+
+
+
+    # Script: code httpx Targets
+    echo "Running HTTPX..."
+    # Merging the Final URLs
+    cat target_6.txt target_7.txt >> 200200200.txt
+    sort -u -o 200200200.txt 200200200.txt
+    echo "Merged the final URLs to 200200200.txt"
+    
+    cat 200200200.txt | docker run -i projectdiscovery/httpx -status-code -t 500 -nc -v | awk '/200/ {print $1}' | sed "s/$/'/g" > valid_urls1.txt
+    cat valid_urls1.txt | docker run -i projectdiscovery/httpx -status-code -t 500 -nc -v >> valid_urls2.txt
+
+    # Extract URLs with "[Index of /]" in the title and store them in fileVOIP.txt
+    echo "Filtering the results..."
+    awk '/ \[404]/ && $1 ~ /^http[s]?:\/\/.*\.(cfg|json|xml|txt|log|conf|htm|ini|cnf|dat|boot|template|xsl|pcfg|prd|tfw|csv|gz|zip|tar|secret|passwd|pwd|key|backup|rar|bak|config|cvs|env|ftp-access|ftppass|logfile|login|login_conf|members|memdump|sql)\047$/ {print $1}' valid_urls2.txt >> link.txt
+    sed "s/'$//" link.txt > HTTPXfileVOIP.txt
+
+    echo "Filtering completed! Filtered results are saved in the file"
+
+    awk -F'/' '{portsplit = split($3, port, ":"); if (portsplit > 1) { domain=substr($3, 0, length($3)-length(port[2])-1); domains[domain ":" port[2]]++ } else { domain=$3; domains[domain]++ } } {lines[NR]=$0} END { for (i in domains) { if (domains[i] <= 100) { for (j=1; j<=NR; j++) { if (lines[j] ~ i) print lines[j] } } } }' HTTPXfileVOIP.txt | awk -F/ '{if (NF<=3 || $(NF-2)!~"^[[:digit:]]{1,5}$") print $0}' | sed 's| | /|g' | sort -u -o 200200.txt
+
+    cat 200200.txt >> 200.txt
+    echo "Appended 200200.txt to 200.txt"
+
+    cat 301301.txt >> 301.txt
+    echo "Appended 301301.txt to 301.txt"
+
+    # Removing temporary files
+    rm -f target_1.txt target_2.txt target_3.txt target_4.txt target_5.txt target_6.txt target_7.txt target.txt
+    rm -f result1.txt result2.txt result3.txt result4.txt result5.txt result6.txt result7.txt
+    rm -f temp1.txt temp2.txt temp3.txt temp4.txt temp5.txt temp6.txt temp7.txt
+    rm -f valid_urls1.txt valid_urls2.txt
+    rm 301301.txt
+    rm -f filefile.txt link.txt 200200200.txt 200200.txt HTTPXfileVOIP.txt
+
+
+    echo "Completed scanning for target file: ${target_file}"
+    echo "Waiting for 1 minute before processing next targets..."
+    sleep 1
+done
+
+echo "All targets have been processed successfully."
+rm -f masscan.txt target_file_*
+
+echo "Mohammad Elnwajha."
