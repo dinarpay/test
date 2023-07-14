@@ -1,3 +1,7 @@
+للحصول على الدومينات 
+وفلترة الدومينات والحصول على الرئيسي وحدف المكرر
+
+
 import struct
 import socket
 import adns
@@ -5,16 +9,16 @@ import sys
 import time
 import os
 import re
+import tldextract
 
 if len(sys.argv) != 2:
-    print "Usage: python script.py [IP_file]"
+    print("Usage: python script.py [IP_file]")
     exit()
 
 ip_file = sys.argv[1]
 intensity = 500
 resolved_domains = set()
 all_domains = set()
-filtered_domains = set()
 active_queries = {}
 ips = []
 success = 0
@@ -44,10 +48,10 @@ def collect_results():
 
 def finished_resolving():
     os.system('clear')
-    print "Total IPs: ", len(ips)
-    print "Remaining IPs: ", len(ips) - success
-    print "Resolved IPs: ", success
-    print "Active Queries: ", len(active_queries)
+    print("Total IPs: ", len(ips))
+    print("Remaining IPs: ", len(ips) - success)
+    print("Resolved IPs: ", success)
+    print("Active Queries: ", len(active_queries))
     time.sleep(0.0)
 
     if len(active_queries) == 0:
@@ -57,11 +61,16 @@ def finished_resolving():
         return False
 
 def filter_domains():
-    global all_domains, filtered_domains
+    global all_domains
+    filtered_domains = set()
     for domain in all_domains:
-        main_domain = domain.split(".")[-2:]
-        main_domain = ".".join(main_domain)
-        filtered_domains.add(main_domain)
+        extracted = tldextract.extract(domain)
+        if extracted.domain != '' and extracted.suffix != '':
+            filtered_domains.add(extracted.registered_domain)
+    with open('filtered_domains.txt', 'w') as file:
+        for domain in filtered_domains:
+            file.write("%s\n" % domain)
+            print(domain)
 
 def main():
     for ip in ips:
@@ -72,21 +81,18 @@ def main():
             while not finished_resolving():
                 collect_results()
 
-    filter_domains()
-
-    print "#######################################################"
+    print("#######################################################")
     with open('all_domains.txt', 'w') as file:
         for domain in all_domains:
             file.write("%s\n" % domain)
-            print domain
-    print "#######################################################"
+            print(domain)
+    print("#######################################################")
 
-    print "#######################################################"
-    with open('filtered_domains.txt', 'w') as file:
-        for domain in filtered_domains:
-            file.write("%s\n" % domain)
-            print domain
-    print "#######################################################"
+    filter_domains()
+
+    print("#######################################################")
+    print("Filtered domains saved in 'filtered_domains.txt'")
+    print("#######################################################")
 
 if __name__ == "__main__":
     main()
