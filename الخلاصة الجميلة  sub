@@ -1,3 +1,9 @@
+امر يزيل المكرر اكثر من 500 مرة من اسطر التى تحمل ايبيهات مكررة
+
+awk '{ count[$2]++; lines[$2] = $0 } END { for (ip in count) if (count[ip] <= 500) print lines[ip] }' resultsNetherlands.txt | sort -u > clean_resultsNetherlands.txt
+
+
+
 aastra
 account
 avaya
