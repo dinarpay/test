@@ -1,0 +1,16 @@
+cpan install Net::SIP
+cpan install String::Util
+cpan install Data::Dumper
+cpan install IO::Socket::INET
+cpan install Test::More
+cpan install Parallel::ForkManager
+cpan install Term::ANSIColor
+cpan install Time::HiRes
+cpan install IO::Socket::INET
+cpan install IO::Socket::SSL
+cpan install Net::DNS
+
+make
+make install
+
+sudo apt-get install libio-socket-ssl-perl
