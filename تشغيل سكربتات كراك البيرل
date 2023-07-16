@@ -9,6 +9,7 @@ cpan install Time::HiRes
 cpan install IO::Socket::INET
 cpan install IO::Socket::SSL
 cpan install Net::DNS
+cpan install Term::ProgressBar
 
 make
 make install
