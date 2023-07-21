@@ -1,8 +1,85 @@
-wget https://go.dev/dl/go1.20.6.linux-amd64.tar.gz
+    تثبيت لغة Go على الخادم:
 
-sudo tar -C /usr/local -xzf go1.20.6.linux-amd64.tar.gz
-
-echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.profile
-source ~/.profile
-
+wget https://golang.org/dl/go1.17.2.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.17.2.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
 go version
+
+============ تست =======================================
+sudo tar -C /usr/local -xzf go1.17.2.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+
+
+========================================== انشاء مجلد المشروع====================================
+mkdir -p ~/crack
+cd ~/crack
+
+======================================= انشاء ملف  go.mod  ==========================================
+تحديد مشروع Go باستخدام ملف go.mod:
+
+    يمكنك استخدام ملف go.mod لتحديد المكتبات التي تعتمد عليها مشروعك والتحكم في إصداراتها.
+    قم بإنشاء ملف go.mod في مجلد مشروعك واستخدم الأمر go mod init لتهيئة المشروع لاستخدام الملف go.mod:
+	
+
+go mod init crack
+
+    قم بإضافة استخدام المكتبات التي تحتاجها:
+        تحديد الاعتمادات بحيث تضاف تلقائيًا إلى ملف go.mod عند تنفيذ الأمر go get.
+        على سبيل المثال، لتحميل مكتبة sipgo، استخدم الأمر التالي:
+
+========================= تحميل المكتبة ==================================================================
+
+go get github.com/emiago/sipgo
+
+    قم بإنشاء ملف build.go والكتابة عليه الكود الذي تريد تنفيذه لبناء مشروعك. بعد ذلك، قم بتشغيل ملف build.go باستخدام الأمر go run:
+
+
+============================ انشاء ملف  build.go  =========================================================
+// build.go
+package main
+
+import (
+	"fmt"
+	"os"
+	"os/exec"
+)
+
+func runCommand(command string, args ...string) error {
+	cmd := exec.Command(command, args...)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	return cmd.Run()
+}
+
+func main() {
+	// Set the GOBIN environment variable to the bin directory of your project
+	os.Setenv("GOBIN", "./bin")
+
+	// Set GO111MODULE to on to enable module mode
+	os.Setenv("GO111MODULE", "on")
+
+	// Install the required packages using go get
+	err := runCommand("go", "get", "github.com/emiago/sipgo@v0.10.1")
+	if err != nil {
+		fmt.Println("Error running 'go get':", err)
+		os.Exit(1)
+	}
+
+	// Install the sipgo command
+	err = runCommand("go", "install", "github.com/emiago/sipgo/cmd/sipgo")
+	if err != nil {
+		fmt.Println("Error running 'go install':", err)
+		os.Exit(1)
+	}
+
+	fmt.Println("Build successful.")
+}
+
+====================================================================================
+    حفظ التغييرات في ملف build.go وثم تشغيل الأمر التالي لبناء المشروع:
+
+=====================================================================================
+go run build.go
+
+
+
