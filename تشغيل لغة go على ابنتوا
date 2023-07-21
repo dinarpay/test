@@ -8,6 +8,9 @@ go version
 ============ تست =======================================
 sudo tar -C /usr/local -xzf go1.17.2.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
+اذا حدث خطأ
+export GOROOT=/usr/local/go
+go get github.com/emiago/sipgo
 
 
 ========================================== انشاء مجلد المشروع====================================
