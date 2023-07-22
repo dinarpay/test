@@ -1,3 +1,16 @@
+
+sudo apt-get update
+sudo apt-get install build-essential
+
+sudo apt-get install libpjproject-dev
+sudo apt-get install python3-pip
+sudo apt-get install python3-dev
+
+pip3 install pjsua3
+
+python3 scan.py 500 ips.txt User_Pass
+
+==================================================================================================
 يمكن تثبيت pjsip من خلال تنزيل المصدر وتجميعه يدويًا. يمكن العثور على تعليمات التثبيت على موقع pjsip الرسمي. يمكنك تشغيل الأوامر التالية لتثبيت PJSIP على Ubuntu:
 
 $ sudo apt install build-essential python3 python3-dev libasound2-dev
