@@ -1,0 +1,157 @@
+package main
+
+import (
+	"bufio"
+	"context"
+	"fmt"
+	"os"
+	"os/exec"
+	"strings"
+	"sync"
+	"time"
+)
+
+const (
+	ipFile         = "ipport.txt"
+	successResults = "success_port.txt"
+	numThreads     = 500 // Set the number of threads here
+	defaultUser    = "MOHohammad"
+	defaultPass    = "MOH123954@@@@"
+	timeoutSeconds = 10 // Set the timeout duration in seconds here
+)
+
+var filteredResponses = map[string]struct{}{
+	"403 Forbidden":       {},
+	"404 Not Found":       {},
+	"421 Extension Required": {},
+	"401 Unauthorized":    {},
+}
+
+func main() {
+	ipList, err := readIPPortFile(ipFile)
+	if err != nil {
+		fmt.Println("Error reading IP port file:", err)
+		return
+	}
+
+	successCh := make(chan string)
+	wg := sync.WaitGroup{}
+	workCh := make(chan string, numThreads) // Buffered channel for limiting number of workers
+
+	// Start the worker goroutines to check ports
+	for i := 0; i < numThreads; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for target := range workCh {
+				if isPortOpen(target) {
+					fmt.Printf("Port 5061 is open on %s\n", target)
+					recordSuccess(target)
+				}
+				successCh <- target // Send target to success channel
+			}
+		}()
+	}
+
+	// Send targets to worker goroutines
+	go func() {
+		for _, target := range ipList {
+			workCh <- target // Send target to work channel
+		}
+		close(workCh) // Close work channel when all targets are sent
+	}()
+
+	// Wait for all workers to finish
+	go func() {
+		wg.Wait()
+		close(successCh) // Close success channel after all workers are done
+	}()
+
+	// Process success results
+	for target := range successCh {
+		recordResponse(target, "Port 5061 is open")
+	}
+}
+
+func readIPPortFile(filename string) ([]string, error) {
+	file, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	var targets []string
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		target := strings.TrimSpace(scanner.Text())
+		if target != "" {
+			targets = append(targets, target)
+		}
+	}
+
+	if err := scanner.Err(); err != nil {
+		return nil, err
+	}
+
+	return targets, nil
+}
+
+func isPortOpen(target string) bool {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*timeoutSeconds)
+	defer cancel()
+
+	cmd := exec.CommandContext(ctx, "sipsak",
+		"-U",
+		"-C", fmt.Sprintf("sip:%s@home.com", defaultUser),
+		"--from", fmt.Sprintf("sip:%s@%s", defaultUser, target),
+		"-u", defaultUser,
+		"-a", defaultPass,
+		"-p", target,
+		"-r", "5061",
+		"-s", fmt.Sprintf("sip:%s@%s", defaultUser, target),
+		"-i", "-vvv",
+		"-E", "tls",
+		"--tls-ignore-cert-failure",
+	)
+
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return false
+	}
+
+	response := string(output)
+	for filteredResponse := range filteredResponses {
+		if strings.Contains(response, filteredResponse) {
+			recordResponse(target, response)
+			return true
+		}
+	}
+
+	return false
+}
+
+func recordSuccess(target string) {
+	file, err := os.OpenFile(successResults, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Println("Error opening success results file:", err)
+		return
+	}
+	defer file.Close()
+
+	if _, err := file.WriteString(fmt.Sprintf("%s:5061\n", target)); err != nil {
+		fmt.Println("Error writing to success results file:", err)
+	}
+}
+
+func recordResponse(target, response string) {
+	file, err := os.OpenFile("responses.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Println("Error opening responses file:", err)
+		return
+	}
+	defer file.Close()
+
+	if _, err := file.WriteString(fmt.Sprintf("%s: %s", target, response)); err != nil {
+		fmt.Println("Error writing to responses file:", err)
+	}
+}
