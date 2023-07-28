@@ -12,8 +12,8 @@ import (
 )
 
 const (
-	numWorkers         = 50
-	maxResultsPerFile  = 10
+	numWorkers         = 5
+	maxResultsPerFile  = 100
 	outputFolder       = "scan_results"
 	mergedFileTemplate = "merged_scan_results_%d.txt"
 )
