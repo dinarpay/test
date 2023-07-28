@@ -12,26 +12,24 @@ import (
 )
 
 const (
-	numWorkers        = 100
-	maxResultsPerFile = 1000
-	scanTimeout       = 5 * time.Second
+	numWorkers         = 50
+	maxResultsPerFile  = 10
+	outputFolder       = "scan_results"
+	mergedFileTemplate = "merged_scan_results_%d.txt"
 )
 
 var (
 	scannedCount int
 	lock         sync.Mutex
+	fileCount    int
 )
 
-func scanTarget(domain, outputFolder string, wg *sync.WaitGroup) {
+func scanTarget(domain, outputFile string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
-	outputFile := fmt.Sprintf("%s/%s_scan_results.txt", outputFolder, domain)
-	command := fmt.Sprintf("python3 sipscan.py -i %s -tu -th 50 -p all -r 6069,5060,6072,5038,7777,5001,3030,6036,5061,1025,6060,3075,6073,7073,6079,6099,6089,5059,5260,5070,5069,6655,5080,5062,15060,6050,6051,5063,5064,5065,5067,5068,5071,5072,5073,5076,5075,5077,5078,1020,5079,1021,1022,1023,6052,6053,6054,6055,6057,6058,6059,6061,6062,6063,6070,6064,6080,6010,5090,5566,9060,4002,5678,5088,6020,5600,5160,9090,5506,5000,5002,5098,5099,5100,6088,6090,14310,1153,10243,4569,8080,5723,1024,1026,1029,1030,10000,10001,10002,10009,10010,7060,8060,7061,8061,9061,2000,2001,2002,2020,2021,3478,13000,13001,4379,4380,27000,27001,27030,27031,27036,16384,16385,16399,16400,9000,9001,9002,9049,9050,3722,3723,3729,3730,1234,1235,1236,1237,5009,5190,5297,5353,6802,10602,10600,6250,1720,3230,3231,3237,8000,8001,8002,8003,8004,8005 -ua PBX -random -fp -o %s", domain, outputFile)
+	command := fmt.Sprintf("python3 sipscan.py -i %s -tu 912187744 -th 100 -p all -r 6069,5060,6072,5038,7777,5001,3030,6036,5061,1025,6060,3075,6073,7073,6079,6099,6089,5059,5260,5070,5069,6655,5080,5062,15060,6050,6051,5063,5064,5065,5067,5068,5071,5072,5073,5076,5075,5077,5078,1020,5079,1021,1022,1023,6052,6053,6054,6055,6057,6058,6059,6061,6062,6063,6070,6064,6080,6010,5090,5566,9060,4002,5678,5088,6020,5600,5160,9090,5506,5000,5002,5098,5099,5100,6088,6090,14310,1153,10243,4569,8080,5723,1024,1026,1029,1030,10000,10001,10002,10009,10010,7060,8060,7061,8061,9061,2000,2001,2002,2020,2021,3478,13000,13001,4379,4380,27000,27001,27030,27031,27036,16384,16385,16399,16400,9000,9001,9002,9049,9050,3722,3723,3729,3730,1234,1235,1236,1237,5009,5190,5297,5353,6802,10602,10600,6250,1720,3230,3231,3237,8000,8001,8002,8003,8004,8005 -ua PBX -random -fp -o %s", domain, outputFile)
 
-	ctx, cancel := context.WithTimeout(context.Background(), scanTimeout)
-	defer cancel()
-
-	cmd := exec.CommandContext(ctx, "bash", "-c", command)
+	cmd := exec.CommandContext(context.Background(), "bash", "-c", command)
 
 	// Capture stderr and stdout from the command
 	cmd.Stderr = os.Stderr
@@ -47,54 +45,81 @@ func scanTarget(domain, outputFolder string, wg *sync.WaitGroup) {
 	lock.Unlock()
 
 	fmt.Printf("Scanning target %s:\n%s\n", domain, string(stdout))
+
+	// Wait for 25 seconds after scanning the target
+	waitDuration := 25 * time.Second
+	time.Sleep(waitDuration)
 }
 
-func mergeResults(outputFolder string) error {
-	mergedFile := fmt.Sprintf("%s/merged_scan_results.txt", outputFolder)
-	outfile, err := os.OpenFile(mergedFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		return err
-	}
-	defer outfile.Close()
+func worker(id int, domainChan <-chan string, wg *sync.WaitGroup) {
+	defer wg.Done()
 
-	files, err := ioutil.ReadDir(outputFolder)
-	if err != nil {
-		return err
-	}
+	currentFileCount := 0
+	fileIndex := 1
+	fileMutex := sync.Mutex{}
 
-	var count int
-	for _, file := range files {
-		if !file.IsDir() && strings.HasSuffix(file.Name(), "_scan_results.txt") {
-			content, err := ioutil.ReadFile(fmt.Sprintf("%s/%s", outputFolder, file.Name()))
-			if err != nil {
-				return err
-			}
-
-			if _, err := outfile.Write(content); err != nil {
-				return err
-			}
-
-			if err := os.Remove(fmt.Sprintf("%s/%s", outputFolder, file.Name())); err != nil {
-				return err
-			}
-
-			count++
-		}
-	}
-
-	fmt.Printf("Merged %d scan result files into %s\n", count, mergedFile)
-	return nil
-}
-
-func worker(id int, domainChan <-chan string, outputFolder string, wg *sync.WaitGroup) {
 	for domain := range domainChan {
-		scanTarget(domain, outputFolder, wg)
+		fileMutex.Lock()
+
+		// Check if the maximum results per file has been reached
+		if currentFileCount >= maxResultsPerFile {
+			currentFileCount = 0
+			fileIndex++
+		}
+
+		// Create a new merged file if needed
+		if currentFileCount == 0 {
+			mergedFile := fmt.Sprintf(mergedFileTemplate, fileIndex)
+			fileCount++
+			if fileCount > 1 {
+				// Merge previous files into the new merged file
+				mergePreviousFiles(fileIndex - 1)
+			}
+			createFile(mergedFile)
+		}
+
+		// Increment the current file count
+		currentFileCount++
+
+		fileMutex.Unlock()
+
+		outputFile := fmt.Sprintf("%s/%s_scan_results.txt", outputFolder, domain)
+		scanTarget(domain, outputFile, wg)
+	}
+}
+
+func createFile(filename string) {
+	f, err := os.Create(filename)
+	if err != nil {
+		fmt.Printf("Error creating file %s: %v\n", filename, err)
+		return
+	}
+	defer f.Close()
+}
+
+func mergePreviousFiles(fileIndex int) {
+	mergedFile := fmt.Sprintf(mergedFileTemplate, fileIndex)
+	cmd := exec.Command("bash", "-c", fmt.Sprintf("cat "+outputFolder+"/*_scan_results.txt >> %s", mergedFile))
+	err := cmd.Run()
+
+	if err != nil {
+		fmt.Printf("Error merging scan results: %v\n", err)
+		return
+	}
+	fmt.Printf("Merged scan results into %s\n", mergedFile)
+
+	// Remove individual scan result files
+	cmd = exec.Command("bash", "-c", fmt.Sprintf("rm "+outputFolder+"/*_scan_results.txt"))
+	err = cmd.Run()
+
+	if err != nil {
+		fmt.Printf("Error deleting individual scan result files: %v\n", err)
+		return
 	}
 }
 
 func main() {
 	domainFile := "ip.txt" // Replace with your domain file name
-	outputFolder := "scan_results"
 
 	if _, err := os.Stat(outputFolder); os.IsNotExist(err) {
 		os.Mkdir(outputFolder, 0755)
@@ -112,13 +137,13 @@ func main() {
 	domainChan := make(chan string)
 
 	for i := 0; i < numWorkers; i++ {
-		go worker(i, domainChan, outputFolder, &wg)
+		wg.Add(1)
+		go worker(i, domainChan, &wg)
 	}
 
 	for _, domain := range domains {
 		domain = strings.TrimSpace(domain)
 		if domain != "" {
-			wg.Add(1)
 			domainChan <- domain
 		}
 	}
@@ -126,9 +151,9 @@ func main() {
 	close(domainChan)
 	wg.Wait()
 
-	// Merge the scan results into a single file
-	if err := mergeResults(outputFolder); err != nil {
-		fmt.Printf("Error merging scan results: %v\n", err)
+	// Merge the last set of files
+	if fileCount > 0 {
+		mergePreviousFiles(fileCount)
 	}
 
 	// Print the statistics
