@@ -1,0 +1,30 @@
+#!/bin/bash
+# Resolve lock file issue
+sudo killall apt apt-get
+sudo rm /var/lib/apt/lists/lock
+sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock*
+sudo dpkg --configure -a
+sudo apt update
+echo -e "\nUpdating and upgrading packages...\n"
+sudo apt-get upgrade -y
+
+apt install docker.io
+
+docker pull danchitnis/xrdp:ubuntu-xfce
+
+docker run -d -p 33897:3389 danchitnis/xrdp:ubuntu-xfce pal pal00000 yes
+
+sudo apt update
+localhost:33897   تغيير رقم البورت
+
+
+https://hub.docker.com/r/danchitnis/xrdp
+
+
+
+https://github.com/LionSec/katoolin
+
+git clone https://github.com/LionSec/katoolin.git && cp katoolin/katoolin.py /usr/bin/katoolin
+chmod +x /usr/bin/katoolin
+sudo katoolin
