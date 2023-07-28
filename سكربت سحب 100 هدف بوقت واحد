@@ -1,0 +1,136 @@
+package main
+
+import (
+	"context"
+	"fmt"
+	"io/ioutil"
+	"os"
+	"os/exec"
+	"strings"
+	"sync"
+	"time"
+)
+
+const (
+	numWorkers        = 100
+	maxResultsPerFile = 1000
+	scanTimeout       = 5 * time.Second
+)
+
+var (
+	scannedCount int
+	lock         sync.Mutex
+)
+
+func scanTarget(domain, outputFolder string, wg *sync.WaitGroup) {
+	defer wg.Done()
+
+	outputFile := fmt.Sprintf("%s/%s_scan_results.txt", outputFolder, domain)
+	command := fmt.Sprintf("python3 sipscan.py -i %s -p all -r 7777,3030,6036,1025,3075,5000-5100,6060-6090,14310,9090,1153,10243,4569,8080,5723,1024-1030,10000-10010,7060,8060,9060,6061,7061,8061,9061,2000-2021,3478,13000-13001,4379-4380,27000-27031,27036,16384-16400,9000-9050,3722-3730,1234-1237,5009,5190,5297,5353,5678,6802,10602,10600,6250,1720,3230-3237,69,8000-8005 -ua Cisco  -random -fp -o %s", domain, outputFile)
+
+	ctx, cancel := context.WithTimeout(context.Background(), scanTimeout)
+	defer cancel()
+
+	cmd := exec.CommandContext(ctx, "bash", "-c", command)
+
+	// Capture stderr and stdout from the command
+	cmd.Stderr = os.Stderr
+	stdout, err := cmd.Output()
+
+	if err != nil {
+		fmt.Printf("Error scanning target %s: %v\n", domain, err)
+		return
+	}
+
+	lock.Lock()
+	scannedCount++
+	lock.Unlock()
+
+	fmt.Printf("Scanning target %s:\n%s\n", domain, string(stdout))
+}
+
+func mergeResults(outputFolder string) error {
+	mergedFile := fmt.Sprintf("%s/merged_scan_results.txt", outputFolder)
+	outfile, err := os.OpenFile(mergedFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		return err
+	}
+	defer outfile.Close()
+
+	files, err := ioutil.ReadDir(outputFolder)
+	if err != nil {
+		return err
+	}
+
+	var count int
+	for _, file := range files {
+		if !file.IsDir() && strings.HasSuffix(file.Name(), "_scan_results.txt") {
+			content, err := ioutil.ReadFile(fmt.Sprintf("%s/%s", outputFolder, file.Name()))
+			if err != nil {
+				return err
+			}
+
+			if _, err := outfile.Write(content); err != nil {
+				return err
+			}
+
+			if err := os.Remove(fmt.Sprintf("%s/%s", outputFolder, file.Name())); err != nil {
+				return err
+			}
+
+			count++
+		}
+	}
+
+	fmt.Printf("Merged %d scan result files into %s\n", count, mergedFile)
+	return nil
+}
+
+func worker(id int, domainChan <-chan string, outputFolder string, wg *sync.WaitGroup) {
+	for domain := range domainChan {
+		scanTarget(domain, outputFolder, wg)
+	}
+}
+
+func main() {
+	domainFile := "ip.txt" // Replace with your domain file name
+	outputFolder := "scan_results"
+
+	if _, err := os.Stat(outputFolder); os.IsNotExist(err) {
+		os.Mkdir(outputFolder, 0755)
+	}
+
+	content, err := ioutil.ReadFile(domainFile)
+	if err != nil {
+		fmt.Printf("Error reading domain file: %v\n", err)
+		os.Exit(1)
+	}
+
+	domains := strings.Split(string(content), "\n")
+
+	var wg sync.WaitGroup
+	domainChan := make(chan string)
+
+	for i := 0; i < numWorkers; i++ {
+		go worker(i, domainChan, outputFolder, &wg)
+	}
+
+	for _, domain := range domains {
+		domain = strings.TrimSpace(domain)
+		if domain != "" {
+			wg.Add(1)
+			domainChan <- domain
+		}
+	}
+
+	close(domainChan)
+	wg.Wait()
+
+	// Merge the scan results into a single file
+	if err := mergeResults(outputFolder); err != nil {
+		fmt.Printf("Error merging scan results: %v\n", err)
+	}
+
+	// Print the statistics
+	fmt.Printf("Scanning completed. Successfully scanned %d targets.\n", scannedCount)
+}
