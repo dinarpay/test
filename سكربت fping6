@@ -1,0 +1,34 @@
+import subprocess
+import asyncio
+from tqdm import tqdm
+
+async def run_fping(ip_range, output_file):
+    command = f"fping6 --ipv4 -a -g {ip_range}"
+    with open(output_file, "a") as f:
+        proc = await asyncio.create_subprocess_shell(command, stdout=f, shell=True)
+        await proc.wait()
+
+async def main():
+    input_file = "ip.txt"
+    output_file = "pingresults.txt"
+    ranges = []
+    with open(input_file, "r") as f:
+        ranges = f.readlines()
+
+    batch_size = 10
+    for i in range(0, len(ranges), batch_size):
+        batch = ranges[i:i + batch_size]
+        tasks = []
+        with tqdm(total=len(batch), desc=f"Batch {i//batch_size + 1}", unit="range") as pbar:
+            for r in batch:
+                task = asyncio.ensure_future(run_fping(r.strip(), output_file))
+                task.add_done_callback(lambda x: pbar.update(1))
+                tasks.append(task)
+
+            await asyncio.gather(*tasks)
+
+if __name__ == "__main__":
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
+    loop.close()
+
