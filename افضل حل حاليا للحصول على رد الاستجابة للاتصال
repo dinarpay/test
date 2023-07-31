@@ -1,0 +1,1 @@
+sipsak -M -s sip:0184885651@pbxbpac.pdocs.net -a 12345 -u 10001 -E tcp -r 5060 -M INVITE
