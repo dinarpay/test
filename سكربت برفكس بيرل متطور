@@ -110,7 +110,8 @@ sub call {
         registrar      => [$ip],
         domain         => [$ip],
         from           => [$user],
-        auth           => [ [ user => "$user", pass => "$pass" ] ],
+		auth           => [ [ user => "$user", pass => "$pass", try_auth => 0 ] ],
+
     );
     my $ep = Net::SIP::Endpoint->new(%args);
 
