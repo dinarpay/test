@@ -1,3 +1,15 @@
+#!/bin/bash
+# Resolve lock file issue
+sudo apt update
+sudo killall apt apt-get
+sudo rm /var/lib/apt/lists/lock
+sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock*
+sudo dpkg --configure -a
+sudo apt update
+echo -e "\nUpdating and upgrading packages...\n"
+sudo apt-get upgrade -y
+
 cpan install Net::SIP
 cpan install String::Util
 cpan install Data::Dumper
@@ -6,12 +18,18 @@ cpan install Test::More
 cpan install Parallel::ForkManager
 cpan install Term::ANSIColor
 cpan install Time::HiRes
-cpan install IO::Socket::INET
+cpan install Log::Log4perl
 cpan install IO::Socket::SSL
 cpan install Net::DNS
 cpan install Term::ProgressBar
+cpan install Socket
+cpan install Getopt::Long
+cpan install Carp
+cpan install Net::SIP::Endpoint
+cpan install Time::Piece
+cpan install List::Util
+cpan install perltidy
 
 make
 make install
-
 sudo apt-get install libio-socket-ssl-perl
