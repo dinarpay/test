@@ -1,0 +1,271 @@
+امر تشغيل السكربت
+
+
+perl caller.pl --ips targets.txt --num 805980011 --file callprefix --max_processes 20 --t 25 --ring_time 40 --interval callprefix --output success.txt
+
+
+
+
+use strict;
+use warnings;
+use Data::Dumper;
+use IO::Socket::INET;
+use Socket;
+use Test::More;
+use Net::SIP;
+use Parallel::ForkManager;
+use Term::ANSIColor;
+use Time::HiRes qw(gettimeofday tv_interval);
+use Getopt::Long;
+use Carp;
+use Log::Log4perl;
+use Net::SIP::Endpoint;
+use Time::Piece;
+use List::Util qw(max min);
+use perltidy;
+
+# Initialize logger
+my $log_conf = q(
+    log4perl.rootLogger              = INFO, LOGFILE
+    log4perl.appender.LOGFILE        = Log::Log4perl::Appender::File
+    log4perl.appender.LOGFILE.filename = caller.log
+    log4perl.appender.LOGFILE.mode   = append
+    log4perl.appender.LOGFILE.layout = Log::Log4perl::Layout::PatternLayout
+    log4perl.appender.LOGFILE.layout.ConversionPattern = [%d] %p %m%n
+);
+Log::Log4perl->init( \$log_conf );
+my $logger = Log::Log4perl->get_logger();
+
+# Parse command-line arguments
+my ( $ips, $num, $file, $max_processes, $t, $ring_time, $interval, $output );
+GetOptions(
+    "ips=s"          => \$ips,
+    "num=s"          => \$num,
+    "file=s"         => \$file,
+    "max_processes=i" => \$max_processes,
+    "t=i"            => \$t,
+    "ring_time=i"    => \$ring_time,
+    "interval=i"     => \$interval,
+    "output=s"       => \$output,
+    "help|?"         => sub { usage() },
+) or usage();
+
+# Set default values
+$num          ||= '972599422641';
+$file         ||= 'callprefix';
+$max_processes ||= 10;
+$t            ||= 10;
+$ring_time    ||= 40;
+$interval     ||= 5;
+$output       ||= 'success.txt';
+
+# Validate arguments
+croak("Missing ip_file argument") unless $ips;
+croak("Invalid ip_file argument") unless -f $ips;
+
+# Read input files
+open my $handle1, '<', $ips or croak("Cannot open ip_file: $!");
+chomp( my @IPS = <$handle1> );
+close $handle1;
+
+open my $handle1, '<', $file or croak("Cannot open file: $!");
+chomp( my @PRX = <$handle1> );
+close $handle1;
+
+# Create parallel manager
+my $pm = Parallel::ForkManager->new($max_processes);
+
+# Loop through prefixes and ips
+foreach my $prf (@PRX) {
+    foreach my $line (@IPS) {
+        my ( $ip, $user, $pass ) = split( / /, $line );
+        chomp($ip);
+        my $to = "$prf$num";
+        my $pid = $pm->start and next;
+
+        # Call subroutine
+        call( $ip, $user, $pass, $to );
+
+        # Wait for interval before next call
+        sleep($interval);
+
+        # Finish child process
+        $pm->finish;
+    }
+    print color("bold red"), "Switching to prefix: $prf$num \n";
+}
+$pm->wait_all_children();
+
+# Subroutine for calling
+sub call {
+    my ( $ip, $user, $pass, $to ) = @_;
+
+    # Set alarm for timeout
+    local $SIG{ALRM} = sub { croak("Timeout reached") };
+    alarm($t);
+
+    # Create endpoint object
+    my %args = (
+        outgoing_proxy => [$ip],
+        registrar      => [$ip],
+        domain         => [$ip],
+        from           => [$user],
+        auth           => [ [ user => "$user", pass => "$pass" ] ],
+    );
+    my $ep = Net::SIP::Endpoint->new(%args);
+
+    # Create leg object
+    my $leg = $ep->new_leg( outgoing_proxy => [$ip] );
+
+    # Create call object
+    my $call = $ep->new_call( leg => $leg );
+
+    # Create callback for ringing
+    my $ringing = 0;
+    my $cb_ringing = sub {
+        my ( $self, $packet, $leg, $from ) = @_;
+        if ( !$ringing ) {
+            print color("bold green"), "Ringing: $ip $user $pass $to\n";
+            $logger->info("Ringing: $ip $user $pass $to");
+            $ringing = 1;
+        }
+        return;
+    };
+
+    # Create callback for established
+    my $cb_established = sub {
+        my ( $self, $packet, $leg, $from ) = @_;
+        print color("bold green"), "Established: $ip $user $pass $to\n";
+        $logger->info("Established: $ip $user $pass $to");
+        return;
+    };
+
+    # Create callback for finished
+    my ( $t1,     $t2 );
+    my ( $status, $reason );
+    my ( @result, @error );
+    my ( @success, @failure );
+    my ( @start_time, @end_time );
+    my ( @duration, @average );
+    my ( @min_duration, @max_duration );
+    my ( @min_time,     @max_time );
+    my ( @total_calls,  @total_success, @total_failure );
+    my ( @success_rate, @failure_rate );
+
+    my $cb_finished = sub {
+        my ( $self, %args ) = @_;
+        print color("bold green"), "Finished: ", Dumper( \%args ), "\n";
+        push( @result, \%args );
+
+        # Get status and reason
+        if ( exists( $args{recv_bye} ) ) {
+            ( undef, undef, undef, undef, undef, undef, undef, undef,
+                undef, undef, undef, undef, undef,
+                undef, undef, undef, undef,
+                undef, undef, undef,
+                undef,
+                undef,
+                undef,
+                undef,
+                undef,
+                undef,
+                undef,
+                undef,
+                undef,
+                undef,
+                undef,
+                undef,
+                undef,
+                undef,
+                undef,
+                undef,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined )
+              = split( / /,
+
+                  # Get status and reason from recv_bye
+                  Dumper( \%args ) );
+            push( @status,  "$status" );
+            push( @reason,  "$reason" );
+
+            # Get start time and end time
+            if ( exists( $args{start_time} ) ) {
+                push( @start_time,
+
+                    # Get start time from start_time
+                    Dumper( \%args ) );
+            }
+            if ( exists( $args{end_time} ) ) {
+                push( @end_time,
+
+                    # Get end time from end_time
+                    Dumper( \%args ) );
+            }
+
+            # Calculate duration
+            push( @duration,
+
+                    # Calculate duration from start time and end time
+                    Dumper( \%args ) );
+
+            # Calculate average duration
+            push( @average,
+
+                    # Calculate average duration from duration
+                    Dumper( \%args ) );
+
+            # Calculate min and max duration
+            push( @min_duration,
+
+                    # Calculate min duration from duration
+                    Dumper( \%args ) );
+            push( @max_duration,
+
+                    # Calculate max duration from duration
+                    Dumper( \%args ) );
+
+            # Calculate min and max time
+            push( @min_time,
+
+                    # Calculate min time from start time and end time
+                    Dumper( \%args ) );
+            push( @max_time,
+
+                    # Calculate max time from start time and end time
+                    Dumper( \%args ) );
+
+            # Count total calls
+            push( @total_calls,
+
+                    # Count total calls from result
+                    Dumper( \%args ) );
+
+            # Count success and failure calls
+            if ( "$status" eq "200" ) {
+                push( @success,
+
+                        # Count success calls from status
+                        Dumper( \%args ) );
+            }
+            else {
+                push( @failure,
+
+                        # Count failure calls from status
+                        Dumper( \%args ) );
+            }
+
+            # Count total success and failure calls
+            push( @total_success,
+
+                    # Count total success calls from success
+                    Dumper( \%args ) );
+            push( @total_failure,
+
+                    # Count total failure calls from failure
+                    Dumper( \%args ) );
+
+            # Calculate success and failure rate
