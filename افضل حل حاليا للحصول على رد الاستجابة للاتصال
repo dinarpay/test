@@ -1,1 +1,5 @@
 sipsak -M -s sip:0184885651@pbxbpac.pdocs.net -a 12345 -u 10001 -E tcp -r 5060 -M INVITE
+
+هذا افضل
+
+sipsak -U -s sip:970184885651@pbxbpac.pdocs.net -u 311 -a bpac311sip -E udp -r 5060 -M INVITE -I
