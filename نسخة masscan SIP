@@ -1,0 +1,12 @@
+#!/bin/bash
+echo "\n Update and Upgrade packages \n"
+echo "\n Install stuff needed and compile it \n"
+sudo apt-get install git gcc make libpcap-dev
+git clone https://github.com/ivre/masscan
+cd $HOME/masscan
+make -j
+sudo cp $HOME/masscan/bin/masscan /usr/local/bin
+
+يدعم sip
+لكنه يحتاج الى تعديل فى معرفة sip
+masscan 194.21.40.98/16 -p8000 --rate=100000 --banners  -oG sip8000.txt
