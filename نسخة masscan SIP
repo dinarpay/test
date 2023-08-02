@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 # Resolve lock file issue
 sudo apt update
 sudo killall apt apt-get
