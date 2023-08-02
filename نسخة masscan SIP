@@ -1,11 +1,22 @@
 #!/bin/bash
+#!/bin/bash
+# Resolve lock file issue
+sudo apt update
+sudo killall apt apt-get
+sudo rm /var/lib/apt/lists/lock
+sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock*
+sudo dpkg --configure -a
+sudo apt update
+
 echo "\n Update and Upgrade packages \n"
 echo "\n Install stuff needed and compile it \n"
 sudo apt-get install git gcc make libpcap-dev
-git clone https://github.com/ivre/masscan
+git clone https://github.com/dinarpay/masscan
 cd $HOME/masscan
 make -j
 sudo cp $HOME/masscan/bin/masscan /usr/local/bin
+
 
 يدعم sip
 لكنه يحتاج الى تعديل فى معرفة sip
