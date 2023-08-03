@@ -68,7 +68,7 @@ hash x264 ffmpeg ffplay ffprobe
 
 ### @export "install-pjsip"
 wget https://github.com/pjsip/pjproject/archive/refs/tags/2.13.1.tar.gz
-tar -xjf pjproject-2.13.1.tar.gz
+tar -xzf 2.13.1.tar.gz
 cd pjproject-2.13.1/
 ./configure
     --enable-shared \
@@ -89,3 +89,5 @@ cd pjproject-2.13.1/
 make dep && make && make install
 cp pjsip-apps/bin/pjsua* /usr/local/bin/pjsua
 cd ..
+
+
