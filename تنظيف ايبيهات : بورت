@@ -1,3 +1,11 @@
+امر فلترة ماس سكان خاص 
+cat sipCNports.txt | awk '/Ports:/ {split($7,a,"/"); print $4":"a[1]}' > output1.txt
+مثال
+Timestamp: 1691072754	Host: 210.16.180.182 ()	Ports: 6060/open/tcp//unknown//
+Host: 223.109.148.44 ()	Port: 6060	Service: unknown	Banner: \xc3\xbf\xc3\xbb\x01SOYO_SIP VBNQyQSKc settings\x0d\x0aPassword:
+Timestamp: 1691072754	Host: 125.46.74.80 ()	Ports: 5060/open/tcp//sip//
+=============================================================
+
 ممكن ليعمل ويكون خفيف بعض الشئ وما يطفي السكربت
 split -l 50 -d --additional-suffix=.txt IP.txt Pal-       العدد 50 فقط لكل ملف 
 
