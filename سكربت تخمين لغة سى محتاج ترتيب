@@ -41,10 +41,28 @@ Target* targets;
 int num_user_pass;
 UserPass* user_passes;
 
+// Structure to hold successful targets
+typedef struct {
+    char ip[100];
+    int port;
+} SuccessTarget;
+
+// Global variable to store successful targets
+SuccessTarget* successful_targets;
+int num_successful_targets = 0;
+
+// Global variable to store successful credentials
+UserPass* successful_credentials;
+int num_successful_credentials = 0;
+
 // Function prototypes
 Target* read_targets(const char* filename, int* num_targets);
 UserPass* read_user_pass(const char* filename, int* num_user_pass);
 void print_usage();
+int is_target_successful(const char* ip, int port);
+int is_credential_successful(const char* username, const char* password);
+void add_target_to_success(const char* ip, int port);
+void add_credential_to_success(const char* username, const char* password);
 void sip_crack(Target* target, UserPass* user_pass);
 void* thread_function(void* arg);
 
@@ -100,8 +118,57 @@ void print_usage() {
            "    -h, --help\n");
 }
 
+// Function to check if the target is successful and added to the success list
+int is_target_successful(const char* ip, int port) {
+    for (int i = 0; i < num_successful_targets; i++) {
+        if (strcmp(successful_targets[i].ip, ip) == 0 && successful_targets[i].port == port) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+// Function to check if the credential is successful and added to the success list
+int is_credential_successful(const char* username, const char* password) {
+    for (int i = 0; i < num_successful_credentials; i++) {
+        if (strcmp(successful_credentials[i].username, username) == 0 && strcmp(successful_credentials[i].password, password) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+// Function to add the target to the success list
+void add_target_to_success(const char* ip, int port) {
+    successful_targets = realloc(successful_targets, sizeof(SuccessTarget) * (num_successful_targets + 1));
+    strcpy(successful_targets[num_successful_targets].ip, ip);
+    successful_targets[num_successful_targets].port = port;
+    num_successful_targets++;
+}
+
+// Function to add the credential to the success list
+void add_credential_to_success(const char* username, const char* password) {
+    successful_credentials = realloc(successful_credentials, sizeof(UserPass) * (num_successful_credentials + 1));
+    strcpy(successful_credentials[num_successful_credentials].username, username);
+    strcpy(successful_credentials[num_successful_credentials].password, password);
+    num_successful_credentials++;
+}
+
 // Function to perform cracking for a specific target and user/pass combination
 void sip_crack(Target* target, UserPass* user_pass) {
+    // Check if the target is successful and added to the success list
+    if (is_target_successful(target->ip, target->port)) {
+        printf("Target %s:%d is successful, skipping...\n", target->ip, target->port);
+        return;
+    }
+
+    // Check if the credential is successful and added to the success list
+    if (is_credential_successful(user_pass->username, user_pass->password)) {
+        printf("Credentials %s:%s are successful, skipping...\n", user_pass->username, user_pass->password);
+        return;
+    }
+
+    // Perform cracking on the target using the provided user/pass
     char command[MAX_LINE_SIZE];
     char protocol_str[MAX_LINE_SIZE];
 
@@ -124,7 +191,7 @@ void sip_crack(Target* target, UserPass* user_pass) {
 
     printf("Running command: %s\n", command);
 
-    // Open the command as a pipe and read the output with timeout of 10 seconds
+    // Open the command as a pipe and read the output with a timeout of 10 seconds
     FILE* pipe = popen(command, "r");
     if (!pipe) {
         perror("Failed to open pipe");
@@ -156,14 +223,8 @@ void sip_crack(Target* target, UserPass* user_pass) {
             // Check if the response contains "200 OK", "202 Accepted", or "204 No Notification"
             if (strstr(buffer, "200 OK") || strstr(buffer, "202 Accepted") || strstr(buffer, "204 No Notification")) {
                 printf("Success: %s\n", buffer);
-                // Write the successful attempt to the success file
-                FILE* success = fopen(success_file, "a");
-                if (success) {
-                    fprintf(success, "Target: %s:%d, Username: %s, Password: %s\n", target->ip, target->port, user_pass->username, user_pass->password);
-                    fclose(success);
-                } else {
-                    perror("Failed to write success results");
-                }
+                add_target_to_success(target->ip, target->port); // Add the target to the success list
+                add_credential_to_success(user_pass->username, user_pass->password); // Add the credential to the success list
                 break; // Break the loop if successful response is found
             }
         }
@@ -190,8 +251,6 @@ void* thread_function(void* arg) {
 
 // Entry point of the program
 int main(int argc, char* argv[]) {
-    // Variables to hold user options
-
     // Struct for getopt
     static struct option long_options[] = {
         {"protocol", required_argument, NULL, 'p'},
@@ -239,6 +298,8 @@ int main(int argc, char* argv[]) {
     // Load targets and user/pass data from files
     targets = read_targets(targets_file, &num_targets);
     user_passes = read_user_pass(user_pass_file, &num_user_pass);
+    successful_targets = malloc(0); // Initialize the array to hold successful targets
+    successful_credentials = malloc(0); // Initialize the array to hold successful credentials
 
     // Create threads and perform cracking in parallel
     pthread_t threads[num_threads];
@@ -262,6 +323,8 @@ int main(int argc, char* argv[]) {
     // Cleanup
     free(targets);
     free(user_passes);
+    free(successful_targets);
+    free(successful_credentials);
 
     return EXIT_SUCCESS;
 }
