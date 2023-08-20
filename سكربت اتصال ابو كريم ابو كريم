@@ -1,0 +1,182 @@
+للتجربة
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+
+#define BUFFER_SIZE 1024
+#define MAX_LINE_LENGTH 256
+#define TIMEOUT_SECONDS 3
+
+typedef struct {
+    int sockfd;
+    SSL *ssl;
+} Connection;
+
+Connection create_socket(const char* server_ip, int port, const char* protocol);
+void send_sip_message(Connection conn, const char* user, const char* pass, const char* number, const char* ip, char* response);
+void process_file(const char* targets_file, const char* numbers_file, const char* prefixes_file, const char* output_file);
+void convert_to_hex(char* data, char* output, int length);
+
+int main(int argc, char* argv[]) {
+    if (argc < 5) {
+        printf("Usage: %s <targets_file> <numbers_file> <prefixes_file> <output_file>\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+
+    process_file(argv[1], argv[2], argv[3], argv[4]);
+    return 0;
+}
+
+Connection create_socket(const char* server_ip, int port, const char* protocol) {
+    int sockfd;
+    struct sockaddr_in servaddr;
+    struct timeval timeout;
+    timeout.tv_sec = TIMEOUT_SECONDS;
+    timeout.tv_usec = 0;
+
+    SSL *ssl = NULL;
+    SSL_CTX *ctx = NULL;
+
+    if (strcmp(protocol, "udp") == 0) {
+        sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+    } else if (strcmp(protocol, "tcp") == 0) {
+        sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    } else if (strcmp(protocol, "tls") == 0) {
+        sockfd = socket(AF_INET, SOCK_STREAM, 0);
+        
+        // Initialize SSL and create context
+        SSL_library_init();
+        OpenSSL_add_all_algorithms();
+        SSL_load_error_strings();
+        ctx = SSL_CTX_new(TLS_client_method());
+        if (ctx == NULL) {
+            ERR_print_errors_fp(stderr);
+            exit(EXIT_FAILURE);
+        }
+
+        ssl = SSL_new(ctx);
+        SSL_set_fd(ssl, sockfd);
+    } else {
+        perror("Unsupported protocol");
+        exit(EXIT_FAILURE);
+    }
+
+    if (sockfd < 0) {
+        perror("socket creation failed");
+        exit(EXIT_FAILURE);
+    }
+
+    memset(&servaddr, 0, sizeof(servaddr));
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_port = htons(port);
+    servaddr.sin_addr.s_addr = inet_addr(server_ip);
+
+    if (strcmp(protocol, "udp") == 0) {
+        // No need for explicit connect with UDP
+    } else if (strcmp(protocol, "tcp") == 0 || strcmp(protocol, "tls") == 0) {
+        if (connect(sockfd, (const struct sockaddr *)&servaddr, sizeof(servaddr)) < 0) {
+            perror("connection failed");
+            exit(EXIT_FAILURE);
+        }
+        if (strcmp(protocol, "tls") == 0) {
+            if (SSL_connect(ssl) != 1) {
+                ERR_print_errors_fp(stderr);
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
+
+    // Set the timeout for the socket
+    setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
+
+    Connection conn = { sockfd, ssl };
+    return conn;
+}
+
+void send_sip_message(Connection conn, const char* user, const char* pass, const char* number, const char* ip, char* response) {
+    char message[BUFFER_SIZE];
+    sprintf(message, 
+            "INVITE sip:%s@%s SIP/2.0\r\n"
+            "Via: SIP/2.0/UDP %s:5060;branch=z9hG4bK-d8754z-520a090a1bb1f8f1-1---d8754z-\r\n"
+            "Max-Forwards: 70\r\n"
+            "Contact: <sip:%s@%s:5060>\r\n"
+            "To: <sip:%s@%s>\r\n"
+            "From: <sip:%s@%s>;tag=49394\r\n"
+            "Call-ID: Y2NmYjM2ZTMwZTllZDQ4Yjg4NjY4MzE4ZmI3OWQ4YmI.\r\n"
+            "CSeq: 1 INVITE\r\n"
+            "Allow: INVITE, ACK, CANCEL, OPTIONS, BYE, REFER, NOTIFY, MESSAGE, SUBSCRIBE, INFO\r\n"
+            "Content-Type: application/sdp\r\n\r\n",
+            number, ip, ip, user, ip, number, ip, user, ip);
+    
+    if (conn.ssl) {
+        printf("Sending message:\n%s\n", message);
+        SSL_write(conn.ssl, message, strlen(message));
+        printf("Message sent.\n");
+
+        printf("Receiving response...\n");
+        SSL_read(conn.ssl, response, BUFFER_SIZE);
+        printf("Response received: %s\n", response);
+    } else {
+        printf("Sending message:\n%s\n", message);
+        send(conn.sockfd, message, strlen(message), 0);
+        printf("Message sent.\n");
+
+        printf("Receiving response...\n");
+        recv(conn.sockfd, response, BUFFER_SIZE, 0);
+        printf("Response received: %s\n", response);
+    }
+}
+
+void process_file(const char* targets_file, const char* numbers_file, const char* prefixes_file, const char* output_file) {
+    FILE *targets = fopen(targets_file, "r");
+    FILE *numbers = fopen(numbers_file, "r");
+    FILE *prefixes = fopen(prefixes_file, "r");
+    FILE *output = fopen(output_file, "w");
+    
+    char target_line[MAX_LINE_LENGTH];
+    char number_line[MAX_LINE_LENGTH];
+    char prefix_line[MAX_LINE_LENGTH];
+    char response[BUFFER_SIZE];
+
+    while (fgets(target_line, sizeof(target_line), targets)) {
+        char ip[100], protocol[10], user[100], pass[100];
+        int port;
+        sscanf(target_line, "%[^:]:%d %s %s %s", ip, &port, protocol, user, pass);
+
+        printf("Connecting to: %s:%d (%s) using %s/%s\n", ip, port, protocol, user, pass);
+        
+        Connection conn = create_socket(ip, port, protocol);
+
+        while (fgets(number_line, sizeof(number_line), numbers)) {
+            fseek(prefixes, 0, SEEK_SET);
+            while (fgets(prefix_line, sizeof(prefix_line), prefixes)) {
+                printf("Testing number: %s%s\n", prefix_line, number_line);
+                
+                send_sip_message(conn, user, pass, number_line, ip, response);
+                printf("Response: %s\n", response);
+                
+                fprintf(output, "%s:%d:%s, User: %s, Pass: %s, Prefix: %s, Number: %s, Response: %s\n",
+                        ip, port, protocol, user, pass, prefix_line, number_line, response);
+            }
+        }
+
+        if (conn.ssl) {
+            SSL_shutdown(conn.ssl);
+            SSL_free(conn.ssl);
+        }
+        close(conn.sockfd);
+    }
+
+    fclose(targets);
+    fclose(numbers);
+    fclose(prefixes);
+    fclose(output);
+}
