@@ -1,3 +1,9 @@
+امر تشغيل بسيط
+
+./sipp avaya4.blackboard.com:5061 -au 10001 -ap 12345 -m 1 -message_file udpudp.txt -trace_msg -s 0599422641 -t ln -tls_cert cacert.pem -max_socket 1000
+
+
+
 sudo apt update
 
 sudo apt install git pkg-config dh-autoreconf build-essential libssl-dev libpcap-dev libncurses5-dev libsctp-dev lksctp-tools cmake libssl-dev libncurses-dev -y
